@@ -11,10 +11,10 @@ ExportedObj/
 obj/
 *.svd
 *.userprefs
-/*.csproj
+/UnityProject/*.csproj
 *.pidb
 *.suo
-/*.sln
+/UnityProject/*.sln
 *.user
 *.unityproj
 *.booproj
