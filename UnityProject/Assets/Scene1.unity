@@ -83,9 +83,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 14773435}
   - 33: {fileID: 14773434}
-  - 65: {fileID: 14773433}
   - 23: {fileID: 14773432}
   - 114: {fileID: 14773431}
+  - 61: {fileID: 14773433}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -120,7 +120,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 1513854720}
+  - {fileID: 1003193924}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -128,19 +128,18 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &14773433
-BoxCollider:
+--- !u!61 &14773433
+BoxCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6500000, guid: 4eacab4c1428f7e49b481be80f527f84,
+  m_PrefabParentObject: {fileID: 6100000, guid: 4eacab4c1428f7e49b481be80f527f84,
     type: 2}
   m_PrefabInternal: {fileID: 1884218466}
   m_GameObject: {fileID: 14773430}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1}
+  m_Center: {x: 0, y: 0}
 --- !u!33 &14773434
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -170,9 +169,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 32445733}
   - 33: {fileID: 32445732}
-  - 65: {fileID: 32445731}
   - 23: {fileID: 32445730}
   - 114: {fileID: 32445729}
+  - 61: {fileID: 32445731}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -207,7 +206,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 986399718}
+  - {fileID: 1114848468}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -215,19 +214,18 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &32445731
-BoxCollider:
+--- !u!61 &32445731
+BoxCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6500000, guid: 4eacab4c1428f7e49b481be80f527f84,
+  m_PrefabParentObject: {fileID: 6100000, guid: 4eacab4c1428f7e49b481be80f527f84,
     type: 2}
   m_PrefabInternal: {fileID: 1568111825}
   m_GameObject: {fileID: 32445728}
+  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1}
+  m_Center: {x: 0, y: 0}
 --- !u!33 &32445732
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -332,33 +330,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!21 &986399718
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: PlatformMaterial
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: d5cc7af83715d834495593baf4ff08fe, type: 3}
-          m_Scale: {x: 1.49003565, y: .333333343}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &1513854720
+--- !u!21 &1003193924
 Material:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -377,6 +349,32 @@ Material:
         second:
           m_Texture: {fileID: 2800000, guid: d5cc7af83715d834495593baf4ff08fe, type: 3}
           m_Scale: {x: .670516014, y: .333333343}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &1114848468
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlatformMaterial
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: d5cc7af83715d834495593baf4ff08fe, type: 3}
+          m_Scale: {x: 1.49003565, y: .333333343}
           m_Offset: {x: 0, y: 0}
     m_Floats: {}
     m_Colors:
@@ -426,7 +424,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 986399718}
+      objectReference: {fileID: 1114848468}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
   m_RootGameObject: {fileID: 32445728}
@@ -474,7 +472,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1513854720}
+      objectReference: {fileID: 1003193924}
     - target: {fileID: 400000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_LocalScale.x
       value: 2.01154804
@@ -484,3 +482,48 @@ Prefab:
   m_RootGameObject: {fileID: 14773430}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1931436196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1931436198}
+  - 114: {fileID: 1931436197}
+  m_Layer: 0
+  m_Name: InControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1931436197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931436196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b5e8de77c5b4597ae7fbfb49a95e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logDebugInfo: 0
+  invertYAxis: 0
+  enableXInput: 0
+  useFixedUpdate: 0
+  dontDestroyOnLoad: 0
+  customProfiles: []
+--- !u!4 &1931436198
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931436196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
