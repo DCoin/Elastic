@@ -101,9 +101,6 @@ public class RopeScript : MonoBehaviour {
 	void BuildRope()
 	{
 		line = gameObject.GetComponent<LineRenderer>();
-		Debug.Log ("LEN: " + objects.Length);
-		line.tag = objects[1].transform.parent.name;
-		//line.sortingLayerName = line.gameObject.name;
 
 		line.SetVertexCount(segments);
 		segmentPos = new Vector3[segments];
@@ -126,7 +123,6 @@ public class RopeScript : MonoBehaviour {
 		
 		SpringJoint2D end = objects[1].gameObject.AddComponent<SpringJoint2D>();
 		end.connectedBody = joints[joints.Length-1].transform.rigidbody2D;
-		end.tag = objects[1].transform.parent.name;
 		
 		end.dampingRatio = dampingratio;
 		end.frequency = frequency;
@@ -148,23 +144,7 @@ public class RopeScript : MonoBehaviour {
 		col.enabled = true;
 		col.isTrigger = false;
 		col.radius = ropeColRadius;
-		Debug.Log (objects[1].transform.parent.name);
-		if (objects[1].transform.parent.name == "Player1") {
-			col.tag = "Spring1";
-			joints [n].layer = 9;
-				} 
-		else if (objects[1].transform.parent.name == "Player2") {
-			col.tag = "Spring2";
-			joints [n].layer = 12;
-				}
-		else if (objects[1].transform.parent.name == "Player3") {
-			col.tag = "Spring3";
-			joints [n].layer = 14;
-		}
-		else {
-			col.tag = "Spring4";
-			joints [n].layer = 16;
-		}
+
 		//ph.breakForce = ropeBreakForce; <--------------- TODO
 		ph.dampingRatio = dampingratio;
 		ph.frequency = frequency;
@@ -175,8 +155,8 @@ public class RopeScript : MonoBehaviour {
 		//TODO
 
 		//ignore players
-		//Physics2D.IgnoreCollision (col, collider2D);
-		//Physics2D.IgnoreCollision (col, objects[1].transform.collider2D);
+		Physics2D.IgnoreCollision (col, collider2D);
+		Physics2D.IgnoreCollision (col, objects[1].transform.collider2D); // using direct referencing to second player, will break on more players
 
 		
 		joints[n].transform.position = segmentPos[n];
