@@ -88,8 +88,8 @@ public class RopeScript : MonoBehaviour {
 				}
 			}
 			line.enabled = true;
-			//line.tag = "Spring";
-			//line.gameObject.layer = 9;
+			
+			ignoreCollisionWithRope();
 
 		} else {
 			line.enabled = false;	
@@ -121,6 +121,7 @@ public class RopeScript : MonoBehaviour {
 		// Attach the joints to the target object and parent it to this object	
 		//objects[1].transform.parent = transform;
 		
+
 		SpringJoint2D end = objects[1].gameObject.AddComponent<SpringJoint2D>();
 		end.connectedBody = joints[joints.Length-1].transform.rigidbody2D;
 		
@@ -128,7 +129,9 @@ public class RopeScript : MonoBehaviour {
 		end.frequency = frequency;
 		end.distance = springdistance;
 		end.collideConnected = false;
-		
+
+		ignoreCollisionWithRope();
+
 		// Rope = true, The rope now exists in the scene!
 		rope = true;
 	}
@@ -148,15 +151,13 @@ public class RopeScript : MonoBehaviour {
 		//ph.breakForce = ropeBreakForce; <--------------- TODO
 		ph.dampingRatio = dampingratio;
 		ph.frequency = frequency;
-		ph.collideConnected = true;
+		ph.collideConnected = false;
 		ph.distance = springdistance;
 
 		//Add collider
 		//TODO
 
-		//ignore players
-		Physics2D.IgnoreCollision (col, collider2D);
-		Physics2D.IgnoreCollision (col, objects[1].transform.collider2D); // using direct referencing to second player, will break on more players
+
 
 		
 		joints[n].transform.position = segmentPos[n];
@@ -173,6 +174,25 @@ public class RopeScript : MonoBehaviour {
 			ph.connectedBody = joints[n-1].rigidbody2D;	
 		}
 		
+	}
+
+	void ignoreCollisionWithRope() {
+		Collider2D[] first = objects[0].GetComponents<Collider2D>();
+		Collider2D[] second = objects[1].GetComponents<Collider2D>();  // using direct referencing to second player, will break on more players
+
+		foreach (var item in joints) {
+			if (item){
+				Collider2D col = item.collider2D;
+
+				foreach (var c in first) {
+					Physics2D.IgnoreCollision (col, c);
+				}
+
+				foreach (var c in second) {
+					Physics2D.IgnoreCollision (col, c);
+				}
+			}
+		}
 	}
 	
 	void DestroyRope()
