@@ -36,9 +36,9 @@ public class ControllerManager
 	public static float GetJumpInput(int controller, bool leftSide)
 	{
 		if (leftSide)
-			return InputManager.Devices[controller].LeftStickY.Value;
+			return InputManager.Devices[controller].LeftStickY.Value; //TODO Returns -1 when heavy
 		else 
-			return InputManager.Devices[controller].RightStickY.Value;
+			return InputManager.Devices[controller].RightStickY.Value;  //TODO Returns -1 when heavy
 	}
 
 	/// <summary>
@@ -61,9 +61,9 @@ public class ControllerManager
 	public static float GetHeavyInput(int controller, bool leftSide)
 	{
 		if (leftSide)
-			return -InputManager.Devices[controller].LeftStickY.Value;
+			return -InputManager.Devices[controller].LeftStickY.Value;  //TODO Returns -1 when jumping
 		else 
-			return -InputManager.Devices[controller].RightStickY.Value;
+			return -InputManager.Devices[controller].RightStickY.Value;  //TODO Returns -1 when jumping
 	}
 
 	/// <summary>
@@ -75,6 +75,11 @@ public class ControllerManager
 	public static bool GetLeftInputBool(int controller, bool leftSide)
 	{
 		return (GetHorizontalInput(controller, leftSide) < -ANALOG_THRESHOLD) ? true : false;
+	}
+
+	public static bool GetHeavyBoolDown(int controller, bool leftSide) {
+		Debug.Log ("State = " + InputManager.Devices [controller].LeftStickY.WasPressed + " Value = " + InputManager.Devices [controller].LeftStickY.Value); // TODO DELETE
+		return InputManager.Devices [controller].LeftStickY.WasPressed; // TODO doesn't work.
 	}
 
 	/// <summary>
