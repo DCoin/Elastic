@@ -17,6 +17,7 @@ public class TextureTilingController : MonoBehaviour {
 		this.prevScale = gameObject.transform.lossyScale;
 		this.prevTextureToMeshZ = this.textureToMeshZ;
 		this.UpdateTiling();
+		texture.wrapMode = TextureWrapMode.Repeat;
 	}
 	
 	// Update is called once per frame

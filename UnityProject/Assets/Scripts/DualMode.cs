@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class DualMode : MonoBehaviour {
@@ -10,6 +10,7 @@ public class DualMode : MonoBehaviour {
 	public int MovePartyYHeight = -116;
 
 	private int level;
+
 
 	// Use this for initialization
 	void Start () {
@@ -31,16 +32,23 @@ public class DualMode : MonoBehaviour {
 		GameObject MovedParty;
 		GameObject MovedPlayer1;
 		GameObject MovedPlayer2;
-		
+		var CameraScript = GetComponent<MoveCameraScript>(); 
 		if (levelchange == 1) { 
 			MovedParty = Parties[1];
 			MovedPlayer1 = Players[2];
 			MovedPlayer2 = Players[3];
+			Vector3 tmp = Camera.main.transform.position;
+			tmp.x += levelWidth;
+			CameraScript.targetPosition = tmp;
 		} else {
 			MovedParty = Parties[0];
 			MovedPlayer1 = Players[0];
 			MovedPlayer2 = Players[1];
+			Vector3 tmp = Camera.main.transform.position;
+			tmp.x -= levelWidth;
+			CameraScript.targetPosition = tmp;
 		}
+		CameraScript.moveCamera = true;
 		
 		
 		MovedPlayer1.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
