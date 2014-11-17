@@ -9,12 +9,13 @@ public class MoveCameraScript : MonoBehaviour {
 	public bool moveCamera = false;
 
 	public float smoothTime = 0.3F;
+	public float camerasize = 25.0F;
 	private Vector3 velocity = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
 		var LevelScript = GetComponent<DualMode>(); 
-		Camera.main.orthographicSize = 15;
+		Camera.main.orthographicSize = camerasize;
 	}
 
 	// Update is called once per frame
