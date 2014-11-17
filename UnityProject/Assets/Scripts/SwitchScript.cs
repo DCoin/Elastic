@@ -7,12 +7,14 @@ public class SwitchScript : MonoBehaviour {
 	[HideInInspector]
 	public Vector3 targetPosition = Vector3.zero;
 	public float smoothTime = 0.3F;
+	public string Squadname = "Squad";
+	public float moveDoorUpDistance = 10;
 
 	private Vector3 velocity = Vector3.zero;
 	private bool moveDoor = false;
 	// Use this for initialization
 	void Start () {
-		targetPosition = door.transform.position + new Vector3 (0, 10, 0);
+		targetPosition = door.transform.position + new Vector3 (0, moveDoorUpDistance, 0);
 	}
 	
 	// Update is called once per frame
@@ -27,7 +29,7 @@ public class SwitchScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.transform.root.name.Contains("Player")) {
+		if (col.transform.root.name.Contains(Squadname)) {
 			moveDoor = true;
 		}
 	}
