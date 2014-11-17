@@ -3,6 +3,9 @@ using System.Collections;
 using System.Linq;
 
 // Require a Rigidbody2D and LineRenderer object for easier assembly
+using System.Collections.Generic;
+
+
 [RequireComponent (typeof (LineRenderer))]
 
 public class RopeScript : MonoBehaviour {
@@ -37,7 +40,7 @@ public class RopeScript : MonoBehaviour {
 	
 	// List of objects to keep in focus
 	public GameObject[] objects;
-
+	
 	public float ropeDrag = 0.1F;								 //  Sets each joints Drag
 	public float ropeMass = 0.1F;							//  Sets each joints Mass
 	public float ropeColRadius = 0.5F;	
@@ -46,19 +49,27 @@ public class RopeScript : MonoBehaviour {
 	private GameObject[] joints;			//  DONT MESS!	This is the actual joint objects that will be automatically created
 	private LineRenderer line;							//  DONT MESS!	 The line renderer variable is set up when its assigned as a new component
 	private bool rope = false;						 //  DONT MESS!	This is to keep errors out of your debug window! Keeps the rope from rendering when it doesnt exist...
-
+	
 	public float dampingratio = 2F;
 	public float frequency = 4F;
 	public float springdistance = 0.000001F;
 	public int segments = 20;
+	
+	
+	[HideInInspector]
+	public List<Collider2D> collidersToIgnore;
+	
+	[HideInInspector]
+	public List<GameObject> itemsThatLoops;
+	
 	//Joint Settings
-
-
+	
+	
 	void Awake()
 	{
 		BuildRope();
 	}
-
+	
 	void Reset() {
 		objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
 		//objects = GameObject.FindGameObjectsWithTag ("Player");
@@ -95,10 +106,10 @@ public class RopeScript : MonoBehaviour {
 			}
 			line.enabled = true;
 			
-			ignoreCollisionWithRope();
-
 		} else {
-			line.enabled = false;	
+			if (objects [0] != null && objects [1] != null) {
+				line.enabled = false;	
+			}	
 		}
 	}
 	
@@ -107,7 +118,7 @@ public class RopeScript : MonoBehaviour {
 	void BuildRope()
 	{
 		line = gameObject.GetComponent<LineRenderer>();
-
+		
 		line.SetVertexCount(segments);
 		segmentPos = new Vector3[segments];
 		joints = new GameObject[segments];
@@ -127,7 +138,7 @@ public class RopeScript : MonoBehaviour {
 		// Attach the joints to the target object and parent it to this object	
 		//objects[1].transform.parent = transform;
 		
-
+		
 		SpringJoint2D end = objects[1].gameObject.AddComponent<SpringJoint2D>();
 		end.connectedBody = joints[joints.Length-1].transform.rigidbody2D;
 		
@@ -135,9 +146,16 @@ public class RopeScript : MonoBehaviour {
 		end.frequency = frequency;
 		end.distance = springdistance;
 		end.collideConnected = false;
-
+		
+		foreach (var col in objects[0].GetComponents<Collider2D>()){
+			collidersToIgnore.Add(col);
+		}
+		foreach (var col in objects[1].GetComponents<Collider2D>()){
+			collidersToIgnore.Add(col);
+		}
+		
 		ignoreCollisionWithRope();
-
+		
 		// Rope = true, The rope now exists in the scene!
 		rope = true;
 	}
@@ -150,28 +168,29 @@ public class RopeScript : MonoBehaviour {
 		SpringJoint2D ph = joints[n].AddComponent<SpringJoint2D>();
 		//DistanceJoint2D ph = joints[n].AddComponent<DistanceJoint2D>();
 		CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
+		joints [n].AddComponent<RopeHitScript> ();
 		col.enabled = true;
 		col.isTrigger = false;
 		col.radius = ropeColRadius;
-
+		
 		//ph.breakForce = ropeBreakForce; <--------------- TODO
 		ph.dampingRatio = dampingratio;
 		ph.frequency = frequency;
 		ph.collideConnected = false;
 		ph.distance = springdistance;
-
+		
 		//Add collider
 		//TODO
-
-
-
+		
+		
+		
 		
 		joints[n].transform.position = segmentPos[n];
-
+		
 		rigid.drag = ropeDrag;
 		rigid.mass = ropeMass;
 		//rigid.isKinematic = true;
-
+		
 		
 		if(n==1){		
 			ph.connectedBody = objects[0].transform.rigidbody2D;
@@ -181,19 +200,19 @@ public class RopeScript : MonoBehaviour {
 		}
 		
 	}
-
+	
 	void ignoreCollisionWithRope() {
 		Collider2D[] first = objects[0].GetComponents<Collider2D>();
 		Collider2D[] second = objects[1].GetComponents<Collider2D>();  // using direct referencing to second player, will break on more players
-
+		
 		foreach (var item in joints) {
 			if (item){
 				Collider2D col = item.collider2D;
-
+				
 				foreach (var c in first) {
 					Physics2D.IgnoreCollision (col, c);
 				}
-
+				
 				foreach (var c in second) {
 					Physics2D.IgnoreCollision (col, c);
 				}
