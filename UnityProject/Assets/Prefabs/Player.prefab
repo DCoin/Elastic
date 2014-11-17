@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   acceleration: 40
-  impulse: 1
+  impulse: 0
   jumpSpeed: 10
   jumpDelay: .5
   heavyMultiplier: 5
