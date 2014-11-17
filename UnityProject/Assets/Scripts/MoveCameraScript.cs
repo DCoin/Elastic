@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MoveCameraScript : MonoBehaviour {
@@ -14,7 +14,7 @@ public class MoveCameraScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		var LevelScript = GetComponent<DualMode>(); 
-		Camera.main.orthographicSize = 80;
+		Camera.main.orthographicSize = 15;
 	}
 
 	// Update is called once per frame
