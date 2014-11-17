@@ -74,11 +74,14 @@ public class PlayerController : MonoBehaviour {
 		// TODO check if it's platform, not just any object
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
-		onGround = true;
+		if (col.CompareTag("Platform"))
+			onGround = true;
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		// TODO check if it's platform, not just any object
-		onGround = false;
+		if (col.CompareTag("Platform"))
+		  onGround = false;
+		  // TODO Check if still on another platform
 	}
 }
