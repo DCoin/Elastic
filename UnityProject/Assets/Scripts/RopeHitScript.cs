@@ -14,9 +14,11 @@ public class RopeHitScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
-		if (col.transform.root.name != transform.root.name && col.rigidbody.mass > 10 && col.transform.name != "Ground"  && col.transform.name != "Ceiling") {
-			Die();
-		}
+		if (col.rigidbody) {
+						if (col.transform.root.name != transform.root.name && col.rigidbody.mass > 10 && col.transform.name != "Ground" && col.transform.name != "Ceiling") {
+								Die ();
+						}
+				}
 	}
 
 	void Die() {
