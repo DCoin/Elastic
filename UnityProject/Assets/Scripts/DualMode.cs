@@ -8,27 +8,39 @@ public class DualMode : MonoBehaviour {
 	public int levelWidth = 300;
 	public int MovePartyAtLevelChangeDistance = 50;
 	public int MovePartyYHeight = -116;
-
+	
 	private int level;
-
-
+	
+	
+	[HideInInspector]
+	public int levelstart;
+	[HideInInspector]
+	public int levelend;
+	
+	
 	// Use this for initialization
 	void Start () {
 		level = 0;
-
+		levelstart = -levelWidth/2;
+		levelend = levelWidth/2;
+		
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Mathf.Max (Players [0].transform.position.x, Players [1].transform.position.x) > (level * levelWidth) + (levelWidth / 2)) {
+			levelstart = levelWidth*(level+1)-levelWidth/2;
+			levelend = levelstart+levelWidth;
 			MoveSpheres (levelWidth*(level+1) - MovePartyAtLevelChangeDistance, 1);
 		} else if (Mathf.Min (Players [2].transform.position.x, Players [3].transform.position.x) < (level * levelWidth) - (levelWidth / 2)) {
+			levelend = levelWidth*(level-1)+levelWidth/2;
+			levelstart = levelend-levelWidth;
 			MoveSpheres (levelWidth*(level-1) + MovePartyAtLevelChangeDistance, -1);
 		}
 	}
-
+	
 	private void MoveSpheres(int pos, int levelchange) {
-
+		
 		GameObject MovedParty;
 		GameObject MovedPlayer1;
 		GameObject MovedPlayer2;
@@ -59,7 +71,7 @@ public class DualMode : MonoBehaviour {
 		
 		MovedPlayer1.transform.localPosition = Vector3.zero;
 		MovedPlayer2.transform.localPosition = Vector3.zero;
-
+		
 		level += levelchange;
 	}
 }
