@@ -86,7 +86,7 @@ MonoBehaviour:
   jumpSpeed: 10
   jumpDelay: .5
   heavyMultiplier: 5
-  heavyDrag: 1
+  heavyDrag: .00999999978
   controller: 0
   leftSide: 1
 --- !u!212 &21200000
