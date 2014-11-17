@@ -11,12 +11,14 @@ public class PlayerController : MonoBehaviour {
 
 	public float heavyMultiplier = 5;
 	public float heavyDrag = 0.02f;
+	public float heavyGScaleMult = 2;
 
 	public int controller = 0;
 	public bool leftSide = true;
 
 	private bool onGround = false;
 	private float baseMass;
+	private float baseGScale;
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	private bool isHeavy = false;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		baseMass = rigidbody2D.mass;
+		baseGScale = rigidbody2D.gravityScale;
 	}
 	
 	// Update is called once per frame
@@ -56,11 +59,13 @@ public class PlayerController : MonoBehaviour {
 		if (ControllerManager.GetHeavyInputBool(controller, leftSide)) {
 			if (!isHeavy) {
 				rigidbody2D.mass = baseMass * heavyMultiplier;
+				rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
 				isHeavy = true;
 			}
 		} else {
 			if (isHeavy) {
 				rigidbody2D.mass = baseMass;
+				rigidbody2D.gravityScale = baseGScale;
 				isHeavy = false;
 			}
 		}
