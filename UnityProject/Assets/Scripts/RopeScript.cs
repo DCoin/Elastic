@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 // Require a Rigidbody2D and LineRenderer object for easier assembly
 [RequireComponent (typeof (LineRenderer))]
@@ -56,6 +57,11 @@ public class RopeScript : MonoBehaviour {
 	void Awake()
 	{
 		BuildRope();
+	}
+
+	void Reset() {
+		objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
+		//objects = GameObject.FindGameObjectsWithTag ("Player");
 	}
 	
 	void Update()
