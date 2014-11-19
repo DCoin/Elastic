@@ -50,7 +50,6 @@ public class PickupScript : MonoBehaviour {
 					foreach (Collider2D playercol in c.GetComponents<CircleCollider2D>()) {
 					rope.collidersToIgnore.Add(playercol);
 					}
-					Debug.Log ("Adding this to colliderstoignore: " + c.name);
 				}
 			}
 			if (child) {
