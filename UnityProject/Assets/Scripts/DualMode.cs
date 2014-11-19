@@ -3,8 +3,8 @@ using System.Collections;
 
 public class DualMode : MonoBehaviour {
 	
-	public GameObject[] Players;
-	public GameObject[] Parties;
+	public GameObject[] players;
+	public GameObject[] parties;
 	public int levelWidth = 300;
 	public int MovePartyAtLevelChangeDistance = 50;
 	public int MovePartyYHeight = -116;
@@ -28,11 +28,12 @@ public class DualMode : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (Mathf.Max (Players [0].transform.position.x, Players [1].transform.position.x) > (level * levelWidth) + (levelWidth / 2)) {
+		// TODO Oops, hardcoded players here, need more generic solution
+		if (Mathf.Max (players [0].transform.position.x, players [1].transform.position.x) > (level * levelWidth) + (levelWidth / 2)) {
 			levelstart = levelWidth*(level+1)-levelWidth/2;
 			levelend = levelstart+levelWidth;
 			MoveSpheres (levelWidth*(level+1) - MovePartyAtLevelChangeDistance, 1);
-		} else if (Mathf.Min (Players [2].transform.position.x, Players [3].transform.position.x) < (level * levelWidth) - (levelWidth / 2)) {
+		} else if (Mathf.Min (players [2].transform.position.x, players [3].transform.position.x) < (level * levelWidth) - (levelWidth / 2)) {
 			levelend = levelWidth*(level-1)+levelWidth/2;
 			levelstart = levelend-levelWidth;
 			MoveSpheres (levelWidth*(level-1) + MovePartyAtLevelChangeDistance, -1);
@@ -46,16 +47,16 @@ public class DualMode : MonoBehaviour {
 		GameObject MovedPlayer2;
 		var CameraScript = GetComponent<MoveCameraScript>(); 
 		if (levelchange == 1) { 
-			MovedParty = Parties[1];
-			MovedPlayer1 = Players[2];
-			MovedPlayer2 = Players[3];
+			MovedParty = parties[1];
+			MovedPlayer1 = players[2];
+			MovedPlayer2 = players[3];
 			Vector3 tmp = Camera.main.transform.position;
 			tmp.x += levelWidth;
 			CameraScript.targetPosition = tmp;
 		} else {
-			MovedParty = Parties[0];
-			MovedPlayer1 = Players[0];
-			MovedPlayer2 = Players[1];
+			MovedParty = parties[0];
+			MovedPlayer1 = players[0];
+			MovedPlayer2 = players[1];
 			Vector3 tmp = Camera.main.transform.position;
 			tmp.x -= levelWidth;
 			CameraScript.targetPosition = tmp;
