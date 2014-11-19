@@ -65,7 +65,7 @@ public class RopeScript : MonoBehaviour {
 	//Joint Settings
 	
 	
-	void Awake()
+	void Start()
 	{
 		BuildRope();
 	}
