@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 using InControl;
+using System.Collections.Generic;
 
 
 public class ControllerManager {
 	private const float ANALOG_THRESHOLD = 0.5f;
+	private static HashSet<int> missingControllers = new HashSet<int>();
 
 	/// <summary>
 	/// Gets the jump input bool.
@@ -90,7 +92,7 @@ public class ControllerManager {
 
 	private static bool checkController(int controller) {
 		if (InputManager.Devices.Count > controller) return true;
-		Debug.Log ("Controller " + controller + " not attached");
+		if (missingControllers.Add(controller)) Debug.Log ("Controller " + controller + " not attached");
 		return false;
 	}
 }
