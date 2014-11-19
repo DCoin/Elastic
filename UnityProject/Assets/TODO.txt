@@ -1,0 +1,5 @@
+Jump detection on slopes
+Problem:
+The trigger on players is is not detecting slopes around 50 degrees correctly. This means that at 50 you can sometimes jump and at higher angles you might be able to jump if you hold jump down when you hit the slope at a higher velocity.
+Reason:
+This is caused partly by rigidbody going slightly into another collider when the hit (im pretty sure there is a variable somewhere that allows this so that stuff does not jiggle to much.) and partly by rigidbody simply not keeping a consistent distance to slopes it is sitting on.
