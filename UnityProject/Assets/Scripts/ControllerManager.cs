@@ -23,6 +23,7 @@ public class ControllerManager {
 	/// <param name="controller">Controller index.</param>
 	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
 	private static float GetJumpInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return 0;
 		if (leftSide)
 			return InputManager.Devices[controller].LeftStickY.Value; //TODO Returns -1 when heavy
 		else 
@@ -46,6 +47,7 @@ public class ControllerManager {
 	/// <param name="controller">Controller index.</param>
 	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
 	private static float GetHeavyInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return 0;
 		if (leftSide)
 			return -InputManager.Devices[controller].LeftStickY.Value;  //TODO Returns -1 when jumping
 		else 
@@ -79,12 +81,17 @@ public class ControllerManager {
 	/// <param name="controller">Controller index.</param>
 	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
 	public static float GetHorizontalInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return 0;
 		if (leftSide)
 			return InputManager.Devices[controller].LeftStickX.Value;
 		else 
 			return InputManager.Devices[controller].RightStickX.Value;
 	}
 
-
+	private static bool checkController(int controller) {
+		if (InputManager.Devices.Count > controller) return true;
+		Debug.Log ("Controller " + controller + " not attached");
+		return false;
+	}
 }
 
