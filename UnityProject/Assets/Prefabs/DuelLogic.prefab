@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: DualLogic
+  m_Name: DuelLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,20 +37,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9fa4a0bb91fbd44ac0746790abd9f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0881173942e1e3c45ad53ef0e03d2b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Players:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Parties:
-  - {fileID: 0}
-  - {fileID: 0}
+  players: []
+  parties: []
   levelWidth: 300
   MovePartyAtLevelChangeDistance: 50
   MovePartyYHeight: -116
+  RespawnTime: 2
+  levelstart: 0
+  levelend: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,6 +62,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   moveCamera: 0
   smoothTime: .300000012
+  camerasize: 25
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

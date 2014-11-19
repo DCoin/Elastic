@@ -52,7 +52,6 @@ public class PickupScript : MonoBehaviour {
 			if (child) {
 				string no = (child.childCount/2).ToString();
 				foreach (Transform gamobj in child.transform) {
-					Debug.Log (gamobj.name);
 					rope.collidersToIgnore.Add(gamobj.collider2D);
 					if (gamobj.name == "Joint_"+no) {
 						rope.objects [0] = gamobj.gameObject;
