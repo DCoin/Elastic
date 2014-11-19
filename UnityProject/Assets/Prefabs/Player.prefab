@@ -90,7 +90,7 @@ MonoBehaviour:
   heavyGScaleMult: 2
   controller: 0
   leftSide: 1
-  stoneSprite: {fileID: 21300000, guid: 481e1acefb4c55649a00cfbef4b39b91, type: 3}
+  stoneSprite: {fileID: 21300000, guid: 7ff5a8367860521498c446d222ffc12b, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -111,7 +111,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 108ca6297f189461c807c1666c65fcc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6abdd5188348dbe4092883c20207e027, type: 3}
   m_Color: {r: .760784328, g: .760784328, b: .760784328, a: 1}
 --- !u!1001 &100100000
 Prefab:
