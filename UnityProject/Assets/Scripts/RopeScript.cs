@@ -67,9 +67,6 @@ public class RopeScript : MonoBehaviour {
 	
 	void Start()
 	{
-		while (objects[0] == null) {
-			WaitALittle();
-				}
 		BuildRope();
 	}
 	
@@ -236,9 +233,5 @@ public class RopeScript : MonoBehaviour {
 		joints = new GameObject[0];
 		segments = 0;
 	}
-	IEnumerator WaitALittle()
-	{ 
-				yield return new WaitForSeconds (0.001F);
-		}
 	
 }

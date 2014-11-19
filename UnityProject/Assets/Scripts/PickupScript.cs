@@ -25,7 +25,7 @@ public class PickupScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
-		if (PickupAble && col.transform.root.name != "Level") {
+		if (PickupAble && col.transform.root.name != "Platforms") {
 			Transform Squad = col.gameObject.transform.root;
 			rigidbody2D.isKinematic = false;
 			GameObject go = Instantiate (RopePrefab, transform.position, Quaternion.identity) as GameObject;
@@ -43,7 +43,7 @@ public class PickupScript : MonoBehaviour {
 			//rope.collidersToIgnore.Add(col.collider);
 			rope.collidersToIgnore.Add(transform.collider2D);
 			Transform child = null;
-			foreach (Transform c in col.transform.parent) {
+			foreach (Transform c in col.transform.root) {
 				if (c.name == "Rope") {
 					child = c;
 				} else {
