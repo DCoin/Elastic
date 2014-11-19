@@ -71,7 +71,7 @@ public class RopeScript : MonoBehaviour {
 	}
 	
 	void Reset() {
-		objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
+		//objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
 		//objects = GameObject.FindGameObjectsWithTag ("Player");
 	}
 	
@@ -154,6 +154,11 @@ public class RopeScript : MonoBehaviour {
 			collidersToIgnore.Add(col);
 		}
 		
+		itemsThatLoops.Add (objects[0]);
+		itemsThatLoops.Add (objects[1]);
+		collidersToIgnore.Add (objects[0].collider2D);
+		collidersToIgnore.Add (objects[1].collider2D);
+		collidersToIgnore.Add (end.collider2D);
 		ignoreCollisionWithRope();
 		
 		// Rope = true, The rope now exists in the scene!
@@ -190,6 +195,8 @@ public class RopeScript : MonoBehaviour {
 		rigid.drag = ropeDrag;
 		rigid.mass = ropeMass;
 		//rigid.isKinematic = true;
+
+		itemsThatLoops.Add(joints [n]);
 		
 		
 		if(n==1){		
@@ -202,19 +209,12 @@ public class RopeScript : MonoBehaviour {
 	}
 	
 	void ignoreCollisionWithRope() {
-		Collider2D[] first = objects[0].GetComponents<Collider2D>();
-		Collider2D[] second = objects[1].GetComponents<Collider2D>();  // using direct referencing to second player, will break on more players
 		
-		foreach (var item in joints) {
+		foreach (var item in itemsThatLoops) {
 			if (item){
 				Collider2D col = item.collider2D;
-				
-				foreach (var c in first) {
-					Physics2D.IgnoreCollision (col, c);
-				}
-				
-				foreach (var c in second) {
-					Physics2D.IgnoreCollision (col, c);
+				foreach (Collider2D c in collidersToIgnore) {
+				Physics2D.IgnoreCollision (col, c);
 				}
 			}
 		}

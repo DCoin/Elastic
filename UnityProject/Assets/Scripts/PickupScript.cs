@@ -40,13 +40,17 @@ public class PickupScript : MonoBehaviour {
 			rope.springdistance = springdistance;
 			rope.segments = segments;
 			rope.itemsThatLoops.Add(transform.gameObject);
-			rope.collidersToIgnore.Add(col.collider);
+			//rope.collidersToIgnore.Add(col.collider);
+			rope.collidersToIgnore.Add(transform.collider2D);
 			Transform child = null;
 			foreach (Transform c in col.transform.parent) {
 				if (c.name == "Rope") {
 					child = c;
 				} else {
-					rope.collidersToIgnore.Add(c.collider2D);
+					foreach (Collider2D playercol in c.GetComponents<CircleCollider2D>()) {
+					rope.collidersToIgnore.Add(playercol);
+					}
+					Debug.Log ("Adding this to colliderstoignore: " + c.name);
 				}
 			}
 			if (child) {
