@@ -90,7 +90,7 @@ MonoBehaviour:
   heavyGScaleMult: 2
   controller: 0
   leftSide: 1
-  stoneMat: {fileID: 6200000, guid: bfa384ce6d775424893f4ab3b609a1af, type: 2}
+  stoneSprite: {fileID: 21300000, guid: 481e1acefb4c55649a00cfbef4b39b91, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
