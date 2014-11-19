@@ -14,7 +14,7 @@ public class MoveCameraScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		var LevelScript = GetComponent<DualMode>(); 
+		var LevelScript = GetComponent<DuelMode>(); 
 		Camera.main.orthographicSize = camerasize;
 	}
 

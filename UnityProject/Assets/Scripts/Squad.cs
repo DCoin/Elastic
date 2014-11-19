@@ -18,15 +18,16 @@ public class Squad : MonoBehaviour {
 			foreach (Transform c in transform) {
 				c.gameObject.SetActive (false);
 			}
-			StartCoroutine (WaitTwoSeconds ());
+			StartCoroutine (HideAndWait());
 			
 		}
 	}
 	
 	
-	IEnumerator WaitTwoSeconds()
+	IEnumerator HideAndWait()
 	{  
-		yield return new WaitForSeconds(3);
+		var go = GameObject.Find ("DuelLogic");
+		yield return new WaitForSeconds(go.GetComponent<DuelMode>().RespawnTime);
 		
 		foreach (Transform c in transform) {
 			c.gameObject.SetActive (true);
