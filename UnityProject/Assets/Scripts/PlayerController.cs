@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
 	public int controller = 0;
 	public bool leftSide = true;
 
+	//public PhysicsMaterial2D stoneMat;
+
 	private bool onGround = false;
 	private float baseMass;
 	private float baseGScale;
@@ -60,12 +62,14 @@ public class PlayerController : MonoBehaviour {
 			if (!isHeavy) {
 				rigidbody2D.mass = baseMass * heavyMultiplier;
 				rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				//collider2D.sharedMaterial = stoneMat;
 				isHeavy = true;
 			}
 		} else {
 			if (isHeavy) {
 				rigidbody2D.mass = baseMass;
 				rigidbody2D.gravityScale = baseGScale;
+				//collider2D.sharedMaterial = null;
 				isHeavy = false;
 			}
 		}
