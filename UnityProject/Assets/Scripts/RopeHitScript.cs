@@ -52,6 +52,9 @@ public class RopeHitScript : MonoBehaviour {
 		//SpriteRenderer spr = closest.AddComponent<SpriteRenderer> ();
 		//spr.sprite = (Sprite)Resources.Load ("blue-circle");	
 		transform.root.transform.position = closest.transform.position;
+		foreach (Transform joint in transform.parent) {
+			joint.localPosition = Vector3.zero;
+				}
 		transform.root.GetComponent<Squad> ().hide = true;
 	}
 	

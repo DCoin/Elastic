@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
 	public int controller = 0;
 	public bool leftSide = true;
 
+	public Sprite stoneSprite;
+	private Sprite normalSprite;
+
 	//public PhysicsMaterial2D stoneMat;
 
 	private bool onGround = false;
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		baseMass = rigidbody2D.mass;
 		baseGScale = rigidbody2D.gravityScale;
+		normalSprite = GetComponent<SpriteRenderer> ().sprite;
 	}
 	
 	// Update is called once per frame
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour {
 				rigidbody2D.mass = baseMass * heavyMultiplier;
 				rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
 				//collider2D.sharedMaterial = stoneMat;
+				GetComponent<SpriteRenderer>().sprite = stoneSprite == null ? normalSprite : stoneSprite; // TODO change this to animation?
 				isHeavy = true;
 			}
 		} else {
@@ -70,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 				rigidbody2D.mass = baseMass;
 				rigidbody2D.gravityScale = baseGScale;
 				//collider2D.sharedMaterial = null;
+				GetComponent<SpriteRenderer>().sprite = normalSprite; // TODO change this to animation?
 				isHeavy = false;
 			}
 		}
