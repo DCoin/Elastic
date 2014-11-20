@@ -2,6 +2,7 @@
 
 function Start () {}
 
+var IsStoryButton = false;
 var IsTutorialButton = false;
 var IsLevelButton = false;
 var IsQuitButton = false;
@@ -18,7 +19,10 @@ renderer.material.color = Color.white;
 
 function OnMouseUp()
 {
-	if (IsTutorialButton) {
+	if (IsStoryButton){
+			Application.LoadLevel(3);
+			}
+	else if (IsTutorialButton) {
 			Application.LoadLevel(1);
 				} 
 	else if (IsLevelButton) {
@@ -27,6 +31,6 @@ function OnMouseUp()
 	else if (IsQuitButton){
 			Application.Quit ();
 				}
-		}
+}
 
 
