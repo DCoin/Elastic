@@ -47,7 +47,7 @@ public class PickupScript : MonoBehaviour {
 				if (c.name == "Rope") {
 					child = c;
 				} else {
-					foreach (Collider2D playercol in c.GetComponents<CircleCollider2D>()) {
+					foreach (Collider2D playercol in c.GetComponentsInChildren<CircleCollider2D>()) {
 					rope.collidersToIgnore.Add(playercol);
 					}
 				}

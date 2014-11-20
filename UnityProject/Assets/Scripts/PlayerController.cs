@@ -59,6 +59,11 @@ public class PlayerController : MonoBehaviour {
 					lastJump = Time.fixedTime;
 				}
 			}
+			if (ControllerManager.GetHorizontalInput(controller, leftSide) == 0) {
+				foreach (Rigidbody2D rb in gameObject.GetComponentsInChildren<Rigidbody2D>()) {
+					rb.velocity = new Vector2(rb.velocity.x / 1.2F, rb.velocity.y);
+				}
+			}
 		}
 
 		//Heavy
