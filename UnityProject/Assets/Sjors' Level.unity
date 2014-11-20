@@ -1089,7 +1089,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 324967115}
+      objectReference: {fileID: 896647201}
     - target: {fileID: 400000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_LocalScale.x
       value: 3
@@ -1099,32 +1099,6 @@ Prefab:
   m_RootGameObject: {fileID: 1881898254}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!21 &261552817
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: PlatformMaterial
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
-          m_Scale: {x: .800000012, y: .266666681}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &264957472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,32 +1251,6 @@ Transform:
   - {fileID: 70517637}
   m_Father: {fileID: 0}
   m_RootOrder: 4
---- !u!21 &324967115
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: PlatformMaterial
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
-          m_Scale: {x: .800000012, y: .266666681}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &346876860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1309,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 1767614985}
+  - {fileID: 1483540396}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2505,6 +2453,32 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aede8746fdea1e54eb94831caea26690, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &610056115
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlatformMaterial
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
+          m_Scale: {x: 86.66642, y: .333333343}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &613969424
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,8 +3343,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Radius: .620000005
-  m_Center: {x: 0, y: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -.25}
 --- !u!50 &873191470
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -3397,8 +3371,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 4cc3963c4ef5b40a599011696a4e2a8f, type: 2}
   m_IsTrigger: 1
-  m_Radius: .5
-  m_Center: {x: 0, y: -.200000003}
+  m_Radius: .86500001
+  m_Center: {x: 0, y: -.449999988}
 --- !u!212 &873191472
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3430,7 +3404,7 @@ Transform:
   m_GameObject: {fileID: 873191467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 72.385025, y: 11.4175301, z: 4.99759483}
-  m_LocalScale: {x: .805000007, y: .810000002, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 729856022}
   m_RootOrder: 0
@@ -3711,6 +3685,32 @@ PolygonCollider2D:
       - {x: -8.3789072, y: -.922851622}
       - {x: -8.34961033, y: -.805664122}
       - {x: -8.29101658, y: -.541992247}
+--- !u!21 &896647201
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlatformMaterial
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
+          m_Scale: {x: .800000012, y: .266666681}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &901844914
 GameObject:
   m_ObjectHideFlags: 0
@@ -4413,7 +4413,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1767614985}
+      objectReference: {fileID: 1483540396}
     - target: {fileID: 400000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_LocalScale.x
       value: 258.171112
@@ -4604,6 +4604,32 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2367c58acc5168b4d92066a75c0d747c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!21 &1150589545
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlatformMaterial
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
+          m_Scale: {x: .800000012, y: .266666681}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1151915410
 GameObject:
   m_ObjectHideFlags: 0
@@ -4662,7 +4688,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2104946465}
+  - {fileID: 610056115}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -4991,7 +5017,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 261552817}
+      objectReference: {fileID: 1150589545}
     - target: {fileID: 400000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_LocalScale.x
       value: 3
@@ -6086,7 +6112,7 @@ Transform:
   m_GameObject: {fileID: 1482558517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 84.0516281, y: 11.5414543, z: 0}
-  m_LocalScale: {x: .805000007, y: .810000002, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 1062303784}
   m_RootOrder: 1
@@ -6123,8 +6149,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Radius: .620000005
-  m_Center: {x: 0, y: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -.25}
 --- !u!50 &1482558521
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -6151,8 +6177,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 4cc3963c4ef5b40a599011696a4e2a8f, type: 2}
   m_IsTrigger: 1
-  m_Radius: .5
-  m_Center: {x: 0, y: -.200000003}
+  m_Radius: .86500001
+  m_Center: {x: 0, y: -.449999988}
 --- !u!212 &1482558523
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6176,6 +6202,32 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6abdd5188348dbe4092883c20207e027, type: 3}
   m_Color: {r: .760784328, g: .760784328, b: .760784328, a: 1}
+--- !u!21 &1483540396
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlatformMaterial
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
+          m_Scale: {x: 86.0570374, y: .333333343}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1511628887
 GameObject:
   m_ObjectHideFlags: 0
@@ -6344,8 +6396,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Radius: .620000005
-  m_Center: {x: 0, y: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -.25}
 --- !u!50 &1529588038
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -6372,8 +6424,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 4cc3963c4ef5b40a599011696a4e2a8f, type: 2}
   m_IsTrigger: 1
-  m_Radius: .5
-  m_Center: {x: 0, y: -.200000003}
+  m_Radius: .86500001
+  m_Center: {x: 0, y: -.449999988}
 --- !u!212 &1529588040
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6405,7 +6457,7 @@ Transform:
   m_GameObject: {fileID: 1529588035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 81.7716599, y: 11.4903069, z: 4.99759483}
-  m_LocalScale: {x: .805000007, y: .810000002, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 1062303784}
   m_RootOrder: 0
@@ -7195,7 +7247,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 261552817}
+  - {fileID: 1150589545}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -7578,32 +7630,6 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 87ec3ca569a5407468569457b599cb0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!21 &1767614985
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: PlatformMaterial
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
-          m_Scale: {x: 86.0570374, y: .333333343}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1784984960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7632,7 +7658,7 @@ Transform:
   m_GameObject: {fileID: 1784984960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 74.2284698, y: 11.1776314, z: 0}
-  m_LocalScale: {x: .805000007, y: .810000002, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 729856022}
   m_RootOrder: 1
@@ -7669,8 +7695,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Radius: .620000005
-  m_Center: {x: 0, y: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -.25}
 --- !u!50 &1784984964
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -7697,8 +7723,8 @@ CircleCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 6200000, guid: 4cc3963c4ef5b40a599011696a4e2a8f, type: 2}
   m_IsTrigger: 1
-  m_Radius: .5
-  m_Center: {x: 0, y: -.200000003}
+  m_Radius: .86500001
+  m_Center: {x: 0, y: -.449999988}
 --- !u!212 &1784984966
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8082,7 +8108,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 324967115}
+  - {fileID: 896647201}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -8140,7 +8166,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2104946465}
+      objectReference: {fileID: 610056115}
     - target: {fileID: 400000, guid: 4eacab4c1428f7e49b481be80f527f84, type: 2}
       propertyPath: m_LocalScale.x
       value: 259.999268
@@ -8556,32 +8582,6 @@ Prefab:
   m_RootGameObject: {fileID: 1784984960}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!21 &2104946465
-Material:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: PlatformMaterial
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
-  m_CustomRenderQueue: -1
-  m_SavedProperties:
-    serializedVersion: 2
-    m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 9c6331c2c7715044f8a88d6e0c5665e3, type: 3}
-          m_Scale: {x: 86.66642, y: .333333343}
-          m_Offset: {x: 0, y: 0}
-    m_Floats: {}
-    m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2115228358
 GameObject:
   m_ObjectHideFlags: 0
