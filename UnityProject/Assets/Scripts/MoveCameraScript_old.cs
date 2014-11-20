@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MoveCameraScript : MonoBehaviour {
+public class MoveCameraScript_old : MonoBehaviour {
 
 	[HideInInspector]
 	public Vector3 targetPosition = Vector3.zero;

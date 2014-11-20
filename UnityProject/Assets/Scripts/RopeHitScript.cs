@@ -60,9 +60,10 @@ public class RopeHitScript : MonoBehaviour {
 	
 	private bool isInLevel(GameObject go) {
 		GameObject duellogic = GameObject.Find ("DuelLogic");
-		int levelstart = duellogic.GetComponent<DuelMode> ().levelstart;
-		int levelend = duellogic.GetComponent<DuelMode> ().levelend;
-		return (levelstart < go.transform.position.x && levelend > go.transform.position.x);
+		//int levelstart = duellogic.GetComponent<DuelMode> ().levelstart;
+		//int levelend = duellogic.GetComponent<DuelMode> ().levelend;
+		//return (levelstart < go.transform.position.x && levelend > go.transform.position.x);
+		return false;
 	}
 	
 }

@@ -54,7 +54,9 @@ public class RopeScript : MonoBehaviour {
 	public float frequency = 4F;
 	public float springdistance = 0.000001F;
 	public int segments = 20;
-	
+
+	// TODO add bool for whether rope is persistant or not,
+	// if it sticks after a respawn, or rope breaks if killed
 	
 	[HideInInspector]
 	public List<Collider2D> collidersToIgnore;
@@ -173,7 +175,8 @@ public class RopeScript : MonoBehaviour {
 		SpringJoint2D ph = joints[n].AddComponent<SpringJoint2D>();
 		//DistanceJoint2D ph = joints[n].AddComponent<DistanceJoint2D>();
 		CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
-		joints [n].AddComponent<RopeHitScript> ();
+		// TODO uncomment following line to add ropehitting again, but we prolly want to refactor
+		// joints [n].AddComponent<RopeHitScript> ();
 		col.enabled = true;
 		col.isTrigger = false;
 		col.radius = ropeColRadius;
@@ -207,14 +210,14 @@ public class RopeScript : MonoBehaviour {
 		}
 		
 	}
-	
+
+	// TODO refactor perhaps?
 	void ignoreCollisionWithRope() {
-		
 		foreach (var item in itemsThatLoops) {
 			if (item){
 				Collider2D col = item.collider2D;
 				foreach (Collider2D c in collidersToIgnore) {
-				Physics2D.IgnoreCollision (col, c);
+					Physics2D.IgnoreCollision (col, c);
 				}
 			}
 		}
@@ -233,5 +236,12 @@ public class RopeScript : MonoBehaviour {
 		joints = new GameObject[0];
 		segments = 0;
 	}
+
+	// TODO proper method coment
+	public void ResetPosition() {
+		// TODO make method that fan out rope segments between the two points, allowing for natural reset
+		// reemmber to set velocity and angularvelocity to 0
+	}
+
 	
 }

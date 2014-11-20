@@ -9,9 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: DuelLogic
+  m_Name: DuelModeArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 61.7800903, y: -44.178894, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -37,32 +36,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0881173942e1e3c45ad53ef0e03d2b7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 88989ed858e9c9b4a895d0062826c7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
-  parties: []
-  levelWidth: 300
-  MovePartyAtLevelChangeDistance: 50
-  MovePartyYHeight: -116
-  RespawnTime: 2
-  levelstart: 0
-  levelend: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9267cfebc3ca7d54d99e090133b550fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPosition: {x: 0, y: 0, z: 0}
-  moveCamera: 0
-  smoothTime: .300000012
-  camerasize: 25
+  squad1spawnPoint: {x: -10, y: 0}
+  squad2spawnPoint: {x: 10, y: 0}
+  camSize: {x: 60, y: 20}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
