@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
 	public bool leftSide = true;
 
 	public Sprite stoneSprite;
+
+	private bool isRolling; // TODO remove this and the part not used when we decide on a control scheme
+
 	private Sprite normalSprite;
 
 	//public PhysicsMaterial2D stoneMat;
@@ -32,10 +35,20 @@ public class PlayerController : MonoBehaviour {
 	// And adjustment to acceleration to make impulse and non impulse similar.
 	private float impulseAdjust = 1 / 40;
 
+	// The child used for rolling
+	private GameObject roller;
+
 	// Use this for initialization
 	void Start () {
-		baseMass = rigidbody2D.mass;
-		baseGScale = rigidbody2D.gravityScale;
+		roller = transform.Find ("Collider").gameObject;
+		isRolling = roller != null;
+		if (isRolling) {
+			baseMass = roller.rigidbody2D.mass;
+			baseGScale = roller.rigidbody2D.gravityScale;
+		} else {
+			baseMass = rigidbody2D.mass;
+			baseGScale = rigidbody2D.gravityScale;
+		}
 		normalSprite = GetComponent<SpriteRenderer> ().sprite;
 	}
 	
@@ -69,25 +82,41 @@ public class PlayerController : MonoBehaviour {
 		//Heavy
 		if (ControllerManager.GetHeavyInputBool(controller, leftSide)) {
 			if (!isHeavy) {
-				rigidbody2D.mass = baseMass * heavyMultiplier;
-				rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				if (isRolling) {
+					roller.rigidbody2D.mass = baseMass * heavyMultiplier;
+					roller.rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				} else {	
+					rigidbody2D.mass = baseMass * heavyMultiplier;
+					rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				}
 				//collider2D.sharedMaterial = stoneMat;
 				GetComponent<SpriteRenderer>().sprite = stoneSprite == null ? normalSprite : stoneSprite; // TODO change this to animation?
 				isHeavy = true;
 			}
 		} else {
 			if (isHeavy) {
-				rigidbody2D.mass = baseMass;
-				rigidbody2D.gravityScale = baseGScale;
+				if(isRolling) {
+					roller.rigidbody2D.mass = baseMass;
+					roller.rigidbody2D.gravityScale = baseGScale;
+				} else {
+					rigidbody2D.mass = baseMass;
+				    rigidbody2D.gravityScale = baseGScale;
+				}
 				//collider2D.sharedMaterial = null;
 				GetComponent<SpriteRenderer>().sprite = normalSprite; // TODO change this to animation?
 				isHeavy = false;
 			}
 		}
 		if (isHeavy) {
-			var vel = rigidbody2D.velocity;
-			vel.x *= 1 - heavyDrag;
-			rigidbody2D.velocity = vel;
+			if(isRolling) {
+				var vel = roller.rigidbody2D.velocity;
+				vel.x *= 1 - heavyDrag;
+				roller.rigidbody2D.velocity = vel;
+			} else {
+				var vel = rigidbody2D.velocity;
+				vel.x *= 1 - heavyDrag;
+				rigidbody2D.velocity = vel;
+			}
 		}
 	}
 
