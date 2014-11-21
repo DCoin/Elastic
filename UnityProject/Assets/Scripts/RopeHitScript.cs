@@ -54,7 +54,14 @@ public class RopeHitScript : MonoBehaviour {
 		transform.root.transform.position = closest.transform.position;
 		foreach (Transform joint in transform.parent) {
 			joint.localPosition = Vector3.zero;
-				}
+		}
+		
+		foreach (var item in transform.root.transform) {
+			var rs = transform.root.GetComponent<RopeScript>();
+			if (rs != null) {
+				rs.ResetPosition();
+			}
+		}
 		transform.root.GetComponent<Squad> ().hide = true;
 	}
 	

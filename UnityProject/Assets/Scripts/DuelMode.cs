@@ -72,7 +72,14 @@ public class DuelMode : MonoBehaviour {
 		
 		MovedPlayer1.transform.localPosition = Vector3.zero;
 		MovedPlayer2.transform.localPosition = Vector3.zero;
-		
+
+		foreach (var item in MovedParty.transform) {
+			var rs = MovedParty.GetComponent<RopeScript>();
+			if (rs != null) {
+				rs.ResetPosition();
+			}
+		}
+
 		level += levelchange;
 	}
 }

@@ -233,5 +233,23 @@ public class RopeScript : MonoBehaviour {
 		joints = new GameObject[0];
 		segments = 0;
 	}
+
+	/// <summary>
+	/// Resets the position of the rope.
+	/// Spaces out the segments so that they are evenly spaced between the two connecting objects.
+	/// Useful when moving the objects around (e.g. respawns), so that the rope doesn't freak out.
+	/// </summary>
+	public void ResetPosition() {
+		Vector2 pos1 = objects[0].transform.position;
+		Vector2 pos2 = objects[1].transform.position;
+		
+		// For some very odd reason, joints[0] is never set. we start past that, for now
+		for (int i = 1; i < joints.Length; i++) {
+			float t = i / joints.Length;
+			joints[i].transform.position = Vector2.Lerp(pos1, pos2, t);
+			joints[i].rigidbody2D.velocity = Vector2.zero;
+			joints[i].rigidbody2D.angularVelocity = 0.0f;
+		}
+	}
 	
 }
