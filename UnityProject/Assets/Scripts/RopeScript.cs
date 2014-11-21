@@ -4,6 +4,7 @@ using System.Linq;
 
 // Require a Rigidbody2D and LineRenderer object for easier assembly
 using System.Collections.Generic;
+using System;
 
 
 [RequireComponent (typeof (LineRenderer))]
@@ -67,7 +68,11 @@ public class RopeScript : MonoBehaviour {
 	
 	void Start()
 	{
+		try {
 		BuildRope();
+		} catch (Exception ex) {
+			Destroy (gameObject);
+				}
 	}
 	
 	void Reset() {
