@@ -71,7 +71,8 @@ public class RopeScript : MonoBehaviour {
 	}
 	
 	void Reset() {
-		//objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
+		//This lines finds the correct Collider objects in the players that the rope shall connect to
+		objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject.transform.Find("Collider").gameObject).ToArray (); // wups
 		//objects = GameObject.FindGameObjectsWithTag ("Player");
 	}
 	
