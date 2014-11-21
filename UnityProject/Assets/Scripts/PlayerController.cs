@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour {
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	private bool isHeavy = false;
+
+	public bool IsHeavy {get {return isHeavy;}}
+
 	private float lastJump = 0f;
 
 	// And adjustment to acceleration to make impulse and non impulse similar.
@@ -57,6 +60,11 @@ public class PlayerController : MonoBehaviour {
 				if (lastJump + jumpDelay < Time.fixedTime) { // TODO Unnest ifs?
 					rigidbody2D.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
 					lastJump = Time.fixedTime;
+				}
+			}
+			if (ControllerManager.GetHorizontalInput(controller, leftSide) == 0) {
+				foreach (Rigidbody2D rb in gameObject.GetComponentsInChildren<Rigidbody2D>()) {
+					rb.velocity = new Vector2(rb.velocity.x / 1.2F, rb.velocity.y);
 				}
 			}
 		}
@@ -94,14 +102,21 @@ public class PlayerController : MonoBehaviour {
 		// TODO check if it's platform, not just any object
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
-		if (col.CompareTag("Platform"))
+		if (col.CompareTag("Platform")){
 			onGround = true;
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D col) {
+		// TODO Do ground detection here to avoid bugging when hitting multiple platforms
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		// TODO check if it's platform, not just any object
-		if (col.CompareTag("Platform"))
-		  onGround = false;
-		  // TODO Check if still on another platform
+		if (col.CompareTag("Platform")) {
+			onGround = false;
+			// TODO Check if still on another platform
+		}
 	}
+
 }

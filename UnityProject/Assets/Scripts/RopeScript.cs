@@ -5,6 +5,7 @@ using System.Linq;
 // Require a Rigidbody2D and LineRenderer object for easier assembly
 using System.Collections.Generic;
 
+// TODO if the rope is destroyed and built again, a springjoint component will leak on one of the objects
 
 [RequireComponent (typeof (LineRenderer))]
 
@@ -37,13 +38,15 @@ public class RopeScript : MonoBehaviour {
  
  
 	*/
-	
-	// List of objects to keep in focus
+
 	public GameObject[] objects;
 	
 	public float ropeDrag = 0.1F;								 //  Sets each joints Drag
 	public float ropeMass = 0.1F;							//  Sets each joints Mass
 	public float ropeColRadius = 0.5F;	
+
+	public bool isPersistent = true; // whether the rope should rebuild after breaking
+
 	//public float ropeBreakForce = 25.0F;					 //-------------- TODO (Hopefully will break the rope in half...
 	private Vector3[] segmentPos;			//  DONT MESS!	This is for the Line Renderer's Reference and to set up the positions of the gameObjects
 	private GameObject[] joints;			//  DONT MESS!	This is the actual joint objects that will be automatically created
@@ -117,7 +120,7 @@ public class RopeScript : MonoBehaviour {
 	
 	
 	
-	void BuildRope()
+	public void BuildRope()
 	{
 		line = gameObject.GetComponent<LineRenderer>();
 		
@@ -175,8 +178,12 @@ public class RopeScript : MonoBehaviour {
 		SpringJoint2D ph = joints[n].AddComponent<SpringJoint2D>();
 		//DistanceJoint2D ph = joints[n].AddComponent<DistanceJoint2D>();
 		CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
-		// TODO uncomment following line to add ropehitting again, but we prolly want to refactor
-		// joints [n].AddComponent<RopeHitScript> ();
+
+		var ropeHitScript = joints[n].AddComponent<RopeHitScript>() as RopeHitScript;
+		//TODO THIS IS A SUPER DIRTY METHOD BUT WORKS FOR NOW.
+		// rope shuold not know anything about squad. we'll refactor all of this anyways
+		ropeHitScript.funcsToCall += (() => {GetComponentInParent<Squad>().Kill(2.0f);});
+
 		col.enabled = true;
 		col.isTrigger = false;
 		col.radius = ropeColRadius;
@@ -222,25 +229,41 @@ public class RopeScript : MonoBehaviour {
 			}
 		}
 	}
-	
-	void DestroyRope()
+
+	public void DestroyRope()
 	{
 		// Stop Rendering Rope then Destroy all of its components
 		rope = false;
-		for(int dj=0;dj<joints.Length-1;dj++)
+		for(int dj=0;dj<joints.Length;dj++)
 		{
 			Destroy(joints[dj]);	
+			Destroy(objects[1].GetComponent<SpringJoint2D>());
 		}
-		
-		segmentPos = new Vector3[0];
-		joints = new GameObject[0];
-		segments = 0;
+
+		if (!isPersistent) {
+			Destroy(gameObject);
+		}
+		//segmentPos = new Vector3[0];
+		//joints = new GameObject[0];
+		//segments = 0;
 	}
 
-	// TODO proper method coment
+	/// <summary>
+	/// Resets the position of the rope.
+	/// Spaces out the segments so that they are evenly spaced between the two connecting objects.
+	/// Useful when moving the objects around (e.g. respawns), so that the rope doesn't freak out.
+	/// </summary>
 	public void ResetPosition() {
-		// TODO make method that fan out rope segments between the two points, allowing for natural reset
-		// reemmber to set velocity and angularvelocity to 0
+		Vector2 pos1 = objects[0].transform.position;
+		Vector2 pos2 = objects[1].transform.position;
+
+		// For some very odd reason, joints[0] is never set. we start past that, for now
+		for (int i = 1; i < joints.Length; i++) {
+			float t = i / joints.Length;
+			joints[i].transform.position = Vector2.Lerp(pos1, pos2, t);
+			joints[i].rigidbody2D.velocity = Vector2.zero;
+			joints[i].rigidbody2D.angularVelocity = 0.0f;
+		}
 	}
 
 	

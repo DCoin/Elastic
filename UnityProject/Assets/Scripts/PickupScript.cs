@@ -39,6 +39,7 @@ public class PickupScript : MonoBehaviour {
 			rope.frequency = frequency;
 			rope.springdistance = springdistance;
 			rope.segments = segments;
+			rope.isPersistent = false;
 			rope.itemsThatLoops.Add(transform.gameObject);
 			//rope.collidersToIgnore.Add(col.collider);
 			rope.collidersToIgnore.Add(transform.collider2D);
@@ -47,7 +48,7 @@ public class PickupScript : MonoBehaviour {
 				if (c.name == "Rope") {
 					child = c;
 				} else {
-					foreach (Collider2D playercol in c.GetComponents<CircleCollider2D>()) {
+					foreach (Collider2D playercol in c.GetComponentsInChildren<CircleCollider2D>()) {
 					rope.collidersToIgnore.Add(playercol);
 					}
 				}

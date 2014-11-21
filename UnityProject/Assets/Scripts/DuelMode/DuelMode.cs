@@ -3,7 +3,10 @@ using System.Collections;
 
 public class DuelMode : MonoBehaviour {
 	// TODO implement winning condition check thingy
+	// TODO When a player is killed/respawned, the pickup object is not taken into consideration
 
+	// At the moment, DuelMode takes a direct reference to this cam-script
+	// maybe we can decouple this somehow? (maybe an interface?)
 	public MoveCameraScript moveCam;
 	public float camMoveTime = .4f;
 
@@ -29,8 +32,8 @@ public class DuelMode : MonoBehaviour {
 			enabled = false;
 			return;
 		}
-		if (startArea > areas.Length-1) {
-			Debug.LogError("Specified starting area number is too high, not enough areas.");
+		if (startArea < 0 || startArea > areas.Length-1) {
+			Debug.LogError("Specified starting area number does not exist.");
 			enabled = false;
 			return;
 		}
@@ -68,9 +71,8 @@ public class DuelMode : MonoBehaviour {
 	
 
 	// TODO find out if Fixed update is best here?
-
+	// Check if any squad is out of bounds or eligible to proceed to next area
 	void FixedUpdate() {
-		// Check if any side is out of bounds or eligible to proceed to next area
 		Rect rect = areas[currentArea].GetAreaInGlobal();
 
 		// Squad 1
@@ -119,14 +121,14 @@ public class DuelMode : MonoBehaviour {
 		if (left ? currentArea == 0 : currentArea == areas.Length-1)
 			return;
 
-		// get next area
+		// set next area
 		currentArea += left ? -1 : 1;
 
 		// Set new spawn locations
 		sq1.SetRespawnPoint(areas[currentArea].GetSpawn1InGlobal());
 		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
 
-		// Reset proceeding squad
+		// Reset losing squad
 		if (left) 	sq1.Respawn();
 		else 		sq2.Respawn();
 

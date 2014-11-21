@@ -9,11 +9,11 @@ public class MoveCameraScript : MonoBehaviour {
 	private float velocitySize;
 	private float targetSize;
 	private float smoothTime = 0.3F;
-	private bool moving = false;
+	private bool isMoving = false;
 
 	void LateUpdate() {
 		// Move and scale the camera, if ordered to do so
-		if (moving) {
+		if (isMoving) {
 			// Smoothly move the camera towards that target position
 			Camera.main.transform.position = Vector3.SmoothDamp (
 				Camera.main.transform.position, 
@@ -31,7 +31,7 @@ public class MoveCameraScript : MonoBehaviour {
 			// Stop moving and scaling when target is met
 			if (Camera.main.transform.position == targetPosition &&
 			    Camera.main.orthographicSize == targetSize) {
-					moving = false;
+					isMoving = false;
 				}
 			}
 	}
@@ -50,7 +50,7 @@ public class MoveCameraScript : MonoBehaviour {
 		this.velocityPosition = Vector3.zero;
 		this.velocitySize = 0.0f;
 
-		this.moving = true;
+		this.isMoving = true;
 	}
 
 	// TODO only considers containing the whole x-axis on screen, maybe adjust for Y as well?
