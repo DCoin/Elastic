@@ -44,7 +44,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ropeDrag: .100000001
-  ropeMass: .0250000004
+  ropeMass: .100000001
   ropeColRadius: .100000001
   dampingratio: 1
   frequency: 12
