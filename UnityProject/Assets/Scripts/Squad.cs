@@ -60,6 +60,7 @@ public class Squad : MonoBehaviour {
 		// break all ropes
 		foreach (var script in transform.GetComponentsInChildren<RopeScript>()) {
 			script.DestroyRope();
+		}
 
 		// Deactivate all gameobjects
 		foreach (var child in transform) {
