@@ -9,6 +9,7 @@ public class SwitchScript : MonoBehaviour {
 	public float smoothTime = 0.3F;
 	public string Squadname = "Squad";
 	public float moveDoorUpDistance = 10;
+	public Sprite switchOnSprite;
 
 	private Vector3 velocity = Vector3.zero;
 	private bool moveDoor = false;
@@ -31,6 +32,9 @@ public class SwitchScript : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.transform.root.name.Contains(Squadname)) {
 			moveDoor = true;
+			Debug.Log (transform.GetComponent<SpriteRenderer>().sprite);
+			transform.GetComponent<SpriteRenderer>().sprite = switchOnSprite;
+			
 		}
 	}
 }
