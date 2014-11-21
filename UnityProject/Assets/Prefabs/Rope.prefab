@@ -44,10 +44,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ropeDrag: .100000001
-  ropeMass: .100000001
+  ropeMass: .0799999982
   ropeColRadius: .100000001
   dampingratio: 1
-  frequency: 12
+  frequency: 15
   springdistance: 9.99999997e-07
   segments: 20
   collidersToIgnore: []
