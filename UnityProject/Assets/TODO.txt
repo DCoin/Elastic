@@ -3,3 +3,9 @@ Problem:
 The trigger on players is is not detecting slopes around 50 degrees correctly. This means that at 50 you can sometimes jump and at higher angles you might be able to jump if you hold jump down when you hit the slope at a higher velocity.
 Reason:
 This is caused partly by rigidbody going slightly into another collider when the hit (im pretty sure there is a variable somewhere that allows this so that stuff does not jiggle to much.) and partly by rigidbody simply not keeping a consistent distance to slopes it is sitting on.
+
+You can get "Stuck" in tutorial
+Problem:
+If you get one person of the elevator while the other stays the player left wil not have enough force to pull i down himself.
+
+Make Controlls that are based on where the character touches platforms. This can use collision2D.contacts to see where it touches, if that should enable jump, and in what direction force should be apllied, and how much compared to the speed of the ground its on, when moving

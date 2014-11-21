@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
 	public bool leftSide = true;
 
 	public Sprite stoneSprite;
+
+	private bool isRolling; // TODO remove this and the part not used when we decide on a control scheme
+
 	private Sprite normalSprite;
 
 	//public PhysicsMaterial2D stoneMat;
@@ -35,10 +38,21 @@ public class PlayerController : MonoBehaviour {
 	// And adjustment to acceleration to make impulse and non impulse similar.
 	private float impulseAdjust = 1 / 40;
 
+	// The child used for rolling
+	private GameObject roller;
+
 	// Use this for initialization
 	void Start () {
-		baseMass = rigidbody2D.mass;
-		baseGScale = rigidbody2D.gravityScale;
+		var t = transform.Find ("Collider");
+		roller = t == null ? null : transform.Find ("Collider").gameObject;
+		isRolling = roller != null;
+		if (isRolling) {
+			baseMass = roller.rigidbody2D.mass;
+			baseGScale = roller.rigidbody2D.gravityScale;
+		} else {
+			baseMass = rigidbody2D.mass;
+			baseGScale = rigidbody2D.gravityScale;
+		}
 		normalSprite = GetComponent<SpriteRenderer> ().sprite;
 	}
 	
@@ -48,6 +62,7 @@ public class PlayerController : MonoBehaviour {
 		// TODO Is the Mathf check that checks if there is any input woth it?
 		// TODO Should be based on the speed of the platform you are on.
 		// TODO Add different air control?
+
 		if (!isHeavy && !Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
 			var dir = ControllerManager.GetRightInputBool(controller, leftSide) ? 1 : -1; // Will always show left on no input but that doesnt matter as its 0.
 			rigidbody2D.AddForce(Vector2.right * ControllerManager.GetHorizontalInput(controller, leftSide) * GetAdjustedAcceleration(rigidbody2D.velocity.x * dir), impulse?ForceMode2D.Impulse:ForceMode2D.Force);
@@ -62,9 +77,18 @@ public class PlayerController : MonoBehaviour {
 					lastJump = Time.fixedTime;
 				}
 			}
-			if (ControllerManager.GetHorizontalInput(controller, leftSide) == 0) {
-				foreach (Rigidbody2D rb in gameObject.GetComponentsInChildren<Rigidbody2D>()) {
-					rb.velocity = new Vector2(rb.velocity.x / 1.2F, rb.velocity.y);
+			// Slow down if there is no input and we are on the ground
+			if (isHeavy || Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
+				// We either need to always or never slow down more than heavy is already doing when heavy on the ground since heavy ignores input
+				if (isRolling) {
+					roller.rigidbody2D.velocity = new Vector2(roller.rigidbody2D.velocity.x / 1.2F, roller.rigidbody2D.velocity.y);
+				} else {
+					rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x / 1.2F, rigidbody2D.velocity.y);
+				}
+				if (isHeavy) {
+					roller.rigidbody2D.fixedAngle = true;
+					roller.rigidbody2D.velocity = Vector2.zero;
+					roller.rigidbody2D.inertia = 0.0F;
 				}
 			}
 		}
@@ -72,25 +96,42 @@ public class PlayerController : MonoBehaviour {
 		//Heavy
 		if (ControllerManager.GetHeavyInputBool(controller, leftSide)) {
 			if (!isHeavy) {
-				rigidbody2D.mass = baseMass * heavyMultiplier;
-				rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				if (isRolling) {
+					roller.rigidbody2D.mass = baseMass * heavyMultiplier;
+					roller.rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				} else {	
+					rigidbody2D.mass = baseMass * heavyMultiplier;
+					rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
+				}
 				//collider2D.sharedMaterial = stoneMat;
 				GetComponent<SpriteRenderer>().sprite = stoneSprite == null ? normalSprite : stoneSprite; // TODO change this to animation?
 				isHeavy = true;
 			}
 		} else {
 			if (isHeavy) {
-				rigidbody2D.mass = baseMass;
-				rigidbody2D.gravityScale = baseGScale;
+				if(isRolling) {
+					roller.rigidbody2D.mass = baseMass;
+					roller.rigidbody2D.gravityScale = baseGScale;
+				} else {
+					rigidbody2D.mass = baseMass;
+				    rigidbody2D.gravityScale = baseGScale;
+				}
 				//collider2D.sharedMaterial = null;
 				GetComponent<SpriteRenderer>().sprite = normalSprite; // TODO change this to animation?
 				isHeavy = false;
+				roller.rigidbody2D.fixedAngle = false;
 			}
 		}
 		if (isHeavy) {
-			var vel = rigidbody2D.velocity;
-			vel.x *= 1 - heavyDrag;
-			rigidbody2D.velocity = vel;
+			if(isRolling) {
+				var vel = roller.rigidbody2D.velocity;
+				vel.x *= 1 - heavyDrag;
+				roller.rigidbody2D.velocity = vel;
+			} else {
+				var vel = rigidbody2D.velocity;
+				vel.x *= 1 - heavyDrag;
+				rigidbody2D.velocity = vel;
+			}
 		}
 	}
 

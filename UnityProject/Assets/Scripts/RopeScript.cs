@@ -4,6 +4,7 @@ using System.Linq;
 
 // Require a Rigidbody2D and LineRenderer object for easier assembly
 using System.Collections.Generic;
+using System;
 
 // TODO if the rope is destroyed and built again, a springjoint component will leak on one of the objects
 
@@ -72,11 +73,16 @@ public class RopeScript : MonoBehaviour {
 	
 	void Start()
 	{
+		try {
 		BuildRope();
+		} catch (Exception ex) {
+			Destroy (gameObject);
+				}
 	}
 	
 	void Reset() {
-		//objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject).ToArray (); // wups
+		//This lines finds the correct Collider objects in the players that the rope shall connect to
+		objects = transform.parent.GetComponentsInChildren<PlayerController> ().Select (x => x.gameObject.transform.Find("Collider").gameObject).ToArray (); // wups
 		//objects = GameObject.FindGameObjectsWithTag ("Player");
 	}
 	
@@ -152,10 +158,10 @@ public class RopeScript : MonoBehaviour {
 		end.distance = springdistance;
 		end.collideConnected = false;
 		
-		foreach (var col in objects[0].GetComponents<Collider2D>()){
+		foreach (var col in objects[0].GetComponentsInChildren<Collider2D>()){
 			collidersToIgnore.Add(col);
 		}
-		foreach (var col in objects[1].GetComponents<Collider2D>()){
+		foreach (var col in objects[1].GetComponentsInChildren<Collider2D>()){
 			collidersToIgnore.Add(col);
 		}
 		
@@ -207,7 +213,7 @@ public class RopeScript : MonoBehaviour {
 		//rigid.isKinematic = true;
 
 		itemsThatLoops.Add(joints [n]);
-		
+		collidersToIgnore.Add (col);
 		
 		if(n==1){		
 			ph.connectedBody = objects[0].transform.rigidbody2D;
@@ -236,12 +242,30 @@ public class RopeScript : MonoBehaviour {
 		rope = false;
 		for(int dj=0;dj<joints.Length;dj++)
 		{
-			Destroy(joints[dj]);	
+			Destroy(joints[dj]);
 			Destroy(objects[1].GetComponent<SpringJoint2D>());
 		}
 
 		if (!isPersistent) {
 			Destroy(gameObject);
+	}
+
+	/// <summary>
+	/// Resets the position of the rope.
+	/// Spaces out the segments so that they are evenly spaced between the two connecting objects.
+	/// Useful when moving the objects around (e.g. respawns), so that the rope doesn't freak out.
+	/// </summary>
+	public void ResetPosition() {
+		Vector2 pos1 = objects[0].transform.position;
+		Vector2 pos2 = objects[1].transform.position;
+		
+		// For some very odd reason, joints[0] is never set. we start past that, for now
+		for (int i = 1; i < joints.Length; i++) {
+			float t = i / joints.Length;
+			joints[i].transform.position = Vector2.Lerp(pos1, pos2, t);
+			joints[i].rigidbody2D.velocity = Vector2.zero;
+			joints[i].rigidbody2D.angularVelocity = 0.0f;
+		}
 		}
 		//segmentPos = new Vector3[0];
 		//joints = new GameObject[0];

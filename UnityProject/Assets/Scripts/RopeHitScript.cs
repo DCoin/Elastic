@@ -15,6 +15,13 @@ public class RopeHitScript : MonoBehaviour {
 			if (pc.IsHeavy) {
 				funcsToCall();
 			}
+		
+		foreach (var item in transform.root.transform) {
+			var rs = transform.root.GetComponent<RopeScript>();
+			if (rs != null) {
+				rs.ResetPosition();
+			}
+		}
 		}
 	}
 }

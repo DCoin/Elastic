@@ -39,6 +39,11 @@ public class DuelMode_old : MonoBehaviour {
 			MoveSpheres (levelWidth*(level-1) + MovePartyAtLevelChangeDistance, -1);
 		}
 	}
+
+	void Update () {
+		// Go to menu on escape
+		if (Input.GetKey(KeyCode.Escape)) Application.LoadLevel(0);
+	}
 	
 	private void MoveSpheres(int pos, int levelchange) {
 		
@@ -72,7 +77,16 @@ public class DuelMode_old : MonoBehaviour {
 		
 		MovedPlayer1.transform.localPosition = Vector3.zero;
 		MovedPlayer2.transform.localPosition = Vector3.zero;
-		
+
+		foreach (var item in MovedParty.transform) {
+			var rs = MovedParty.GetComponent<RopeScript>();
+			if (rs != null) {
+				Destroy(MovedParty.GetComponent<RopeScript>().objects[1].GetComponent<SpringJoint2D>());
+				Destroy (rs.gameObject);
+				MovedParty.GetComponentInChildren<RopeScript> ().BuildRope ();
+			}
+		}
+
 		level += levelchange;
 	}
 }
