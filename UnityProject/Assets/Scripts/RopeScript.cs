@@ -147,10 +147,10 @@ public class RopeScript : MonoBehaviour {
 		end.distance = springdistance;
 		end.collideConnected = false;
 		
-		foreach (var col in objects[0].GetComponents<Collider2D>()){
+		foreach (var col in objects[0].GetComponentsInChildren<Collider2D>()){
 			collidersToIgnore.Add(col);
 		}
-		foreach (var col in objects[1].GetComponents<Collider2D>()){
+		foreach (var col in objects[1].GetComponentsInChildren<Collider2D>()){
 			collidersToIgnore.Add(col);
 		}
 		
@@ -197,7 +197,7 @@ public class RopeScript : MonoBehaviour {
 		//rigid.isKinematic = true;
 
 		itemsThatLoops.Add(joints [n]);
-		
+		collidersToIgnore.Add (col);
 		
 		if(n==1){		
 			ph.connectedBody = objects[0].transform.rigidbody2D;
