@@ -81,7 +81,9 @@ public class DuelMode : MonoBehaviour {
 		foreach (var item in MovedParty.transform) {
 			var rs = MovedParty.GetComponent<RopeScript>();
 			if (rs != null) {
-				rs.ResetPosition();
+				Destroy(MovedParty.GetComponent<RopeScript>().objects[1].GetComponent<SpringJoint2D>());
+				Destroy (rs.gameObject);
+				MovedParty.GetComponentInChildren<RopeScript> ().BuildRope ();
 			}
 		}
 
