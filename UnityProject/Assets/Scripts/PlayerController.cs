@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
 		// TODO Is the Mathf check that checks if there is any input woth it?
 		// TODO Should be based on the speed of the platform you are on.
 		// TODO Add different air control?
+
 		if (!isHeavy && !Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
 			var dir = ControllerManager.GetRightInputBool(controller, leftSide) ? 1 : -1; // Will always show left on no input but that doesnt matter as its 0.
 			rigidbody2D.AddForce(Vector2.right * ControllerManager.GetHorizontalInput(controller, leftSide) * GetAdjustedAcceleration(rigidbody2D.velocity.x * dir), impulse?ForceMode2D.Impulse:ForceMode2D.Force);
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour {
 				//collider2D.sharedMaterial = null;
 				GetComponent<SpriteRenderer>().sprite = normalSprite; // TODO change this to animation?
 				isHeavy = false;
+				roller.rigidbody2D.fixedAngle = false;
 			}
 		}
 		if (isHeavy) {
