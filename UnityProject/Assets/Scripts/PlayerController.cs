@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		roller = transform.Find ("Collider").gameObject;
+		var t = transform.Find ("Collider");
+		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
 		if (isRolling) {
 			baseMass = roller.rigidbody2D.mass;
@@ -75,7 +76,11 @@ public class PlayerController : MonoBehaviour {
 			// Slow down if there is no input and we are on the ground
 			if (isHeavy || Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
 				// We either need to always or never slow down more than heavy is already doing when heavy on the ground since heavy ignores input
-				roller.rigidbody2D.velocity = new Vector2(roller.rigidbody2D.velocity.x / 1.2F, roller.rigidbody2D.velocity.y);
+				if (isRolling) {
+					roller.rigidbody2D.velocity = new Vector2(roller.rigidbody2D.velocity.x / 1.2F, roller.rigidbody2D.velocity.y);
+				} else {
+					rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x / 1.2F, rigidbody2D.velocity.y);
+				}
 			}
 		}
 
