@@ -39,6 +39,11 @@ public class DuelMode : MonoBehaviour {
 			MoveSpheres (levelWidth*(level-1) + MovePartyAtLevelChangeDistance, -1);
 		}
 	}
+
+	void Update () {
+		// Go to menu on escape
+		if (Input.GetKey(KeyCode.Escape)) Application.LoadLevel(0);
+	}
 	
 	private void MoveSpheres(int pos, int levelchange) {
 		
