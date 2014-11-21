@@ -32,18 +32,6 @@ public class Squad : MonoBehaviour {
 		foreach (Transform c in transform) {
 			c.gameObject.SetActive (true);
 		}
-		
-		//For some reason the spring does respond after being reactivated. This hack fixes it.
-		yield return new WaitForSeconds(0.001F);
-		SpringJoint2D the_broken_joint = null;
-		foreach (Transform c in transform) {
-			if (c.name == "Rope") {
-				the_broken_joint = c.GetComponent<RopeScript>().objects[1].GetComponent<SpringJoint2D>();
-			}
-		}
-		
-		the_broken_joint.enabled = false;
-		yield return new WaitForSeconds(0.001F);
-		the_broken_joint.enabled = true;
+		GetComponentInChildren<RopeScript> ().BuildRope ();
 	}
 }

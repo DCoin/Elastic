@@ -115,7 +115,7 @@ public class RopeScript : MonoBehaviour {
 	
 	
 	
-	void BuildRope()
+	public void BuildRope()
 	{
 		line = gameObject.GetComponent<LineRenderer>();
 		
@@ -220,18 +220,19 @@ public class RopeScript : MonoBehaviour {
 		}
 	}
 	
-	void DestroyRope()
+	public void DestroyRope()
 	{
 		// Stop Rendering Rope then Destroy all of its components
 		rope = false;
 		for(int dj=0;dj<joints.Length-1;dj++)
 		{
-			Destroy(joints[dj]);	
+			Destroy(joints[dj]);
+			Destroy(objects[1].GetComponent<SpringJoint2D>());
 		}
 		
-		segmentPos = new Vector3[0];
-		joints = new GameObject[0];
-		segments = 0;
+		//segmentPos = new Vector3[0];
+		//joints = new GameObject[0];
+		//segments = 0;
 	}
 
 	/// <summary>
