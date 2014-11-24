@@ -13,13 +13,22 @@ public class DuelModeAreaEditor : Editor {
 		var sp3 = area.pickupspawnPoint;
 		Vector2 prevPos = area.transform.position;
 
+		GUI.changed = false;
 		area.squad1spawnPoint = (Vector2) Handles.PositionHandle(prevPos + sp1, Quaternion.identity) - prevPos;
+		if (GUI.changed)
+			EditorUtility.SetDirty(area);
 		Undo.RecordObject(target, "Spawn Point Move");
 
+		GUI.changed = false;
 		area.squad2spawnPoint = (Vector2) Handles.PositionHandle(prevPos + sp2, Quaternion.identity) - prevPos;
+		if (GUI.changed)
+			EditorUtility.SetDirty(area);
 		Undo.RecordObject(target, "Spawn Point Move");
 
+		GUI.changed = false;
 		area.pickupspawnPoint = (Vector2) Handles.PositionHandle(prevPos + sp3, Quaternion.identity) - prevPos;
+		if (GUI.changed)
+			EditorUtility.SetDirty(area);
 		Undo.RecordObject(target, "Spawn Point Move");
 	}
 }
