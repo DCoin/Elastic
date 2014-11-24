@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 				}
 				if (isHeavy) {
 					roller.rigidbody2D.fixedAngle = true;
-					roller.rigidbody2D.velocity = Vector2.zero;
+					roller.rigidbody2D.velocity = new Vector2(0, roller.rigidbody2D.velocity.y);
 					roller.rigidbody2D.inertia = 0.0F;
 				}
 			}
