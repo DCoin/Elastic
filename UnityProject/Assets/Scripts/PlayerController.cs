@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour {
 			baseMass = rigidbody2D.mass;
 			baseGScale = rigidbody2D.gravityScale;
 		}
-		normalSprite = GetComponent<SpriteRenderer> ().sprite;
 	}
 	
 	// Update is called once per frame
@@ -109,7 +108,6 @@ public class PlayerController : MonoBehaviour {
 					rigidbody2D.gravityScale = baseGScale * heavyGScaleMult;
 				}
 				//collider2D.sharedMaterial = stoneMat;
-				GetComponent<SpriteRenderer>().sprite = stoneSprite == null ? normalSprite : stoneSprite; // TODO change this to animation?
 				isHeavy = true;
 			}
 		} else {
@@ -122,7 +120,6 @@ public class PlayerController : MonoBehaviour {
 				    rigidbody2D.gravityScale = baseGScale;
 				}
 				//collider2D.sharedMaterial = null;
-				GetComponent<SpriteRenderer>().sprite = normalSprite; // TODO change this to animation?
 				isHeavy = false;
 				roller.rigidbody2D.fixedAngle = false;
 			}

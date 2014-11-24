@@ -90,6 +90,20 @@ public class ControllerManager {
 			return InputManager.Devices[controller].RightStickX.Value;
 	}
 
+	/// <summary>
+	/// Gets the vertical value of the control stick
+	/// </summary>
+	/// <returns>The y axis value.</returns>
+	/// <param name="controller">Controller index.</param>
+	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
+	public static float GetVerticalInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return 0;
+		if (leftSide)
+			return InputManager.Devices[controller].LeftStickY.Value;
+		else 
+			return InputManager.Devices[controller].RightStickY.Value;
+	}
+
 	private static bool checkController(int controller) {
 		if (InputManager.Devices.Count > controller) return true;
 		if (missingControllers.Add(controller)) Debug.Log ("Controller " + controller + " not attached");
