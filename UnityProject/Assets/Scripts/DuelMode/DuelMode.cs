@@ -15,11 +15,13 @@ public class DuelMode : MonoBehaviour {
 
 	public GameObject squad1;
 	public GameObject squad2;
+	public GameObject pickup;
 
 	public float RespawnTime = 2.0F;
 
 	private Squad sq1;
 	private Squad sq2;
+	private PickupScript pu;
 
 	private int currentArea;
 
@@ -53,6 +55,7 @@ public class DuelMode : MonoBehaviour {
 		// Get refs to squad scripts
 		sq1 = squad1.GetComponent<Squad>() as Squad;
 		sq2 = squad2.GetComponent<Squad>() as Squad;
+		pu = pickup.GetComponent<PickupScript>() as PickupScript;
 
 		// Set the respawn time on the players
 		foreach (PlayerController p in sq1.GetComponentsInChildren<PlayerController>()) {
@@ -77,6 +80,9 @@ public class DuelMode : MonoBehaviour {
 		// Players
 		sq1.SetRespawnPoint(areas[currentArea].GetSpawn1InGlobal());
 		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
+
+		// Pickup
+		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
 	}
 	
 
@@ -118,6 +124,16 @@ public class DuelMode : MonoBehaviour {
 				return; // One squad proceeds, no need to check more
 			}
 		}
+
+		if (pu.transform.position.x > rect.xMax ||
+		    pu.transform.position.y < rect.yMin ||
+		    pu.transform.position.y > rect.yMax || 
+		    pu.transform.position.x < rect.xMin ||
+		    pu.transform.position.y < rect.yMin ||
+		    pu.transform.position.y > rect.yMax) {
+			pu.Respawn();
+		}
+
 	}
 
 	// This following method is written in a state like manner (but dunno if best approach)
@@ -137,6 +153,7 @@ public class DuelMode : MonoBehaviour {
 		// Set new spawn locations
 		sq1.SetRespawnPoint(areas[currentArea].GetSpawn1InGlobal());
 		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
+		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
 
 		// Reset losing squad
 		if (left) 	sq1.Respawn();

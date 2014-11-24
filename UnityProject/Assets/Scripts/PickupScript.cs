@@ -12,9 +12,21 @@ public class PickupScript : MonoBehaviour {
 	public GameObject RopePrefab;
 	public bool PickupAble = true;
 	private RopeScript rope;
+	private Vector2 respawnPoint;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+		// Set starting respawn point to start position
+		// This can be overwritten later with the SetRespawnPoint method
+		respawnPoint = transform.position;
+	}
 	
+	/// <summary>
+	/// Sets the respawn point of this squad.
+	/// </summary>
+	/// <param name="point">Point.</param>
+	public void SetRespawnPoint(Vector2 point) {
+		this.respawnPoint = point;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +35,13 @@ public class PickupScript : MonoBehaviour {
 			PickupAble = true;
 		}
 	}
+
+	public void Respawn() {
+		// Reset position of parenting (this) pickup
+		transform.position = respawnPoint;
+		rigidbody2D.velocity = Vector2.zero;
+		rigidbody2D.inertia = 0f;
+		}
 
 	void OnCollisionEnter2D(Collision2D col) {
 		if (PickupAble && col.transform.root.name != "Platforms") {

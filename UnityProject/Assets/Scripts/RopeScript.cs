@@ -241,10 +241,10 @@ public class RopeScript : MonoBehaviour {
 	{
 		// Stop Rendering Rope then Destroy all of its components
 		rope = false;
+		Destroy(objects [1].GetComponent<SpringJoint2D> ());
 		for(int dj=0;dj<joints.Length;dj++)
 		{
 			Destroy(joints[dj]);
-			Destroy(objects[1].GetComponent<SpringJoint2D>());
 		}
 
 		if (!isPersistent) {

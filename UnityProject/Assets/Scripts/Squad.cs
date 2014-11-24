@@ -43,7 +43,10 @@ public class Squad : MonoBehaviour {
 		}
 		// rebuild all ropes
 		foreach (var rs in transform.GetComponentsInChildren<RopeScript>()) {
-			rs.BuildRope();
+			rs.DestroyRope();
+			if (rs.isPersistent) {
+				rs.BuildRope();
+			}
 			rs.ResetPosition();
 		}
 
