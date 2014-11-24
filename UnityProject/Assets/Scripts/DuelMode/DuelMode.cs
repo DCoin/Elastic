@@ -125,14 +125,16 @@ public class DuelMode : MonoBehaviour {
 			}
 		}
 
-		if (pu.transform.position.x > rect.xMax ||
-		    pu.transform.position.y < rect.yMin ||
-		    pu.transform.position.y > rect.yMax || 
-		    pu.transform.position.x < rect.xMin ||
-		    pu.transform.position.y < rect.yMin ||
-		    pu.transform.position.y > rect.yMax) {
-			pu.Respawn();
-		}
+		if (pu.PickupAble) {
+						if (pu.transform.position.x > rect.xMax ||
+								pu.transform.position.y < rect.yMin ||
+								pu.transform.position.y > rect.yMax || 
+								pu.transform.position.x < rect.xMin ||
+								pu.transform.position.y < rect.yMin ||
+								pu.transform.position.y > rect.yMax) {
+								pu.Respawn ();
+						}
+				}
 
 	}
 
