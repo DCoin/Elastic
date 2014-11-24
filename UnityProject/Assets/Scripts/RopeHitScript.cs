@@ -10,7 +10,7 @@ public class RopeHitScript : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col) {
 		// Check if the colliding entity has a player script, and is currently heavy
-		var pc = col.gameObject.GetComponent<PlayerController>() as PlayerController;
+		var pc = col.gameObject.GetComponentInParent<PlayerController>() as PlayerController;
 		if (pc != null) {
 			if (pc.IsHeavy) {
 				funcsToCall();

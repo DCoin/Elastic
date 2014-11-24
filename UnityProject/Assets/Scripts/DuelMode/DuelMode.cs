@@ -54,6 +54,16 @@ public class DuelMode : MonoBehaviour {
 		sq1 = squad1.GetComponent<Squad>() as Squad;
 		sq2 = squad2.GetComponent<Squad>() as Squad;
 
+		// Set the respawn time on the players
+		foreach (PlayerController p in sq1.GetComponentsInChildren<PlayerController>()) {
+			p.RespawnTime = RespawnTime;
+				}
+		
+		foreach (PlayerController p in sq2.GetComponentsInChildren<PlayerController>()) {
+						p.RespawnTime = RespawnTime;
+				}
+
+
 		// Set up state according to starting area
 		currentArea = startArea;
 

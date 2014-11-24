@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour {
 	// The child used for rolling
 	private GameObject roller;
 
+	// The respawn time
+	[HideInInspector]
+	public float RespawnTime;
+
 	// Use this for initialization
 	void Start () {
 		var t = transform.Find ("Collider");
@@ -148,6 +152,13 @@ public class PlayerController : MonoBehaviour {
 			onGround = true;
 			currentPlatformId = col.GetInstanceID();
 		}
+		if (col.name.Contains ("Joint") && col.transform.root != transform.root) {
+				if (IsHeavy) {
+					if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
+						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (2.0f);
+				}
+			}
+				}
 	}
 
 	void OnTriggerStay2D(Collider2D col) {

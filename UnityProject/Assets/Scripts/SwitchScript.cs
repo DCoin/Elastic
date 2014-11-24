@@ -32,7 +32,6 @@ public class SwitchScript : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.transform.root.name.Contains(Squadname)) {
 			moveDoor = true;
-			Debug.Log (transform.GetComponent<SpriteRenderer>().sprite);
 			transform.GetComponent<SpriteRenderer>().sprite = switchOnSprite;
 			
 		}

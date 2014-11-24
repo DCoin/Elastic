@@ -149,6 +149,11 @@ public class RopeScript : MonoBehaviour {
 		// Attach the joints to the target object and parent it to this object	
 		//objects[1].transform.parent = transform;
 		
+		/*
+		var ropeHitScript = joints[n].AddComponent<RopeHitScript>() as RopeHitScript;
+		//TODO THIS IS A SUPER DIRTY METHOD BUT WORKS FOR NOW.
+		// rope shuold not know anything about squad. we'll refactor all of this anyways
+		ropeHitScript.funcsToCall += (() => {GetComponentInParent<Squad>().Kill(2.0f);});*/
 		
 		SpringJoint2D end = objects[1].gameObject.AddComponent<SpringJoint2D>();
 		end.connectedBody = joints[joints.Length-1].transform.rigidbody2D;
@@ -167,6 +172,7 @@ public class RopeScript : MonoBehaviour {
 		
 		itemsThatLoops.Add (objects[0]);
 		itemsThatLoops.Add (objects[1]);
+
 		collidersToIgnore.Add (objects[0].collider2D);
 		collidersToIgnore.Add (objects[1].collider2D);
 		collidersToIgnore.Add (end.collider2D);
@@ -184,11 +190,6 @@ public class RopeScript : MonoBehaviour {
 		SpringJoint2D ph = joints[n].AddComponent<SpringJoint2D>();
 		//DistanceJoint2D ph = joints[n].AddComponent<DistanceJoint2D>();
 		CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
-
-		var ropeHitScript = joints[n].AddComponent<RopeHitScript>() as RopeHitScript;
-		//TODO THIS IS A SUPER DIRTY METHOD BUT WORKS FOR NOW.
-		// rope shuold not know anything about squad. we'll refactor all of this anyways
-		ropeHitScript.funcsToCall += (() => {GetComponentInParent<Squad>().Kill(2.0f);});
 
 		col.enabled = true;
 		col.isTrigger = false;
@@ -267,5 +268,9 @@ public class RopeScript : MonoBehaviour {
 			joints[i].rigidbody2D.velocity = Vector2.zero;
 			joints[i].rigidbody2D.angularVelocity = 0.0f;
 		}
+	}
+
+	public Squad GetSquad() {
+		return transform.root.GetComponent<Squad> ();
 	}
 }
