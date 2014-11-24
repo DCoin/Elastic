@@ -5,6 +5,7 @@ using System.Collections;
 
 // TODO iris color set programatically
 
+[ExecuteInEditMode]
 public class EyeAnimator : MonoBehaviour {
 
 	public Sprite eyeballSprite;
