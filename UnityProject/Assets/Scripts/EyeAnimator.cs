@@ -5,7 +5,6 @@ using System.Collections;
 
 // TODO iris color set programatically
 
-[ExecuteInEditMode]
 public class EyeAnimator : MonoBehaviour {
 
 	public Sprite eyeballSprite;
@@ -82,5 +81,14 @@ public class EyeAnimator : MonoBehaviour {
 
 		// Translate eye according to values
 		go_iris.transform.localPosition = new Vector2((x * mx), (y * my));
+	}
+
+	// Drawing in the scene view, for convenience
+	void OnDrawGizmos() {
+		Vector2 pos = transform.position;
+
+		// Draw circles for the player
+		Gizmos.color = Color.white;
+		Gizmos.DrawSphere(pos, 0.5f);
 	}
 }
