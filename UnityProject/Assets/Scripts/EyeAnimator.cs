@@ -43,6 +43,10 @@ public class EyeAnimator : MonoBehaviour {
 		go_eyeball  = new GameObject();
 		go_iris 	= new GameObject();
 
+		// Names
+		go_eyeball.name = "EyeballSprite";
+		go_iris.name = "IrisSprite";
+
 		// Child them to this gameobject
 		go_eyeball.transform.parent = transform;
 		go_iris.transform.parent = transform;
@@ -80,7 +84,7 @@ public class EyeAnimator : MonoBehaviour {
 		float y = ControllerManager.GetVerticalInput(controllerID, leftSide);
 
 		// Translate eye according to values
-		go_iris.transform.localPosition = new Vector2((x * mx), (y * my));
+		go_iris.transform.localPosition = new Vector2((x * eBounds.extents.x), (y * eBounds.extents.y));
 	}
 
 	// Drawing in the scene view, for convenience
