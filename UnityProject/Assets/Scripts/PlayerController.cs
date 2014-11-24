@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 	private bool onGround = false;
 	private float baseMass;
 	private float baseGScale;
+	private int currentPlatformId;
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	private bool isHeavy = false;
@@ -145,6 +146,7 @@ public class PlayerController : MonoBehaviour {
 		// Don't jump on own elastic and possibly not on coplayer
 		if (col.CompareTag("Platform")){
 			onGround = true;
+			currentPlatformId = col.GetInstanceID();
 		}
 	}
 
@@ -155,7 +157,9 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D col) {
 		// TODO check if it's platform, not just any object
 		if (col.CompareTag("Platform")) {
-			onGround = false;
+			if (currentPlatformId == col.GetInstanceID()) {
+				onGround = false;
+			}
 			// TODO Check if still on another platform
 		}
 	}
