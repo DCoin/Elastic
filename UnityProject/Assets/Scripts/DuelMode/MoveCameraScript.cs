@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MoveCameraScript : MonoBehaviour {
 
+	public bool includeVertical = false;
+
 	// Used for smooth moving camera function
 	private Vector3 velocityPosition;
 	private Vector3 targetPosition;
@@ -53,12 +55,20 @@ public class MoveCameraScript : MonoBehaviour {
 		this.isMoving = true;
 	}
 
-	// TODO only considers containing the whole x-axis on screen, maybe adjust for Y as well?
 	// TODO proper method comment
-	public static float CalculateOrthographicSize(Vector2 bounds) {
+	public float CalculateOrthographicSize(Vector2 bounds) {
 		// Get aspect ratio
 		var ratio = Camera.main.aspect;
 
-		return (bounds.x / 2) / ratio;
+		// Do we show whole area, or only care about horizontal bounds?
+		if (includeVertical) {
+			// find restricting dimension
+			return Mathf.Max(
+				(bounds.x / 2) / ratio,
+				bounds.y / 2);
+		}
+		else {
+			return (bounds.x / 2) / ratio;
+		}
 	}
 }

@@ -71,7 +71,7 @@ public class DuelMode : MonoBehaviour {
 		currentArea = startArea;
 
 		// Camera
-		var size = MoveCameraScript.CalculateOrthographicSize(areas[currentArea].camSize);
+		var size = moveCam.CalculateOrthographicSize(areas[currentArea].camSize);
 		moveCam.MoveTo(
 			areas[currentArea].transform.position,
 			size,
@@ -161,7 +161,7 @@ public class DuelMode : MonoBehaviour {
 		else 		sq2.Respawn();
 
 		// Move Camera
-		var size = MoveCameraScript.CalculateOrthographicSize(areas[currentArea].camSize);
+		var size = moveCam.CalculateOrthographicSize(areas[currentArea].camSize);
 		moveCam.MoveTo(
 			areas[currentArea].transform.position,
 			size,
