@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eyeballSprite: {fileID: 21300000, guid: 2bf39d745b34e174b9d350f6162c31be, type: 3}
-  irisSprite: {fileID: 21300000, guid: e737e801f7f473245a5d66360752b804, type: 3}
+  irisSprite: {fileID: 21300000, guid: 8718ebc7ca49b214b92329e3382c126a, type: 3}
   irisColor: {r: 0, g: 0, b: 1, a: 1}
   hat: 0
 --- !u!233 &23300000
