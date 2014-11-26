@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: ab9ed9b25eb274e449f5c2375512b45f
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - RopePrefab: {fileID: 100000, guid: dc91d8da03682344db72efc0e927c6db, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class DuelMode : MonoBehaviour {
 	// TODO implement winning condition check thingy
-	// TODO When a player is killed/respawned, the pickup object is not taken into consideration
 
 	// At the moment, DuelMode takes a direct reference to this cam-script
 	// maybe we can decouple this somehow? (maybe an interface?)
@@ -49,6 +48,7 @@ public class DuelMode : MonoBehaviour {
 			enabled = false;
 			return;
 		}
+		// TODO Add check for whether pickup is assigned as well?
 
 		/* Initialization */
 
@@ -125,17 +125,16 @@ public class DuelMode : MonoBehaviour {
 			}
 		}
 
+		// Pickup
 		if (pu.PickupAble) {
-						if (pu.transform.position.x > rect.xMax ||
-								pu.transform.position.y < rect.yMin ||
-								pu.transform.position.y > rect.yMax || 
-								pu.transform.position.x < rect.xMin ||
-								pu.transform.position.y < rect.yMin ||
-								pu.transform.position.y > rect.yMax) {
-								pu.Respawn ();
-						}
+			Vector2 pos = pu.transform.position;
+			if (pos.x > rect.xMax ||
+				pos.y < rect.yMin ||
+				pos.y > rect.yMax || 
+			    pos.x < rect.xMin ) {
+					pu.Respawn ();
 				}
-
+		}
 	}
 
 	// This following method is written in a state like manner (but dunno if best approach)

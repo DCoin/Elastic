@@ -22,8 +22,10 @@ public class Squad : MonoBehaviour {
 	public void SetRespawnPoint(Vector2 point) {
 		this.respawnPoint = point;
 	}
-	
-	// TODO proper method comment
+
+	/// <summary>
+	/// Respawn this Squad at the previously assigned respawn point.
+	/// </summary>
 	public void Respawn() {
 		// Reactivate all gameobjects
 		foreach (var child in transform) {
@@ -52,13 +54,19 @@ public class Squad : MonoBehaviour {
 
 	}
 
-	// TODO Proper method comment
+
+	/// <summary>
+	/// Kill the squad, and respawns them after a specified amount of time.
+	/// </summary>
+	/// <param name="respawnTime">Respawn time.</param>
 	public void Kill(float respawnTime) {
 		Invoke("Respawn", respawnTime);
 		Kill ();
 	}
 
-	// TODO proper method comment
+	/// <summary>
+	/// Kill the squad.
+	/// </summary>
 	public void Kill() {
 		// break all ropes
 		foreach (var script in transform.GetComponentsInChildren<RopeScript>()) {

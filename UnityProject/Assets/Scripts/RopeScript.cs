@@ -58,9 +58,6 @@ public class RopeScript : MonoBehaviour {
 	public float frequency = 4F;
 	public float springdistance = 0.000001F;
 	public int segments = 20;
-
-	// TODO add bool for whether rope is persistant or not,
-	// if it sticks after a respawn, or rope breaks if killed
 	
 	[HideInInspector]
 	public List<Collider2D> collidersToIgnore;

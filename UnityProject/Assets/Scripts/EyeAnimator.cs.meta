@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 39d6553920a2be34cb34075008372399
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - eyeballSprite: {fileID: 21300000, guid: 2bf39d745b34e174b9d350f6162c31be, type: 3}
+  - irisSprite: {fileID: 21300000, guid: e737e801f7f473245a5d66360752b804, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

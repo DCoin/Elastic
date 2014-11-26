@@ -5,6 +5,8 @@ using System.Collections;
 
 // TODO iris color set programatically
 
+// TODO HATS!
+
 public class EyeAnimator : MonoBehaviour {
 
 	public Sprite eyeballSprite;
@@ -66,12 +68,14 @@ public class EyeAnimator : MonoBehaviour {
 		// Sort to proper layers
 		sr_eyeball.sortingOrder = 1;
 		sr_iris.sortingOrder = 2;
-
-
 	}
 	
 	// We move the iris based on analog movement
 	void LateUpdate () {
+		// TODO add an offset value, to prevent going to the edge
+
+		// TODO squeeze Iris based on direction looking
+
 		// Find value for max translation distance, mx and my
 		var eBounds = sr_eyeball.bounds;
 		var iBounds = sr_iris.bounds;
@@ -84,7 +88,7 @@ public class EyeAnimator : MonoBehaviour {
 		float y = ControllerManager.GetVerticalInput(controllerID, leftSide);
 
 		// Translate eye according to values
-		go_iris.transform.localPosition = new Vector2((x * eBounds.extents.x), (y * eBounds.extents.y));
+		go_iris.transform.localPosition = new Vector2((x * mx), (y * my));
 	}
 
 	// Drawing in the scene view, for convenience
@@ -93,6 +97,6 @@ public class EyeAnimator : MonoBehaviour {
 
 		// Draw circles for the player
 		Gizmos.color = Color.white;
-		Gizmos.DrawSphere(pos, 0.5f);
+		Gizmos.DrawSphere(pos, eyeballSprite.bounds.extents.x);
 	}
 }

@@ -104,6 +104,7 @@ public class ControllerManager {
 			return InputManager.Devices[controller].RightStickY.Value;
 	}
 
+	// TODO add method comment
 	private static bool checkController(int controller) {
 		if (InputManager.Devices.Count > controller) return true;
 		if (missingControllers.Add(controller)) Debug.Log ("Controller " + controller + " not attached");
