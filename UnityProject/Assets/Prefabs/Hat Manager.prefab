@@ -40,10 +40,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hats:
-  - name: 1
-    hatSprite: {fileID: 21300000, guid: bef9c41ea4d6fc441a0a68269565ad36, type: 3}
   - name: 0
-    hatSprite: {fileID: 21300000, guid: 65b39e17acfc13f43a85f7fc214cb8ad, type: 3}
+    hatSprite: {fileID: 21300000, guid: e0ccfd521d331154e9d01fe1e612ae0c, type: 3}
+  - name: 1
+    hatSprite: {fileID: 21300000, guid: 8aa7ecc8e4fe5a949bb5ffa1bbbb25c4, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 3cc908cd7ec35064eae127453810e67e, type: 3}
+  - name: 3
+    hatSprite: {fileID: 21300000, guid: d7b5431bb6d27ef4ebfd88b104e55fcf, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
+  - name: 2
+    hatSprite: {fileID: 21300000, guid: 4c3fcbe5a6124514989600f1b6e4a92b, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

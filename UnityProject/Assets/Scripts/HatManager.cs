@@ -8,7 +8,22 @@ public class HatManager : MonoBehaviour {
 	public enum HatNames
 	{
 		ArmyHat,
-		CowboyHat
+		Beret,
+		Bowler,
+		Bow,
+		Cap,
+		ChristmasHat,
+		CowboyHat,
+		Eyepatch,
+		Fez,
+		HardHat,
+		IndianHat,
+		PoliceHat,
+		RiceHat,
+		Sombrero,
+		Tiara,
+		TopHat,
+		WizardHat
 	}
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
