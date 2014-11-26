@@ -49,17 +49,17 @@ MonoBehaviour:
   - name: 3
     hatSprite: {fileID: 21300000, guid: d7b5431bb6d27ef4ebfd88b104e55fcf, type: 3}
   - name: 4
-    hatSprite: {fileID: 21300000, guid: 1d1a64fae955bb549ad7668722070a1a, type: 3}
+    hatSprite: {fileID: 21300000, guid: 28bcdd48ef819fe4ea5554c04ebe41bd, type: 3}
   - name: 5
     hatSprite: {fileID: 21300000, guid: 105a3a8c87e94374b8c9fc932db12977, type: 3}
   - name: 6
-    hatSprite: {fileID: 21300000, guid: 7d7c91ca1b7fda74492988df96640e9f, type: 3}
+    hatSprite: {fileID: 21300000, guid: c83a863348bbfa94a8e124d074fd06b2, type: 3}
   - name: 7
-    hatSprite: {fileID: 21300000, guid: ca49e27dd042c98469db733c9f667ecd, type: 3}
+    hatSprite: {fileID: 21300000, guid: 616ec0c1373aa6846b3f17fadda3f82e, type: 3}
   - name: 8
-    hatSprite: {fileID: 21300000, guid: 3f0d5b9047d07b54a8fabfa2a76f590a, type: 3}
+    hatSprite: {fileID: 21300000, guid: 3bcc7328feb30ef48b0892ad78ce2db8, type: 3}
   - name: 9
-    hatSprite: {fileID: 21300000, guid: 9e8f280a0a9f0c7419693c90875905cc, type: 3}
+    hatSprite: {fileID: 21300000, guid: 4f3f1e64de3f013469415bd5384cbb54, type: 3}
   - name: 10
     hatSprite: {fileID: 21300000, guid: ea237a034f8eb7648b2d5bf8d82951fe, type: 3}
   - name: 11
