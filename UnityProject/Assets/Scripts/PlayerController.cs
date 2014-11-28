@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		duelmode = GameObject.Find ("DuelMode").GetComponent<DuelMode> ();
+		duelmode = GameObject.Find ("DuelLogic").GetComponent<DuelMode> ();
 		var t = transform.Find ("Collider");
 		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
