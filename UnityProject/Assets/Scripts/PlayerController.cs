@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 	private bool onGround = false;
 	private float baseMass;
 	private float baseGScale;
-	private int currentPlatformId;
+	//private int currentPlatformId;
 
 	private float lastJump = 0f;
 
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
 
 		// Jumping
 		// TODO varied jump
-		if (onGround){
+		if (onGround) {
 			if (ControllerManager.GetJumpInputBool(controller, leftSide)) {
 				if (lastJump + jumpDelay < Time.fixedTime) { // TODO Unnest ifs? (Do whatever makes the code more self-explanatory -Kasra)
 					rigidbody2D.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
@@ -130,6 +130,9 @@ public class PlayerController : MonoBehaviour {
 				rigidbody2D.velocity = vel;
 			}
 		}
+
+		// Reset on Ground to prepare for next set of triggers
+		onGround = false;
 	}
 
 	private float GetAdjustedAcceleration(float speed) {
@@ -138,13 +141,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		// TODO check if it's platform, not just any object
-		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
-		// Don't jump on own elastic and possibly not on coplayer
-		if (col.CompareTag("Platform")){
-			onGround = true;
-			currentPlatformId = col.GetInstanceID();
-		}
 		// TODO Revise this approach to killing after we get a new Rope 
 		if (col.name.Contains ("Joint") && col.transform.root != transform.root) {
 				if (IsHeavy) {
@@ -156,17 +152,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D col) {
-		// TODO Do ground detection here to avoid bugging when hitting multiple platforms
+		// TODO check if it's platform, not just any object
+		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
+		// Don't jump on own elastic and possibly not on coplayer
+		if (col.CompareTag("Platform")){
+			onGround = true;
+			//currentPlatformId = col.GetInstanceID();
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		// TODO check if it's platform, not just any object
-		if (col.CompareTag("Platform")) {
-			if (currentPlatformId == col.GetInstanceID()) {
-				onGround = false;
-			}
+		//if (col.CompareTag("Platform")) {
+		//	if (currentPlatformId == col.GetInstanceID()) {
+		//		onGround = false;
+		//	}
 			// TODO Check if still on another platform
-		}
+		//}
 	}
 
 }
