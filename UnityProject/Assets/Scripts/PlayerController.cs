@@ -38,16 +38,14 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip landSound;
 	public float landSoundVolume = 0.6f;
 
-	// The respawn time
-	// TODO It is not the responsibility of PlayerController to know or handle respawn time
-	public float RespawnTime {get; set;}
+	private DuelMode duelmode;
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
 
 	// Use this for initialization
 	void Start () {
-
+		duelmode = GameObject.Find ("DuelMode").GetComponent<DuelMode> ();
 		var t = transform.Find ("Collider");
 		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
@@ -168,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 				if (IsHeavy) {
 					if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
 						//TODO Dont hardcode this!! Get it from the DuelMode prefab
-						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (2.0f);
+						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.RespawnTime);
 				}
 			}
 		}

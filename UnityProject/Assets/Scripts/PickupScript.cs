@@ -6,9 +6,9 @@ public class PickupScript : MonoBehaviour {
 	public float ropeDrag = 0.01F;	
 	public float ropeMass = 0.01F;
 	public float dampingratio = 0.5F;
-	public float frequency = 4F;
+	public float frequency = 12F;
 	public float springdistance = 0.000001F;
-	public int segments = 5;
+	public int segments = 3;
 	public GameObject RopePrefab;
 	public bool PickupAble = true;
 	private RopeScript rope;
