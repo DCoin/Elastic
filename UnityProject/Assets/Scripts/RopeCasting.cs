@@ -43,8 +43,8 @@ public class RopeCasting : MonoBehaviour {
 		// Apply forces
 		var forceP1 = CalcForce (len, i - 2, GetDirectionalSpeed(p1.rigidbody2D.velocity, ropePath.Vector().normalized));
 		var forceP2 = CalcForce (len, i - 2, GetDirectionalSpeed(p2.rigidbody2D.velocity, ropePath.Vector().normalized));
-		p1.rigidbody2D.AddForce(ropePath.Vector().normalized * forceP1, ForceMode2D.Impulse);
-		p2.rigidbody2D.AddForce(lastSeg.Vector().normalized * -forceP2, ForceMode2D.Impulse); // This vector goes the wrong way thus -force
+		p1.rigidbody2D.AddForce(ropePath.Vector().normalized * forceP1 * forceP1, ForceMode2D.Impulse);
+		p2.rigidbody2D.AddForce(lastSeg.Vector().normalized * -forceP2 * forceP2, ForceMode2D.Impulse); // This vector goes the wrong way thus -force
 		
 		// Update the line renderer
 		lRen.SetVertexCount (i);
