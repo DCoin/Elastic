@@ -45,7 +45,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		duelmode = GameObject.Find ("DuelLogic").GetComponent<DuelMode> ();
+		var tmp = GameObject.Find ("DuelLogic");
+		duelmode = tmp != null ? tmp.GetComponent<DuelMode> () : null;
 		var t = transform.Find ("Collider");
 		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour {
 				if (IsHeavy) {
 					if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
 						//TODO Dont hardcode this!! Get it from the DuelMode prefab
+					if (duelmode != null)
 						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.RespawnTime);
 				}
 			}
