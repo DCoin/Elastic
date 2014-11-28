@@ -70,10 +70,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ropeDrag: .00999999978
   ropeMass: .00999999978
-  dampingratio: .5
-  frequency: 4
+  dampingratio: 1
+  frequency: 12
   springdistance: 9.99999997e-07
-  segments: 5
+  segments: 3
   RopePrefab: {fileID: 100000, guid: dc91d8da03682344db72efc0e927c6db, type: 2}
   PickupAble: 1
 --- !u!212 &21200000
