@@ -7,12 +7,22 @@ public class Squad : MonoBehaviour {
 	// and then players attempt for reattachment?
 
 	private Vector2 respawnPoint;
+	
+	public AudioClip killSound;
+	public float killSoundVolume = 0.6f;
+	public AudioClip respawnSound;
+	public float respawnSoundVolume = 0.6f;
+
+	private AudioSource audioSource;
 
 	// Use this for initialization
 	void Awake () {
 		// Set starting respawn point to start position
 		// This can be overwritten later with the SetRespawnPoint method
 		respawnPoint = transform.position;
+
+		audioSource = gameObject.AddComponent<AudioSource>();
+
 	}
 
 	/// <summary>
@@ -54,12 +64,18 @@ public class Squad : MonoBehaviour {
 
 	}
 
+	private void PlayRespawnSound() {
+		audioSource.clip = respawnSound;
+		audioSource.Play();
+	}
+
 
 	/// <summary>
 	/// Kill the squad, and respawns them after a specified amount of time.
 	/// </summary>
 	/// <param name="respawnTime">Respawn time.</param>
 	public void Kill(float respawnTime) {
+		Invoke("PlayRespawnSound", respawnTime-1.5f);
 		Invoke("Respawn", respawnTime);
 		Kill ();
 	}
@@ -68,6 +84,9 @@ public class Squad : MonoBehaviour {
 	/// Kill the squad.
 	/// </summary>
 	public void Kill() {
+		
+		audioSource.clip = killSound;
+		audioSource.Play();
 		// break all ropes
 		foreach (var script in transform.GetComponentsInChildren<RopeScript>()) {
 			script.DestroyRope();

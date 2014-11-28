@@ -135,6 +135,8 @@ MonoBehaviour:
   heavyGScaleMult: 2
   controller: 0
   leftSide: 1
+  landSound: {fileID: 8300000, guid: 795d4dbaac20c9c4d960382eacb11795, type: 3}
+  landSoundVolume: .600000024
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

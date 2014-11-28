@@ -11,6 +11,11 @@ public class SwitchScript : MonoBehaviour {
 	public float moveDoorUpDistance = 10;
 	public Sprite switchOnSprite;
 
+	public AudioClip doorOpenSound;
+	public float doorOpenVolume = 0.6f;
+	public AudioClip doorCloseSound;
+	public float doorCloseVolume = 0.6f;
+
 	private Vector3 velocity = Vector3.zero;
 	private bool moveDoor = false;
 	// Use this for initialization
@@ -25,6 +30,7 @@ public class SwitchScript : MonoBehaviour {
 			door.transform.position = Vector3.SmoothDamp (door.transform.position, targetPosition, ref velocity, smoothTime);
 			if (door.transform.position == targetPosition) {
 				moveDoor = false;
+				audio.PlayOneShot(doorCloseSound, doorCloseVolume);
 			}
 		}
 	}
@@ -33,7 +39,7 @@ public class SwitchScript : MonoBehaviour {
 		if (col.transform.root.name.Contains(Squadname)) {
 			moveDoor = true;
 			transform.GetComponent<SpriteRenderer>().sprite = switchOnSprite;
-			
+			audio.PlayOneShot(doorOpenSound, doorOpenVolume);
 		}
 	}
 }

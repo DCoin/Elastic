@@ -33,6 +33,11 @@ public class PlayerController : MonoBehaviour {
 	// The child used for rolling
 	private GameObject roller;
 
+	// Audio
+	private AudioSource audioSource;
+	public AudioClip landSound;
+	public float landSoundVolume = 0.6f;
+
 	// The respawn time
 	// TODO It is not the responsibility of PlayerController to know or handle respawn time
 	public float RespawnTime {get; set;}
@@ -42,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		var t = transform.Find ("Collider");
 		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
@@ -52,6 +58,8 @@ public class PlayerController : MonoBehaviour {
 			baseMass = rigidbody2D.mass;
 			baseGScale = rigidbody2D.gravityScale;
 		}
+
+		audioSource = gameObject.AddComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -88,6 +96,9 @@ public class PlayerController : MonoBehaviour {
 					roller.rigidbody2D.fixedAngle = true;
 					roller.rigidbody2D.velocity = new Vector2(0, roller.rigidbody2D.velocity.y);
 					roller.rigidbody2D.inertia = 0.0F;
+
+
+
 				}
 			}
 		}
@@ -144,11 +155,16 @@ public class PlayerController : MonoBehaviour {
 		if (col.CompareTag("Platform")){
 			onGround = true;
 			currentPlatformId = col.GetInstanceID();
+			if (IsHeavy) {
+				audioSource.clip = landSound;
+				audioSource.Play();
+			}
 		}
 		// TODO Revise this approach to killing after we get a new Rope 
 		if (col.name.Contains ("Joint") && col.transform.root != transform.root) {
 				if (IsHeavy) {
 					if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
+						//TODO Dont hardcode this!! Get it from the DuelMode prefab
 						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (2.0f);
 				}
 			}
