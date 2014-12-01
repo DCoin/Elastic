@@ -15,14 +15,14 @@ public class MusicPlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(Input.GetKeyUp(KeyCode.F8)){
+		if(Input.GetKeyUp(KeyCode.F9)){
 			musicindex++;
 			if (musicindex > BackgroundMusicClips.Length-1)
 				musicindex = 0;
 			audio.clip = BackgroundMusicClips[musicindex];
 			audio.Play();
 			}
-		else if(Input.GetKeyUp(KeyCode.F9)){
+		else if(Input.GetKeyUp(KeyCode.F8)){
 			musicindex--;
 			if (musicindex < 0)
 				musicindex = BackgroundMusicClips.Length-1;
