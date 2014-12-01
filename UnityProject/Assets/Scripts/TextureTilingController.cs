@@ -23,8 +23,8 @@ public class TextureTilingController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// If something has changed
-		if(gameObject.transform.lossyScale != prevScale || !Mathf.Approximately(this.textureToMeshZ, prevTextureToMeshZ))
-			this.UpdateTiling();
+		if (gameObject.transform.lossyScale != prevScale || !Mathf.Approximately (this.textureToMeshZ, prevTextureToMeshZ))
+				this.UpdateTiling ();
 		
 		// Maintain previous state variables
 		this.prevScale = gameObject.transform.lossyScale;
@@ -37,13 +37,14 @@ public class TextureTilingController : MonoBehaviour {
 	{
 		// A Unity plane is 10 units x 10 units
 		float planeSizeX = 10f;
-		float planeSizeZ = 10f;
+		float planeSizeY = 10f;
 		
 		// Figure out texture-to-mesh width based on user set texture-to-mesh height
 		float textureToMeshX = ((float)this.texture.width/this.texture.height)*this.textureToMeshZ;
+		float textureToMeshY = ((float)this.texture.height/this.texture.width)*this.textureToMeshZ;
 		var tempMaterial = new Material(gameObject.renderer.sharedMaterial);
 
-		tempMaterial.mainTextureScale = new Vector2(planeSizeX*gameObject.transform.lossyScale.x/textureToMeshX, planeSizeZ*gameObject.transform.lossyScale.z/textureToMeshZ);
+		tempMaterial.mainTextureScale = new Vector2(planeSizeX*gameObject.transform.lossyScale.x/textureToMeshX, planeSizeY*gameObject.transform.lossyScale.y/textureToMeshY);
 
 		//gameObject.renderer.s = tempMaterial;
 		gameObject.renderer.sharedMaterial = tempMaterial;
