@@ -74,6 +74,10 @@ MonoBehaviour:
     hatSprite: {fileID: 21300000, guid: 130677dea09f5d6439aaaafe05bac120, type: 3}
   - name: 16
     hatSprite: {fileID: 21300000, guid: 32b1ec2a1378be149bcabce24f2567d2, type: 3}
+  - name: 17
+    hatSprite: {fileID: 21300000, guid: 5c37ea7d21d89ac4a83ed436a7d43509, type: 3}
+  - name: 18
+    hatSprite: {fileID: 21300000, guid: 591a2760422283547a2b162b6ea56fae, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

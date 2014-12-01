@@ -23,7 +23,9 @@ public class HatManager : MonoBehaviour {
 		Sombrero,
 		Tiara,
 		TopHat,
-		WizardHat
+		WizardHat,
+		Monocle,
+		RobinHood
 	}
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
