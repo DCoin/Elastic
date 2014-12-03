@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 61: {fileID: 6100000}
   m_Layer: 9
-  m_Name: Platform
+  m_Name: Platform lvl 2
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
