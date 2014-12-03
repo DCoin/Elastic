@@ -31,6 +31,9 @@ public class EyeAnimator : MonoBehaviour {
 	private const float HAT_MOVE_RATIO_X = 0.05f;
 	private const float HAT_MOVE_RATIO_Y = 0.02f;
 
+	// how much does the eye get squoshed when heavy?
+	private const float EYE_HEAVY_SQUISH_RATIO = 0.50f;
+
 	// Use this for initialization
 	void Start () {
 		if (!eyeballSprite || !irisSprite) {
@@ -103,9 +106,30 @@ public class EyeAnimator : MonoBehaviour {
 	// Move iris based on controller input
 	private void MoveIris() {
 		// TODO add an offset value, to prevent going to the edge
+
+		// Get controlstick axis values
+		float x = ControllerManager.GetHorizontalInput(controllerID, leftSide);
+		float y = ControllerManager.GetVerticalInput(controllerID, leftSide);
+
+		// Get current amount of heavy
+		float hy = Mathf.Max(0.0f, -y);
+		float squeezeAmount = 1.0f - (hy * EYE_HEAVY_SQUISH_RATIO);
 		
-		// TODO squeeze Iris based on direction looking
+		var scale = go_eyeball.transform.localScale;
+		scale.y = squeezeAmount;
 		
+		// Squeeze eye based on heaviness
+		go_iris.transform.localScale = scale;
+		go_eyeball.transform.localScale = scale;
+		
+		// Get new y bounds
+		float yDiff  = eyeballSprite.bounds.extents.y - sr_eyeball.bounds.extents.y;
+		Vector2 newPos = Vector2.zero;
+		newPos.y = -yDiff;
+		
+		go_eyeball.transform.localPosition = newPos;
+
+
 		// Find value for max translation distance, mx and my
 		var eBounds = sr_eyeball.bounds;
 		var iBounds = sr_iris.bounds;
@@ -113,12 +137,8 @@ public class EyeAnimator : MonoBehaviour {
 		float mx = eBounds.extents.x - iBounds.extents.x;
 		float my = eBounds.extents.y - iBounds.extents.y;
 		
-		// Get controlstick axis values
-		float x = ControllerManager.GetHorizontalInput(controllerID, leftSide);
-		float y = ControllerManager.GetVerticalInput(controllerID, leftSide);
-		
 		// Translate eye according to values
-		go_iris.transform.localPosition = new Vector2((x * mx), (y * my));
+		go_iris.transform.localPosition = new Vector2((x * mx), (y * my)-yDiff);
 	}
 
 	// move hat based on current velocity
@@ -139,6 +159,8 @@ public class EyeAnimator : MonoBehaviour {
 		Vector2 newPos = Vector2.ClampMagnitude(
 			new Vector2(xDist, radius),
 			radius+yDist);
+
+		newPos.y *= go_eyeball.transform.localScale.y;
 
 		// Translate hat according to values
 		go_hat.transform.localPosition = newPos;
