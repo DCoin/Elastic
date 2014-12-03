@@ -84,7 +84,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: .699999988
   m_AngularDrag: 1.5
   m_GravityScale: 1
   m_FixedAngle: 0
