@@ -11,8 +11,8 @@ public class RopeCasting : MonoBehaviour {
 	public float ropeOffset = 0.1f;
 	public float minRopeDist = 2;
 	public float acceleration = 0.1f;
-	public float speedMult = 0.1f;
-	public float cornerDrag = 0f;
+	private float speedMult = 15f;
+	private float cornerDrag = 0f;
 
 	private RopeCastingSegment ropePath;
 	private LineRenderer lRen;
