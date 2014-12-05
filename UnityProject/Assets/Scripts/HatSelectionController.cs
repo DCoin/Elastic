@@ -16,7 +16,9 @@ public class HatSelectionController : MonoBehaviour {
 	private float lastHatSelection;
 	private bool checkedOut = false;
 	private List<Color> colors = new List<Color>();
-	private HatPicker hatPicker;
+	public GameObject hatPicker;
+	private HatPicker hatPickerScript;
+
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +37,7 @@ public class HatSelectionController : MonoBehaviour {
 		colors.Add (Color.red);
 		colors.Add (Color.yellow);
 		Object.DontDestroyOnLoad (gameObject);
+		hatPickerScript = GameObject.Find ("HatPicker").GetComponent<HatPicker> ();
 	}
 	
 	// Update is called once per frame
@@ -47,6 +50,8 @@ public class HatSelectionController : MonoBehaviour {
 					hatindex = hatArray.Length-1;
 				}
 				GetComponent<EyeAnimator>().ChangeHat((HatManager.HatNames)hatArray.GetValue(hatindex));
+				audio.clip = hatPickerScript.hatSwap;
+				audio.Play();
 		}
 			else if (ControllerManager.GetHeavyInputBool (controller, leftSide) && !checkedOut) {
 				hatindex++;
@@ -54,6 +59,8 @@ public class HatSelectionController : MonoBehaviour {
 					hatindex = 0;
 				}
 				GetComponent<EyeAnimator>().ChangeHat((HatManager.HatNames)hatArray.GetValue(hatindex));
+				audio.clip = hatPickerScript.hatSwap;
+				audio.Play();
 			}
 			else if (!Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f) && !checkedOut) {
 				float dir = ControllerManager.GetHorizontalInput(controller, leftSide);
@@ -71,6 +78,8 @@ public class HatSelectionController : MonoBehaviour {
 				}
 				print(colorindex);
 				GetComponent<EyeAnimator>().SetIrisColor(colors[colorindex]);
+				audio.clip = hatPickerScript.eyeColorSwap;
+				audio.Play();
 			}
 		else if (ControllerManager.GetStickButtonInput (controller, leftSide)) {
 				if (!checkedOut) {
@@ -78,13 +87,15 @@ public class HatSelectionController : MonoBehaviour {
 					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
 						mesh.enabled = true;
 					}
-					hatPicker.count += 1;
+					hatPickerScript.count += 1;
+					audio.clip = hatPickerScript.playerReady;
+					audio.Play();
 				} else {
 					checkedOut = false;
 					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
 						mesh.enabled = false;
 					}
-					hatPicker.count -= 1;
+					hatPickerScript.count -= 1;
 				}
 		}
 		}
