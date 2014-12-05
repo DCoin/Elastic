@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
 								if (lastJump + jumpDelay < Time.fixedTime) { // TODO Unnest ifs? (Do whatever makes the code more self-explanatory -Kasra)
 										rigidbody2D.AddForce (Vector2.up * jumpSpeed, ForceMode2D.Impulse);
 										lastJump = Time.fixedTime;
-									roller.rigidbody2D.gravityScale = 0.5f;
+										//roller.rigidbody2D.gravityScale = 0.5f;
 								}
 						} 
 						// Slow down if there is no input and we are on the ground
