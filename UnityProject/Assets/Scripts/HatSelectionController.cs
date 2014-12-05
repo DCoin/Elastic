@@ -16,7 +16,7 @@ public class HatSelectionController : MonoBehaviour {
 	private float lastHatSelection;
 	private bool checkedOut = false;
 	private List<Color> colors = new List<Color>();
-
+	private HatPicker hatPicker;
 
 	// Use this for initialization
 	void Start () {
@@ -78,13 +78,13 @@ public class HatSelectionController : MonoBehaviour {
 					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
 						mesh.enabled = true;
 					}
-					GameObject.Find ("Counter").GetComponent<Counter>().count += 1;
+					hatPicker.count += 1;
 				} else {
 					checkedOut = false;
 					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
 						mesh.enabled = false;
 					}
-					GameObject.Find ("Counter").GetComponent<Counter>().count -= 1;
+					hatPicker.count -= 1;
 				}
 		}
 		}

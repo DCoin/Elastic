@@ -335,6 +335,7 @@ GameObject:
   - 233: {fileID: 414287131}
   - 114: {fileID: 414287130}
   - 114: {fileID: 414287129}
+  - 82: {fileID: 414287134}
   m_Layer: 8
   m_Name: Player1Hat
   m_TagString: Untagged
@@ -435,6 +436,64 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_Radius: .432500005
   m_Center: {x: 0, y: -.100000001}
+--- !u!82 &414287134
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 414287127}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &443811252
 Prefab:
   m_ObjectHideFlags: 0
@@ -723,6 +782,7 @@ GameObject:
   - 233: {fileID: 784257683}
   - 114: {fileID: 784257682}
   - 114: {fileID: 784257681}
+  - 82: {fileID: 784257687}
   m_Layer: 8
   m_Name: Player3Hat
   m_TagString: Untagged
@@ -823,6 +883,64 @@ Transform:
   - {fileID: 451942325}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!82 &784257687
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 784257680}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &871473835
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +1001,7 @@ GameObject:
   - 233: {fileID: 878700031}
   - 114: {fileID: 878700030}
   - 114: {fileID: 878700029}
+  - 82: {fileID: 878700035}
   m_Layer: 8
   m_Name: Player4Hat
   m_TagString: Untagged
@@ -983,6 +1102,64 @@ Transform:
   - {fileID: 1407101288}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!82 &878700035
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878700028}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &926390320
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,7 +1170,7 @@ GameObject:
   - 4: {fileID: 926390322}
   - 114: {fileID: 926390321}
   m_Layer: 0
-  m_Name: Counter
+  m_Name: HatPicker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,6 +1741,7 @@ GameObject:
   - 233: {fileID: 1623420338}
   - 114: {fileID: 1623420337}
   - 114: {fileID: 1623420336}
+  - 82: {fileID: 1623420341}
   m_Layer: 8
   m_Name: Player2Hat
   m_TagString: Untagged
@@ -1664,6 +1842,64 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_Radius: .432500005
   m_Center: {x: 0, y: -.100000001}
+--- !u!82 &1623420341
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1623420334}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &1687767517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,11 +1964,13 @@ MonoBehaviour:
   - name: 16
     hatSprite: {fileID: 21300000, guid: 32b1ec2a1378be149bcabce24f2567d2, type: 3}
   - name: 17
-    hatSprite: {fileID: 21300000, guid: bf5316db18c1f45408a3f2149280112a, type: 3}
+    hatSprite: {fileID: 21300000, guid: 7ccc548581904da4fa880e1385bc2108, type: 3}
   - name: 18
     hatSprite: {fileID: 21300000, guid: 591a2760422283547a2b162b6ea56fae, type: 3}
   - name: 19
     hatSprite: {fileID: 21300000, guid: c1bdf8c412fb39f47abc5c6a3884d2d1, type: 3}
+  - name: 20
+    hatSprite: {fileID: 21300000, guid: f3144f2fc5a64504d8213a3dd3c567e3, type: 3}
 --- !u!4 &1687767519
 Transform:
   m_ObjectHideFlags: 0

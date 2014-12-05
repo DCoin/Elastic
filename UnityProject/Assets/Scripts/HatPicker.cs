@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Counter : MonoBehaviour {
+public class HatPicker : MonoBehaviour {
 
 	public int count;
+	public AudioClip playerReady;
+	public AudioClip eyeColorSwap;
+	public AudioClip hatSwap;
 
 	// Use this for initialization
 	void Start () {
