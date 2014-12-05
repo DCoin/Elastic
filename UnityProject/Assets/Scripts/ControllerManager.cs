@@ -103,6 +103,19 @@ public class ControllerManager {
 		else 
 			return InputManager.Devices[controller].RightStickY.Value;
 	}
+	/// <summary>
+	/// Gets the stick click input as bool.
+	/// </summary>
+	/// <returns>The stick button input.</returns>
+	/// <param name="controller">Controller index.</param>
+	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
+	public static bool GetStickButtonInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return false;
+		if (leftSide)
+			return (InputManager.Devices[controller].LeftStickButton.Value > 0.001f) ? true : false;
+		else 
+			return (InputManager.Devices[controller].RightStickButton.Value> 0.001f) ? true : false;
+	}
 
 	// TODO add method comment
 	private static bool checkController(int controller) {
