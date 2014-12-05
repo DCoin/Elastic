@@ -89,12 +89,15 @@ public class RopeCastingSegment : MonoBehaviour {
 	private void CheckBend() {
 		// Check if the rope went back over 180 deg.
 		if (!isEnd && !end.isEnd) { // Don't check if its the end or pointing at the end.
-			var cross = Vector3.Cross(Vector(),end.Vector());
 			// Do they have a different cross and non of them are zero?
-			if (cross.z * bendsCross < 0 - Mathf.Epsilon) {
+			if (CrossZ() * bendsCross < 0 - Mathf.Epsilon) {
 				DestroyBend();
 			}
 		}
+	}
+
+	private float CrossZ() {
+		return Vector3.Cross (Vector (), end.Vector ()).z;
 	}
 
 	// Destroy the bend at the end of this segment eg. the bend with a corner in end.start
@@ -149,10 +152,10 @@ public class RopeCastingSegment : MonoBehaviour {
 	
 	void OnTriggerStay2D (Collider2D hitCol) {
 		if (hitCol.gameObject.layer != 9) return; // Hack to ignore all but platforms
-		ropeCast ();
+		RopeCast ();
 	}
 
-	private void ropeCast () {
+	private void RopeCast () {
 		// TODO Is there a way to avoid doing this twice?
 		// We could save all colliders hit and then do this in FixedUpdate on a limited layer if it takes to much time otherwise.
 		var hits = Physics2D.LinecastAll (GetStart(), end.GetStart(), 1 << 9); // 1 << 9 means layer 9 which is platforms
@@ -193,11 +196,12 @@ public class RopeCastingSegment : MonoBehaviour {
 		}
 
 		// Split by the first collider hit. It will check and make sure the others are ok too
-		DefineSplit(hit1, hit2); // We let split segment check if the segments it created are ok.
+		DefineSplit(hit1, hit2); // We let DefineSplit check if the segments it created are ok.
 		// TODO Check that the bends are still OK Sould not be needed?!?!?
 	}
 
-	// This function takes to points on a single collider checks if they are parallel and if they are finds appropriate sides to find corners with.
+	// This function takes two points on a single collider checks if they are parallel and if they are finds appropriate sides to find corners with.
+	// It then splits the segment by thouse corners and checks if the splits are ok
 	// hit1 and hit2 should be on the same collider!
 	private void DefineSplit (RaycastHit2D hit1, RaycastHit2D hit2) {
 		if (hit1.collider != hit2.collider) {
@@ -211,10 +215,11 @@ public class RopeCastingSegment : MonoBehaviour {
 		}
 		// The angle between the normals of the surfaces hit on the collider
 		var ang = Vector2.Angle(hit1.normal, hit2.normal); // TODO use dot/cross prod?
+		// This wil behave odd if we use edge colliders
 		if (Mathf.Approximately(ang, 180) || Mathf.Approximately(ang, 0)) {
 			// The lines are parallel so we need to find the middle line
 			Vector3 mid = (hit1.point + hit2.point) / 2;
-			var normal = Quaternion.AngleAxis(90,new Vector3(0,0,-1)) * (hit2.point-hit1.point); // This wil fail if we use edge colliders
+			var normal = Quaternion.AngleAxis(90,new Vector3(0,0,-1)) * hit1.normal;
 			var ray0 = mid + (normal*1000);
 			var ray0_ = mid + (normal*-1000);
 
@@ -227,19 +232,39 @@ public class RopeCastingSegment : MonoBehaviour {
 			var hits_ = Physics2D.LinecastAll(ray0_, mid, 1 << 10);
 			hit1.collider.gameObject.layer = oldLayer;
 
-			// Split the segments by the line that is closest and one of the corners.
-			// splitSegment will check if the split is ok and figure out that the other corner needs a split too.
-			if (hits[hits.Length-1].fraction > hits_[hits_.Length-1].fraction) { // We use fraction because distance doesn't work
-				SplitSegment(hits[hits.Length-1], hit1);
-			} else {
-				SplitSegment(hits_[hits_.Length-1], hit1);
+			if (hits.Length != 1 || hits_.Length != 1) {
+				Debug.LogError("Found more than one collider even though we are using a restricted layer");
+				return;
 			}
+
+			// Split the segments by the line that is closest and the second corner.
+			// We need to split by hit2 first so that the next split is overlapping hit1
+			// splitSegment will check if the split is ok and figure out that the other corner needs a split too.
+			// We use fraction because distance doesn't work
+			var hit = (hits[hits.Length-1].fraction > hits_[hits_.Length-1].fraction) ? hits[0] : hits_[0];
+			SplitSegment(hit, hit2);
+			// Split on the other corner if there is still a collision. We can't just RopeCast as there might still be a parallel collision
+			if (Physics2D.Linecast(GetStart(), end.GetStart()).collider != null) {
+				SplitSegment(hit, hit1);
+				end.end.RopeCast();
+			}
+			// Check if the new ropes are ok
+			// TODO Should this be done in ropeCast?
+			RopeCast ();
+			end.RopeCast ();
 		} else {
 			SplitSegment (hit1, hit2);
+
+			// Check if the new ropes are ok
+			// TODO Should this be done in ropeCast?
+			RopeCast ();
+			end.RopeCast ();
 		}
 	}
-	
-	// hit1 and hit2 should be on the same collider!
+
+	// Finds a corner based on the hits and splits the segment by that corner.
+	// Should always be followed by RopeCast() and end.RopeCast() to check if ropes are ok.
+	// hit1 and hit2 should always be on the same collider!
 	private void SplitSegment (RaycastHit2D hit1, RaycastHit2D hit2) {
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("SplitSegment should only be called with the same collider");
@@ -272,14 +297,10 @@ public class RopeCastingSegment : MonoBehaviour {
 		}
 
 		end = NewSeg(mother, ropePoint, end, hit1.collider, bendsCross);
+		// TODO We could do end.CheckCross() Here if its needed.
 		// The new segment is now in control of the line this last hat so it inherits bendcross while this takes the new cross
-		bendsCross = cross.z;
+		bendsCross = CrossZ();
 		UpdateECol();
-		// Check if the new ropes are ok
-		// TODO Should this be done in ropeCast?
-		ropeCast ();
-		end.ropeCast ();
-		// TODO hitCol has lost its meaning fix!
 	}
 
 	public Vector2 GetStart() {

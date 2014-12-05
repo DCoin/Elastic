@@ -128,7 +128,7 @@ MonoBehaviour:
   moveSpeed: 10
   acceleration: 40
   forceMode: 0
-  jumpSpeed: 10
+  jumpSpeed: 15
   jumpDelay: .5
   heavyMultiplier: 5
   heavyDrag: .0299999993
