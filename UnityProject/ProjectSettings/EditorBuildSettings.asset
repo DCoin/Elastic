@@ -6,10 +6,4 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Title.unity
-  - enabled: 1
-    path: Assets/Tutorial.unity
-  - enabled: 1
-    path: Assets/Old levels/Thom - lvl 1.unity
-  - enabled: 1
-    path: Assets/Story.unity
+    path: Assets/Phil - lvl 2.unity

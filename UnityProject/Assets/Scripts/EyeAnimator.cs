@@ -18,6 +18,7 @@ public class EyeAnimator : MonoBehaviour {
 
 	private int controllerID;
 	private bool leftSide;
+	private bool hasPlayerController;
 
 	private GameObject go_eyeball;
 	private GameObject go_iris;
@@ -46,14 +47,15 @@ public class EyeAnimator : MonoBehaviour {
 
 		// TODO use the built in unity things to check if there's a playercontroller
 		if (!playerController) {
-			Debug.LogError("No PlayerController on this GameObject.");
-			enabled = false;
-			return;
-		}
-
-		// Get info for what controller to listen for
-		controllerID = playerController.controller;
-		leftSide = playerController.leftSide;
+			Debug.LogError ("No PlayerController on this GameObject.");
+			hasPlayerController = false;
+				
+				} else {
+			hasPlayerController = true;
+						// Get info for what controller to listen for
+						controllerID = playerController.controller;
+						leftSide = playerController.leftSide;
+				}
 
 		// Create objects for sprites to be attached to
 		go_eyeball  = new GameObject();
@@ -99,8 +101,10 @@ public class EyeAnimator : MonoBehaviour {
 	// We move the iris based on analog movement
 	void LateUpdate () {
 		// Split into several functions to declutter
-		MoveIris();
-		MoveHat();
+		if (hasPlayerController) {
+						MoveIris ();
+				}
+						MoveHat ();
 	}
 
 	// Move iris based on controller input
@@ -187,6 +191,7 @@ public class EyeAnimator : MonoBehaviour {
 	public void ChangeHat(HatManager.HatNames hatName) {
 		this.hatSprite = HatManager.Instance.GetHatSprite(hatName);
 		sr_hat.sprite = hatSprite;
+		hat = hatName;
 	}
 
 	/// <summary>
@@ -196,6 +201,7 @@ public class EyeAnimator : MonoBehaviour {
 	public void SetIrisColor(Color color) {
 		this.irisColor = color;
 		sr_iris.color = color;
+		irisColor = color;
 	}
 
 	// Drawing in the scene view, for convenience

@@ -12,7 +12,9 @@ public class SwitchScriptAlternating : MonoBehaviour {
 	public float smoothTime = 0.3F;
 	public string Squadname = "Squad";
 	public float moveDoorUpDistance = 10;
-	public Sprite switchOnSprite;
+	public Sprite switchLeftSprite;
+	public Sprite switchNeutralSprite;
+	public Sprite switchRightSprite;
 
 	private Vector3 velocity = Vector3.zero;
 	private Vector3 velocity2 = Vector3.zero;
@@ -26,6 +28,10 @@ public class SwitchScriptAlternating : MonoBehaviour {
 		Squad1DoorStartPosition = Squad1door.transform.position;
 		Squad2DoorTargetPosition = Squad2door.transform.position + new Vector3 (0, moveDoorUpDistance, 0);
 		Squad2DoorStartPosition = Squad2door.transform.position;
+
+		if (switchNeutralSprite) {
+						transform.GetComponent<SpriteRenderer> ().sprite = switchNeutralSprite;
+		}
 	}
 	
 	// Update is called once per frame
@@ -59,7 +65,11 @@ public class SwitchScriptAlternating : MonoBehaviour {
 		if (col.transform.root.name.Contains(Squadname)) {
 			moveDoor = true;
 			squadName = col.transform.root.name;
-			transform.GetComponent<SpriteRenderer>().sprite = switchOnSprite;
+			if (squadName.Contains("1")) {
+				transform.GetComponent<SpriteRenderer>().sprite = switchRightSprite;
+			} else {
+				transform.GetComponent<SpriteRenderer>().sprite = switchLeftSprite;
+			}
 			
 		}
 	}
