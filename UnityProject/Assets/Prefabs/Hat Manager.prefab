@@ -43,7 +43,7 @@ MonoBehaviour:
   - name: 0
     hatSprite: {fileID: 21300000, guid: e0ccfd521d331154e9d01fe1e612ae0c, type: 3}
   - name: 1
-    hatSprite: {fileID: 21300000, guid: 8aa7ecc8e4fe5a949bb5ffa1bbbb25c4, type: 3}
+    hatSprite: {fileID: 21300000, guid: 56be8c1b0b7d76148a912c118011ec14, type: 3}
   - name: 2
     hatSprite: {fileID: 21300000, guid: 3cc908cd7ec35064eae127453810e67e, type: 3}
   - name: 3
@@ -51,7 +51,7 @@ MonoBehaviour:
   - name: 4
     hatSprite: {fileID: 21300000, guid: 28bcdd48ef819fe4ea5554c04ebe41bd, type: 3}
   - name: 5
-    hatSprite: {fileID: 21300000, guid: 105a3a8c87e94374b8c9fc932db12977, type: 3}
+    hatSprite: {fileID: 21300000, guid: f6e947903d25d3e4084250e02efd1c5a, type: 3}
   - name: 6
     hatSprite: {fileID: 21300000, guid: c83a863348bbfa94a8e124d074fd06b2, type: 3}
   - name: 7
