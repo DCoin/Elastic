@@ -11,6 +11,7 @@ public class DuelMode : MonoBehaviour {
 
 	public DuelModeArea[] areas;
 	public int startArea;
+	public float borderBonus = 10.0f;
 
 	public GameObject squad1;
 	public GameObject squad2;
@@ -23,6 +24,8 @@ public class DuelMode : MonoBehaviour {
 	private PickupScript pu;
 
 	private int currentArea;
+	private Rect sq1rect;
+	private Rect sq2rect;
 
 	// Use this for initialization
 	void Start () {
@@ -73,15 +76,21 @@ public class DuelMode : MonoBehaviour {
 
 		// Pickup
 		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
+
+		// Squad Specific bounding boxes
+		sq1rect = sq2rect = areas[currentArea].GetAreaInGlobal();
+
 	}
 	
 
 	// TODO find out if Fixed update is best here?
 	// Check if any squad is out of bounds or eligible to proceed to next area
 	void FixedUpdate() {
-		Rect rect = areas[currentArea].GetAreaInGlobal();
+		// The bounding box for each corresponding entity
+		Rect rect;
 
 		// Squad 1
+		rect = sq1rect;
 		foreach (var pc in squad1.GetComponentsInChildren<PlayerController>()) {
 			var player = pc as PlayerController;
 
@@ -99,6 +108,7 @@ public class DuelMode : MonoBehaviour {
 		}
 
 		// Squad 2
+		rect = sq2rect;
 		foreach (var pc in squad2.GetComponentsInChildren<PlayerController>()) {
 			var player = pc as PlayerController;
 			
@@ -116,6 +126,7 @@ public class DuelMode : MonoBehaviour {
 		}
 
 		// Pickup
+		rect = areas[currentArea].GetAreaInGlobal();
 		if (pu.PickupAble) {
 			Vector2 pos = pu.transform.position;
 			if (pos.x > rect.xMax ||
@@ -146,9 +157,18 @@ public class DuelMode : MonoBehaviour {
 		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
 		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
 
-		// Reset losing squad
-		if (left) 	sq1.Respawn();
-		else 		sq2.Respawn();
+		// Set new bounding boxes
+		sq1rect = sq2rect = areas[currentArea].GetAreaInGlobal();
+
+		// Reset losing squad and extend range for winning squad
+		if (left) {
+			sq1.Respawn();
+			sq2rect.xMax += borderBonus;
+		}
+		else { 		
+			sq2.Respawn();
+			sq1rect.xMin -= borderBonus;
+		}
 
 		// Move Camera
 		var size = moveCam.CalculateOrthographicSize(areas[currentArea].camSize);
