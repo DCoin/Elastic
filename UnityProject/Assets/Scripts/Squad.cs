@@ -51,7 +51,7 @@ public class Squad : MonoBehaviour {
 		foreach (var pc in transform.GetComponentsInChildren<PlayerController>()) {
 			pc.transform.localPosition = Vector2.zero;
 			pc.rigidbody2D.velocity = Vector2.zero;
-			pc.rigidbody2D.angularVelocity = .0f;
+			pc.rigidbody2D.angularVelocity = .0f; // TODO This should be on the roller?
 		}
 		// rebuild all ropes
 		foreach (var rs in transform.GetComponentsInChildren<RopeScript>()) {
@@ -59,6 +59,11 @@ public class Squad : MonoBehaviour {
 			if (rs.isPersistent) {
 				rs.BuildRope();
 			}
+			rs.ResetPosition();
+		}
+
+		// rebuild all new ropes
+		foreach (var rs in transform.GetComponentsInChildren<RopeCasting>()) {
 			rs.ResetPosition();
 		}
 
@@ -75,7 +80,7 @@ public class Squad : MonoBehaviour {
 	/// </summary>
 	/// <param name="respawnTime">Respawn time.</param>
 	public void Kill(float respawnTime) {
-		Invoke("PlayRespawnSound", respawnTime-1.5f);
+		Invoke("PlayRespawnSound", respawnTime-1.5f); // TODO This breaks if respawnTime is 1.5f or lower?
 		Invoke("Respawn", respawnTime);
 		Kill ();
 	}

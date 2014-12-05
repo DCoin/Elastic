@@ -21,6 +21,8 @@ public class RopeCastingSegment : MonoBehaviour {
 	private float bendsCross;
 	// The collider that defines this segment.
 	private EdgeCollider2D eCol;
+	// The LineRenderer
+	private LineRenderer lr;
 
 	public static RopeCastingSegment NewSeg(RopeCasting mother, Vector2 start, RopeCastingSegment end, Collider2D col, float bendsCross) {
 		var gObj = new GameObject("RopeSegment");
@@ -44,6 +46,14 @@ public class RopeCastingSegment : MonoBehaviour {
 			var rig = gObj.AddComponent<Rigidbody2D> ();
 			rig.gravityScale = 0; // TODO fix this hack to make it collide ? (it will not detect collision if there is no non kinematic rigidbodies involved).
 		}
+
+		// Add Linerenderer
+		var lr = gObj.AddComponent<LineRenderer> ();
+		lr.SetVertexCount (2);
+		lr.SetWidth (mother.ropeWidth, mother.ropeWidth); // TODO Make variables
+		lr.material = mother.ropeMaterial;
+		nxt.lr = lr;
+
 		nxt.UpdateECol();
 		return nxt;
 	}
@@ -56,7 +66,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		nxt.mother = mother;
 		nxt.bendsCross = 0; // This value should never be used on ends
 		nxt.col = col;
-		nxt.startOffset =  nxt.col.transform.InverseTransformPoint(start);
+		nxt.startOffset = nxt.col.transform.InverseTransformPoint(start);
 		nxt.isEnd = true;
 		return nxt;
 	}
@@ -72,17 +82,15 @@ public class RopeCastingSegment : MonoBehaviour {
 			}
 		}
 		// TODO Check if start is inside a collider?
-		/* This should not be needed anymore
-		// Update ends that follow players.
-		if (isEnd) {
-			start = mother.p2.transform.position;
-		} else if (col == null) { // It is the first segment TODO add a seperate signifier for this?
-			start = mother.p1.transform.position;
-		}
-		*/
 		UpdateECol ();
 
 		CheckBend();
+	}
+
+	void Update () {
+		if (isEnd) return;
+		lr.SetPosition (0, GetStart ());
+		lr.SetPosition (1, end.GetStart());
 	}
 
 	// Check the bend at the end of this segment eg. the bend with a corner in end.start
