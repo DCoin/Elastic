@@ -18,8 +18,9 @@ public class RopeCasting : MonoBehaviour {
 	private LineRenderer lRen;
 
 	void Start () { // TODO is awake better?
-		var lastEnd = RopeCastingSegment.NewEndSeg (this, p2.transform.position); //TODO change the child order? We could do this to order the update order if needed.
-		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, null, 0);
+		// TODO Fix hack to find the real player object (Which doen't roll)
+		var lastEnd = RopeCastingSegment.NewEndSeg (this, p2.transform.position, p2.transform.parent.collider2D); //TODO change the child order? We could do this to order the update order if needed.
+		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, p1.transform.parent.collider2D, 0);
 		lRen = GetComponent<LineRenderer> ();
 	}
 
@@ -41,17 +42,18 @@ public class RopeCasting : MonoBehaviour {
 		}
 
 		// Apply forces
-		var forceP1 = CalcForce (len, i - 2, GetDirectionalSpeed(p1.rigidbody2D.velocity, ropePath.Vector().normalized));
-		var forceP2 = CalcForce (len, i - 2, GetDirectionalSpeed(p2.rigidbody2D.velocity, ropePath.Vector().normalized));
+		var forceP1 = CalcForce2 (len, i - 2, GetDirectionalSpeed(p1.rigidbody2D.velocity, ropePath.Vector().normalized));
+		var forceP2 = CalcForce2 (len, i - 2, GetDirectionalSpeed(p2.rigidbody2D.velocity, ropePath.Vector().normalized));
 		p1.rigidbody2D.AddForce(ropePath.Vector().normalized * forceP1 * forceP1, ForceMode2D.Impulse);
 		p2.rigidbody2D.AddForce(lastSeg.Vector().normalized * -forceP2 * forceP2, ForceMode2D.Impulse); // This vector goes the wrong way thus -force
-		
+
+		// TODO Move this to update
 		// Update the line renderer
 		lRen.SetVertexCount (i);
 		segment = ropePath;
 		i = 0;
 		while (segment != null) {
-			lRen.SetPosition(i, segment.start);
+			lRen.SetPosition(i, segment.GetStart());
 			segment = segment.end;
 			i++;
 		}
@@ -70,8 +72,17 @@ public class RopeCasting : MonoBehaviour {
 		if (directionalSpeed > target) return 0;
 		return (target - directionalSpeed) * acceleration;
 	}
+	
+	private float CalcForce2 (float ropeLength, int corners, float directionalSpeed) {
+		return GetRopeStretch(ropeLength) * acceleration;
+	}
+
+	private float GetRopeStretch(float ropeLength) {
+		var rope = ropeLength - minRopeDist;
+		return rope < 0 ? 0 : rope;
+	}
 
 	void OnValidate() { // OnEnable or both???
-		// Check that there is no collider between p1 and p2
+		// TODO Check that there is no collider between p1 and p2
 	}
 }

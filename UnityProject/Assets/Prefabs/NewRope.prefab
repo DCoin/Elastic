@@ -44,7 +44,7 @@ MonoBehaviour:
   p2: {fileID: 0}
   ropeOffset: .100000001
   minRopeDist: 2
-  acceleration: .0199999996
+  acceleration: .100000001
   speedMult: 15
   cornerDrag: .0500000007
 --- !u!120 &12000000
