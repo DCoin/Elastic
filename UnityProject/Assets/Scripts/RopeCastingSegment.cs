@@ -137,12 +137,14 @@ public class RopeCastingSegment : MonoBehaviour {
 	void IgnoreCollisions ()
 	{
 		Physics2D.IgnoreCollision (eCol, mother.p1.collider2D);
-		var p1 = mother.p1.transform.parent.GetComponent<PlayerController> (); // TODO avoid this hack.
+		var p1 = mother.p1.GetComponentInParent<PlayerController> (); // TODO avoid this hack.
 		if (p1 != null) Physics2D.IgnoreCollision (eCol, p1.collider2D);
+		else Physics2D.IgnoreCollision (eCol, mother.p1.collider2D);
 
 		Physics2D.IgnoreCollision (eCol, mother.p2.collider2D);
-		var p2 = mother.p2.transform.parent.GetComponent<PlayerController> (); // TODO avoid this hack
+		var p2 = mother.p2.GetComponentInParent<PlayerController> (); // TODO avoid this hack
 		if (p2 != null) Physics2D.IgnoreCollision (eCol, p2.collider2D);
+		else Physics2D.IgnoreCollision (eCol, mother.p2.collider2D);
 	}
 
 	public bool IsEnd() {
@@ -159,6 +161,10 @@ public class RopeCastingSegment : MonoBehaviour {
 	}
 	
 	void OnTriggerStay2D (Collider2D hitCol) {
+		/*var pickup = hitCol.GetComponent<PickupScript> ();
+		if (pickup != null) {
+			pickup.Pickup(mother);
+		} */
 		if (hitCol.gameObject.layer != 9) return; // Hack to ignore all but platforms
 		RopeCast ();
 	}

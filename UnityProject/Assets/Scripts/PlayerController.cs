@@ -31,7 +31,8 @@ public class PlayerController : MonoBehaviour {
 	private float impulseAdjust = 1 / 40;
 
 	// The child used for rolling
-	private GameObject roller;
+	[HideInInspector]
+	public GameObject roller;
 
 	// Audio
 	// TODO GET THIS OUT OF THE CONTROLLER! :<
@@ -53,10 +54,9 @@ public class PlayerController : MonoBehaviour {
 			GetComponent<EyeAnimator>().hat = hat.GetComponent<EyeAnimator>().hat;
 			GetComponent<EyeAnimator>().irisColor = hat.GetComponent<EyeAnimator>().irisColor;
 			Destroy (hat);
-			}
-
 		}
-	// Use this for initialization
+	}
+
 	void Start () {
 		var tmp = GameObject.Find ("DuelLogic");
 		duelmode = tmp != null ? tmp.GetComponent<DuelMode> () : null;

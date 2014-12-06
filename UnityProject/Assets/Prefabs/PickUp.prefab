@@ -75,7 +75,10 @@ MonoBehaviour:
   springdistance: 9.99999997e-07
   segments: 3
   RopePrefab: {fileID: 100000, guid: dc91d8da03682344db72efc0e927c6db, type: 2}
-  PickupAble: 1
+  pickupAble: 1
+  newRopePrefab: {fileID: 100000, guid: 5d728b193f99f4752b09871e435c6876, type: 2}
+  minRopeDist: 1
+  acceleration: .300000012
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

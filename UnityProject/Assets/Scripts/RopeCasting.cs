@@ -26,8 +26,12 @@ public class RopeCasting : MonoBehaviour {
 
 	private void InitializeSegments() {
 		// TODO Fix hack to find the real player object (Which doen't roll)
-		var lastEnd = RopeCastingSegment.NewEndSeg (this, p2.transform.position, p2.transform.parent.collider2D); //TODO change the child order? We could do this to order the update order if needed.
-		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, p1.transform.parent.collider2D, 0);
+		var p1c = p1.GetComponent<PlayerController> ();
+		var p2c = p2.GetComponent<PlayerController> ();
+		var p1col = p1c != null ? p1c.roller.collider2D : p1.collider2D;
+		var p2col = p2c != null ? p2c.roller.collider2D : p2.collider2D;
+		var lastEnd = RopeCastingSegment.NewEndSeg (this, p2.transform.position, p2col); //TODO change the child order? We could do this to order the update order if needed.
+		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, p1col, 0);
 	}
 
 	public void ResetPosition() {

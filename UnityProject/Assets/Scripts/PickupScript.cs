@@ -10,9 +10,17 @@ public class PickupScript : MonoBehaviour {
 	public float springdistance = 0.000001F;
 	public int segments = 3;
 	public GameObject RopePrefab;
-	public bool PickupAble = true;
+	public bool pickupAble = true;
+	public GameObject newRopePrefab;
+	public float minRopeDist = 1f;
+	public float acceleration = 0.3f;
 	private RopeScript rope;
 	private Vector2 respawnPoint;
+	private bool newRope = false;
+
+	void Start () {
+		if (FindObjectOfType<RopeCasting>() != null) newRope = true;
+	}
 
 	// Use this for initialization
 	void Awake () {
@@ -31,8 +39,8 @@ public class PickupScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (!GetComponent<SpringJoint2D>() && !PickupAble) {
-			PickupAble = true;
+		if (!newRope && !GetComponent<SpringJoint2D>() && !pickupAble) {
+			pickupAble = true;
 		}
 	}
 
@@ -44,7 +52,10 @@ public class PickupScript : MonoBehaviour {
 		}
 
 	void OnCollisionEnter2D(Collision2D col) {
-		if (PickupAble && col.transform.root.name != "Platforms") {
+		if (newRope) {
+			newCollision(col);
+		}
+		else if (pickupAble && col.transform.root.name != "Platforms") {
 			Transform Squad = col.gameObject.transform.root;
 			rigidbody2D.isKinematic = false;
 			GameObject go = Instantiate (RopePrefab, transform.position, Quaternion.identity) as GameObject;
@@ -81,7 +92,36 @@ public class PickupScript : MonoBehaviour {
 					}
 				}
 			}
-			PickupAble = false;
+			pickupAble = false;
+		}
+	}
+
+	void newCollision (Collision2D col)
+	{
+		if (pickupAble) {
+			var player = col.gameObject.GetComponentInParent<PlayerController> ();
+			if (player != null) {
+				Pickup(player);
 			}
+		}
+	}
+
+	public void Pickup (PlayerController player)
+	{
+		var squad = player.GetComponentInParent<Squad> ();
+		if (squad == null) {
+			Debug.LogError("Squad of the rope was not found");
+			return;
+		}
+
+		var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a cope of the players rope instead to get color etc.
+		var rope = ropeO.GetComponent<RopeCasting> ();
+		rope.p1 = player.roller;
+		rope.p2 = gameObject;
+		rope.minRopeDist = minRopeDist;
+		rope.acceleration = acceleration;
+		rigidbody2D.isKinematic = false; // TODO brug gravityscale = 0?
+
+		pickupAble = false;
 	}
 }

@@ -127,7 +127,7 @@ public class DuelMode : MonoBehaviour {
 
 		// Pickup
 		rect = areas[currentArea].GetAreaInGlobal();
-		if (pu.PickupAble) {
+		if (pu.pickupAble) {
 			Vector2 pos = pu.transform.position;
 			if (pos.x > rect.xMax ||
 				pos.y < rect.yMin ||
