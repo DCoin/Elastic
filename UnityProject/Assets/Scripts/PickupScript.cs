@@ -12,14 +12,21 @@ public class PickupScript : MonoBehaviour {
 	public GameObject RopePrefab;
 	public bool pickupAble = true;
 	public GameObject newRopePrefab;
-	public float minRopeDist = 1f;
-	public float acceleration = 0.3f;
+	//public float minRopeDist = 1f;
+	//public float acceleration = 0.3f;
 	private RopeScript rope;
 	private Vector2 respawnPoint;
 	private bool newRope = false;
+	public RopeCasting newRopeCast;
 
 	void Start () {
 		if (FindObjectOfType<RopeCasting>() != null) newRope = true;
+		if (newRope) {
+			if (newRopeCast == null) {
+				Debug.LogError("Pickup should have a NewRope attached when using the new rope");
+				return;
+			}
+		}
 	}
 
 	// Use this for initialization
@@ -114,18 +121,26 @@ public class PickupScript : MonoBehaviour {
 			return;
 		}
 
-		var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
-		ropeO.transform.parent = player.transform.root; // I dont like this but im going to keep using it anyway
-		ropeO.name = "PickupRope";
-		var rope = ropeO.GetComponent<RopeCasting> ();
-		rope.p1 = player.roller;
-		rope.p2 = gameObject;
-		rope.minRopeDist = minRopeDist;
-		rope.acceleration = acceleration;
+		squad.hasPickup = true;
+
+		//var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
+		//ropeO.transform.parent = player.transform.root; // I dont like this but im going to keep using it anyway
+		//ropeO.name = "PickupRope";
+		//var rope = ropeO.GetComponent<RopeCasting> ();
+		newRopeCast.gameObject.SetActive (true);
+		newRopeCast.p1 = player.roller;
+		newRopeCast.p2 = gameObject;
+		//newRopeCast.minRopeDist = minRopeDist;
+		//newRopeCast.acceleration = acceleration;
 		rigidbody2D.isKinematic = false; // TODO brug gravityscale = 0?
 
 		//player.
 
 		pickupAble = false;
+	}
+
+	public void unlink () {
+		newRopeCast.DestroySegments ();
+		newRopeCast.gameObject.SetActive (false);
 	}
 }

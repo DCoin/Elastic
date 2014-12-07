@@ -131,7 +131,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		// TODO this could be done once for the segments that don't move
 		// TODO Do we need the inverser transforms?
 		if (!isEnd) 
-		eCol.points = new Vector2[] {GetStart(), end.GetStart()};
+		eCol.points = new Vector2[] {transform.InverseTransformPoint(GetStart()), transform.InverseTransformPoint(end.GetStart())};
 	}
 
 	void IgnoreCollisions ()

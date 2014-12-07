@@ -40,7 +40,7 @@ public class RopeCasting : MonoBehaviour {
 		InitializeSegments ();
 	}
 
-	private void DestroySegments() {
+	public void DestroySegments() {
 		foreach (var o in GetComponentsInChildren<RopeCastingSegment>()) {
 			Destroy (o.gameObject);
 		}

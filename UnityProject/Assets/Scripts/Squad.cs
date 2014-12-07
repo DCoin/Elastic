@@ -13,6 +13,8 @@ public class Squad : MonoBehaviour {
 	public AudioClip respawnSound;
 	public float respawnSoundVolume = 0.6f;
 
+	public bool hasPickup = false;
+
 	private AudioSource audioSource;
 
 	// Use this for initialization
