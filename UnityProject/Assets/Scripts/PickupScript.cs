@@ -60,7 +60,7 @@ public class PickupScript : MonoBehaviour {
 			rigidbody2D.isKinematic = false;
 			GameObject go = Instantiate (RopePrefab, transform.position, Quaternion.identity) as GameObject;
 			rope = go.GetComponent<RopeScript> ();
-			rope.gameObject.name = "Rope2";
+			rope.gameObject.name = "PickupRope";
 			rope.transform.parent = Squad;
 			rope.objects [1] = gameObject;
 			rope.ropeDrag = ropeDrag;
@@ -114,13 +114,17 @@ public class PickupScript : MonoBehaviour {
 			return;
 		}
 
-		var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a cope of the players rope instead to get color etc.
+		var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
+		ropeO.transform.parent = player.transform.root; // I dont like this but im going to keep using it anyway
+		ropeO.name = "PickupRope";
 		var rope = ropeO.GetComponent<RopeCasting> ();
 		rope.p1 = player.roller;
 		rope.p2 = gameObject;
 		rope.minRopeDist = minRopeDist;
 		rope.acceleration = acceleration;
 		rigidbody2D.isKinematic = false; // TODO brug gravityscale = 0?
+
+		//player.
 
 		pickupAble = false;
 	}

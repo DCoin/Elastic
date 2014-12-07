@@ -14,7 +14,11 @@ public class LevelDivider : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
-		if (col.transform.root.Find ("Rope2")) {
+		// New Rope
+		//if (col.gameObject.GetComponentInParent<Squad>()
+		
+		// Old rope
+		if (col.transform.root.Find ("PickupRope")) { // I dont like this but im going to keep using it anyway
 				transform.collider2D.isTrigger = true;
 				}
 	}
