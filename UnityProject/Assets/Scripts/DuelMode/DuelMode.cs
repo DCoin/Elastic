@@ -17,7 +17,7 @@ public class DuelMode : MonoBehaviour {
 	public GameObject squad2;
 	public GameObject pickup;
 
-	public float RespawnTime = 2.0F;
+	public float respawnTime = 2.0F;
 
 	private Squad sq1;
 	private Squad sq2;
@@ -59,6 +59,13 @@ public class DuelMode : MonoBehaviour {
 		sq1 = squad1.GetComponent<Squad>() as Squad;
 		sq2 = squad2.GetComponent<Squad>() as Squad;
 		pu = pickup.GetComponent<PickupScript>() as PickupScript;
+
+		// Set up kill on squads
+		// We assume Squads only have one rope
+		var rope = squad1.GetComponentInChildren<RopeCasting> ();
+		if (rope != null) {
+			rope.killActions += () => sq1.Kill(respawnTime);
+		}
 
 		// Set up state according to starting area
 		currentArea = startArea;

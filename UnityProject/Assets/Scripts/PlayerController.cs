@@ -181,11 +181,11 @@ public class PlayerController : MonoBehaviour {
 		}
 		// TODO Revise this approach to killing after we get a new Rope 
 		if (col.name.Contains ("Joint") && col.transform.root != transform.root) {
-				if (IsHeavy) {
-					if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
-						//TODO Dont hardcode this!! Get it from the DuelMode prefab
+			if (IsHeavy) {
+				if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
+					//TODO Dont hardcode this!! Get it from the DuelMode prefab
 					if (duelmode != null)
-						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.RespawnTime);
+						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.respawnTime);
 				}
 			}
 		}

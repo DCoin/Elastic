@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 //[RequireComponent (typeof (LineRenderer))]
@@ -13,10 +14,14 @@ public class RopeCasting : MonoBehaviour {
 	public float acceleration = 0.1f;
 	public Material ropeMaterial;
 	public float ropeWidth = 0.15f;
+	public delegate void KillAction ();
+	public KillAction killActions;
+
 	private float speedMult = 15f;
 	private float cornerDrag = 0f;
 	private float length = 0f;
 	private int segCount = 0;
+	private HashSet<Collider2D> crossColliders;
 
 	private RopeCastingSegment ropePath;
 
@@ -32,6 +37,8 @@ public class RopeCasting : MonoBehaviour {
 		var p2col = p2c != null ? p2c.roller.collider2D : p2.collider2D;
 		var lastEnd = RopeCastingSegment.NewEndSeg (this, p2.transform.position, p2col); //TODO change the child order? We could do this to order the update order if needed.
 		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, p1col, 0);
+		crossColliders = null;
+		GetCrossColliders ();
 	}
 
 	public void ResetPosition() {
@@ -76,6 +83,32 @@ public class RopeCasting : MonoBehaviour {
 		length = len;
 		segCount = i;
 		return lastSeg;
+	}
+
+	public HashSet<Collider2D> GetCrossColliders ()
+	{
+		if (crossColliders != null) return crossColliders;
+		crossColliders = new HashSet<Collider2D> ();
+		var squad = p1.GetComponentInParent<Squad> ();
+		if (squad != null) {
+			foreach (var col in squad.GetComponentsInChildren<Collider2D> ()) {
+				if (col.gameObject.layer == 11) crossColliders.Add(col);
+			}
+		}
+		squad = p2.GetComponentInParent<Squad> ();
+		if (squad != null) {
+			foreach (var col in squad.GetComponentsInChildren<Collider2D> ()) {
+				if (col.gameObject.layer == 11) crossColliders.Add(col);
+			}
+		}
+		return crossColliders;
+	}
+
+	public void KillRope ()
+	{
+		DestroySegments ();
+		if (killActions != null) killActions ();
+		gameObject.SetActive (false);
 	}
 
 	private float GetDirectionalSpeed(Vector2 velocity, Vector2 direction) {
