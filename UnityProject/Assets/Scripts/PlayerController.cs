@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 
 	//public PhysicsMaterial2D stoneMat;
 
-	private bool onGround = false;
+	public bool onGround {get; private set;}
 	private float baseMass;
 	private float baseGScale;
 	//private int currentPlatformId;
@@ -40,10 +40,12 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip landSound;
 	public float landSoundVolume = 0.6f;
 
+	// TODO THIS GON' DIE SOON :D:D:D:D:D:D
 	private DuelMode duelmode;
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
+
 	void OnLevelWasLoaded(int level) {
 		print ("Level was loaded");
 		GameObject hat = GameObject.Find (transform.name+"Hat");
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start () {
+		onGround = false;
 		var tmp = GameObject.Find ("DuelLogic");
 		duelmode = tmp != null ? tmp.GetComponent<DuelMode> () : null;
 		var t = transform.Find ("Collider");
