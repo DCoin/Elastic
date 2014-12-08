@@ -17,7 +17,6 @@ public class HatSelectionController : MonoBehaviour {
 	private List<Color> colors = new List<Color>();
 	public GameObject hatPicker;
 	private HatPicker hatPickerScript;
-
 	public HatManager.HatNames  hat;
 
 
@@ -39,6 +38,7 @@ public class HatSelectionController : MonoBehaviour {
 		Object.DontDestroyOnLoad (gameObject);
 		hatPickerScript = GameObject.Find ("HatPicker").GetComponent<HatPicker> ();
 	}
+
 	
 	// Update is called once per frame
 	void FixedUpdate () {

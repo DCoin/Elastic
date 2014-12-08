@@ -44,17 +44,21 @@ public class PlayerController : MonoBehaviour {
 
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
+
 	void OnLevelWasLoaded(int level) {
-		print ("Level was loaded");
 		GameObject hat = GameObject.Find (transform.name+"Hat");
 
 		if (hat != null) {
-			print("Setting a hat: " + transform.name);
-			print (hat.GetComponent<EyeAnimator>().hat);
-			GetComponent<EyeAnimator>().hat = hat.GetComponent<EyeAnimator>().hat;
-			GetComponent<EyeAnimator>().irisColor = hat.GetComponent<EyeAnimator>().irisColor;
-			Destroy (hat);
-		}
+						GetComponent<EyeAnimator> ().hat = hat.GetComponent<EyeAnimator> ().hat;
+						GetComponent<EyeAnimator> ().irisColor = hat.GetComponent<EyeAnimator> ().irisColor;
+						Destroy (hat);
+				} else {
+			try {
+				if (transform.root.name != "Kill") { //Dont kill the killsquad in Tutorial
+			Destroy (gameObject.transform.root.gameObject);
+				}
+			} catch { }
+				}
 	}
 
 	void Start () {

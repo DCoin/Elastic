@@ -2,7 +2,7 @@
 
 function Start () {}
 
-var IsStoryButton = false;
+var IsPlaygroundButton = false;
 var IsTutorialButton = false;
 var IsLevelButton = false;
 var IsQuitButton = false;
@@ -19,7 +19,7 @@ renderer.material.color = Color.white;
 
 function OnMouseUp()
 {
-	if (IsStoryButton){
+	if (IsPlaygroundButton){
 			Application.LoadLevel(3);
 			}
 	else if (IsTutorialButton) {
