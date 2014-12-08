@@ -8,9 +8,8 @@ public class HatSelectionController : MonoBehaviour {
 	public int controller = 0;
 	public bool leftSide = true;
 
-	private System.Array hatArray;
 	private System.Array colorArray;
-	private int hatindex = 0;
+	public int hatindex = 0;
 	private int colorindex = 0;
 	public float hatSelectionDelay = 0.2f;
 	private float lastHatSelection;
@@ -19,10 +18,11 @@ public class HatSelectionController : MonoBehaviour {
 	public GameObject hatPicker;
 	private HatPicker hatPickerScript;
 
+	public HatManager.HatNames  hat;
+
 
 	// Use this for initialization
 	void Start () {
-		hatArray = HatManager.HatNames.GetValues(typeof(HatManager.HatNames));
 		colors.Add (Color.black);
 		colors.Add (Color.blue);
 		colors.Add (new Color(159.0f/255.0f, 200.0f/255.0f, 255.0f/255.0f)); // light blue
@@ -42,23 +42,25 @@ public class HatSelectionController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (lastHatSelection + hatSelectionDelay < Time.fixedTime) { // TODO Unnest ifs? (Do whatever makes the code more self-explanatory -Kasra)
+		if (lastHatSelection + hatSelectionDelay < Time.fixedTime) {
 			lastHatSelection = Time.fixedTime;
 			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {
 			hatindex--;
 				if (hatindex < 0) {
-					hatindex = hatArray.Length-1;
+					hatindex = hatPickerScript.hatArray.Count-1;
 				}
-				GetComponent<EyeAnimator>().ChangeHat((HatManager.HatNames)hatArray.GetValue(hatindex));
+				hat = hatPickerScript.hatArray [hatindex];
+				GetComponent<EyeAnimator>().ChangeHat(hat);
 				audio.clip = hatPickerScript.hatSwap;
 				audio.Play();
 		}
 			else if (ControllerManager.GetHeavyInputBool (controller, leftSide) && !checkedOut) {
 				hatindex++;
-				if (hatindex > hatArray.Length-1) {
+				if (hatindex > hatPickerScript.hatArray.Count-1) {
 					hatindex = 0;
 				}
-				GetComponent<EyeAnimator>().ChangeHat((HatManager.HatNames)hatArray.GetValue(hatindex));
+				hat = hatPickerScript.hatArray [hatindex];
+				GetComponent<EyeAnimator>().ChangeHat(hat);
 				audio.clip = hatPickerScript.hatSwap;
 				audio.Play();
 			}
@@ -88,6 +90,9 @@ public class HatSelectionController : MonoBehaviour {
 						mesh.enabled = true;
 					}
 					hatPickerScript.count += 1;
+					hatPickerScript.hatArray.Remove(hat);
+					//Remove hats from other players
+					RemoveHat(hat);
 					audio.clip = hatPickerScript.playerReady;
 					audio.Play();
 				} else {
@@ -96,9 +101,26 @@ public class HatSelectionController : MonoBehaviour {
 						mesh.enabled = false;
 					}
 					hatPickerScript.count -= 1;
+					hatPickerScript.hatArray.Add (hat);
 				}
 		}
 		}
 			
 		}
+
+	void RemoveHat(HatManager.HatNames hat) {
+		foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) {
+			if (p.transform.name != transform.name) {
+				var HatSel = p.GetComponent<HatSelectionController>();
+				if (HatSel.hat == hat) {
+					HatSel.hatindex++;
+					if (HatSel.hatindex > hatPickerScript.hatArray.Count-1) {
+						HatSel.hatindex = 0;
+					}
+					HatSel.hat = hatPickerScript.hatArray[HatSel.hatindex];
+					p.GetComponent<EyeAnimator>().ChangeHat(HatSel.hat);
+				}
+			}
+		}
+	}
 }
