@@ -117,6 +117,24 @@ public class ControllerManager {
 			return (InputManager.Devices[controller].RightStickButton.Value> 0.001f) ? true : false;
 	}
 
+	/// <summary>
+	/// Gets if any controller paused.
+	/// </summary>
+	/// <returns>The pause input.</returns>
+	public static bool GetPauseButtonInput() {
+		return InputManager.MenuWasPressed;
+	}
+
+	/// <summary>
+	/// Gets the pause input as bool.
+	/// </summary>
+	/// <returns>The pause input.</returns>
+	/// <param name="controller">Controller index.</param>
+	public static bool GetPauseButtonInput(int controller) {
+		if (!checkController(controller)) return false;
+		return InputManager.Devices[controller].MenuWasPressed;
+	}
+
 	// TODO add method comment
 	private static bool checkController(int controller) {
 		if (InputManager.Devices.Count > controller) return true;

@@ -69,6 +69,12 @@ namespace NameSpace //TODO what name???
 					// KeyCodeComboButton requires that all KeyCode params are down simultaneously.
 					Source = KeyCodeComboButton( KeyCode.LeftAlt, KeyCode.Alpha1 )
 				},
+				new InputControlMapping
+				{
+					Handle = "Pause",
+					Target = InputControlType.Start,
+					Source = KeyCodeButton(KeyCode.P, KeyCode.Escape, KeyCode.Pause)
+				}
 			};
 
 			AnalogMappings = new[]
