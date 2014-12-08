@@ -118,6 +118,20 @@ public class ControllerManager {
 	}
 
 	/// <summary>
+	/// Gets the A button input as bool.
+	/// </summary>
+	/// <returns>The A button input.</returns>
+	/// <param name="controller">Controller index.</param>
+	/// <param name="leftSide">Set to <c>true</c> if left side of controller.</param>
+	public static bool GetAButtonInput(int controller, bool leftSide) {
+		if (!checkController(controller)) return false;
+		if (leftSide)
+			return (InputManager.Devices[controller].Action1.Value > 0.001f) ? true : false;
+		else 
+			return (InputManager.Devices[controller].Action1.Value> 0.001f) ? true : false;
+	}
+
+	/// <summary>
 	/// Gets if any controller paused.
 	/// </summary>
 	/// <returns>The pause input.</returns>

@@ -27,10 +27,12 @@ public class FollowCam : MonoBehaviour {
 		float maxY = first.y;
 
 		foreach (var g in objects) {
-			minX = Mathf.Min(minX, g.transform.position.x);
-			minY = Mathf.Min(minY, g.transform.position.y);
-			maxX = Mathf.Max(maxX, g.transform.position.x);
-			maxY = Mathf.Max(maxY, g.transform.position.y);
+			if (g != null) {
+				minX = Mathf.Min(minX, g.transform.position.x);
+				minY = Mathf.Min(minY, g.transform.position.y);
+				maxX = Mathf.Max(maxX, g.transform.position.x);
+				maxY = Mathf.Max(maxY, g.transform.position.y);
+			}
 		}
 
 		Vector2 minPoint = new Vector2(minX, minY);
