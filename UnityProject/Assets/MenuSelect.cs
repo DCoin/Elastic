@@ -29,7 +29,7 @@ public class MenuSelect : MonoBehaviour {
 
 	void OnLevelWasLoaded (int level) {
 		//Change the seletable items on the duel arena select level scene
-		if (level == 5) {
+		if (level == 3) {
 			MenuItems = new GameObject[] {GameObject.Find ("Level1"), GameObject.Find ("Level2"), GameObject.Find ("Level3")};
 			camScript = GameObject.Find ("Main Camera").GetComponent<SelectArenaMoveScript>();  
 				}
@@ -40,14 +40,16 @@ public class MenuSelect : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 				if (lastHatSelection + SelectionDelay < Time.fixedTime) {
-						lastHatSelection = Time.fixedTime;
+			
+			print (menuselect);
+			lastHatSelection = Time.fixedTime;
 						if (ControllerManager.GetJumpInputBool (0, true)) {
 								menuselect--;
 								if (menuselect < 0) {
 								menuselect = MenuItems.Length-1;
 								}
 								ChangeColor (menuselect);
-				if (currentlevel == 5) {
+				if (currentlevel == 3) {
 					print ("ms" + menuselect);
 					camScript.newPos = new Vector3 (0.0f, (menuselect*-2.5f),-10.0f);
 				}
@@ -57,9 +59,7 @@ public class MenuSelect : MonoBehaviour {
 										menuselect = 0;
 								}
 								ChangeColor (menuselect);
-				print ("eh"+currentlevel);
-				if (currentlevel == 5) {
-					print ("ms" + menuselect);
+				if (currentlevel == 3) {
 					camScript.newPos = new Vector3 (0.0f, (menuselect*-2.5f),-10.0f);
 				}
 						} else if (ControllerManager.GetStickButtonInput (0, true) || ControllerManager.GetAButtonInput (0, true)) {
@@ -73,9 +73,10 @@ public class MenuSelect : MonoBehaviour {
 										nextlevel = 5;
 										Application.LoadLevel (1); //SelectPlayerNo scene
 								} else  if (menuselect == 2) {
-										Application.LoadLevel (5); //SelectPlayerNo scene
+										nextlevel = 6;
+										Application.LoadLevel (3); //Select duel level scene
 								}
-				} else if (currentlevel == 5) {
+				} else if (nextlevel == 6) {
 					if (menuselect == 0) {
 						nextlevel = 6; // Duel level 1
 					} else if (menuselect == 1) {

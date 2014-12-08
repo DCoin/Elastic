@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 				if (transform.root.name != "Kill") { //Dont kill the killsquad in Tutorial
 			Destroy (gameObject.transform.root.gameObject);
 				}
+				Destroy (GameObject.Find ("MenuItems"));
 			} catch { }
 				}
 	}

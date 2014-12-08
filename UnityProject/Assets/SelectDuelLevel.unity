@@ -206,7 +206,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: d41c17f50a15ee043bbf51e0c1fd3fe8, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4278255615
 --- !u!61 &567643129
 BoxCollider2D:
   m_ObjectHideFlags: 0
