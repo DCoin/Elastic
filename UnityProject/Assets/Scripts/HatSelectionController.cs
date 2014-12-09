@@ -10,6 +10,7 @@ public class HatSelectionController : MonoBehaviour {
 
 	private System.Array colorArray;
 	public int hatindex = 0;
+	private int teamindex = 0;
 	private int colorindex = 0;
 	public float hatSelectionDelay = 0.2f;
 	private float lastHatSelection;
@@ -18,6 +19,7 @@ public class HatSelectionController : MonoBehaviour {
 	public GameObject hatPicker;
 	private HatPicker hatPickerScript;
 	public HatManager.HatNames  hat;
+	public bool setHats = false;
 
 
 	// Use this for initialization
@@ -44,8 +46,9 @@ public class HatSelectionController : MonoBehaviour {
 	void FixedUpdate () {
 		if (lastHatSelection + hatSelectionDelay < Time.fixedTime) {
 			lastHatSelection = Time.fixedTime;
-			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {
-			hatindex--;
+			if (ControllerManager.GetJumpInputBool (controller, leftSide) && (!checkedOut || hatPickerScript.done)) {
+				if (!hatPickerScript.done) {
+				hatindex--;
 				if (hatindex < 0) {
 					hatindex = hatPickerScript.hatArray.Count-1;
 				}
@@ -53,6 +56,13 @@ public class HatSelectionController : MonoBehaviour {
 				GetComponent<EyeAnimator>().ChangeHat(hat);
 				audio.clip = hatPickerScript.hatSwap;
 				audio.Play();
+				} else {
+					teamindex--;
+					if (teamindex < 0) {
+						teamindex = hatPickerScript.teamArray.Count-1;
+					}
+					GetComponentInChildren<SpriteRenderer>().sprite = hatPickerScript.teamArray[teamindex];
+				}
 		}
 			else if (ControllerManager.GetHeavyInputBool (controller, leftSide) && !checkedOut) {
 				hatindex++;

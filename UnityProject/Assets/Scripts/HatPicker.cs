@@ -9,7 +9,10 @@ public class HatPicker : MonoBehaviour {
 	public AudioClip playerReady;
 	public AudioClip eyeColorSwap;
 	public AudioClip hatSwap;
+	public bool done = false;
+	public bool changelevel = false;
 	public List<HatManager.HatNames> hatArray;
+	public List<Sprite> teamArray;
 
 	private int eyeCount;
 	private int nextlevel;
@@ -49,7 +52,13 @@ public class HatPicker : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (count >= eyeCount) {
-			Application.LoadLevel(nextlevel);
-		}
+						if (nextlevel >= 6 && !done) { //Duel, which means 2x2
+								done = true;
+								count = 0;
+								eyeCount = eyeCount / 2; // we use this as teams now
+						} else if (done) {
+								Application.LoadLevel (nextlevel);
+						}
+				}
 	}
 }

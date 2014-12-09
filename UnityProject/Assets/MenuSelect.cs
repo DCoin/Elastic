@@ -40,8 +40,7 @@ public class MenuSelect : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 				if (lastHatSelection + SelectionDelay < Time.fixedTime) {
-			
-			print (menuselect);
+
 			lastHatSelection = Time.fixedTime;
 						if (ControllerManager.GetJumpInputBool (0, true)) {
 								menuselect--;
@@ -50,7 +49,6 @@ public class MenuSelect : MonoBehaviour {
 								}
 								ChangeColor (menuselect);
 				if (currentlevel == 3) {
-					print ("ms" + menuselect);
 					camScript.newPos = new Vector3 (0.0f, (menuselect*-2.5f),-10.0f);
 				}
 						} else if (ControllerManager.GetHeavyInputBool (0, true)) {
@@ -76,7 +74,7 @@ public class MenuSelect : MonoBehaviour {
 										nextlevel = 6;
 										Application.LoadLevel (3); //Select duel level scene
 								}
-				} else if (nextlevel == 6) {
+				} else if (nextlevel == 6) { //I DUNNO WHAT THIS IS
 					if (menuselect == 0) {
 						nextlevel = 6; // Duel level 1
 					} else if (menuselect == 1) {
@@ -85,7 +83,7 @@ public class MenuSelect : MonoBehaviour {
 						nextlevel = 6; // Duel level 3
 					}
 					eyeCount = 4;
-					Application.LoadLevel (2); //SelectPlayerNo scene
+					Application.LoadLevel (2); // scene
 				}
 						}
 				}

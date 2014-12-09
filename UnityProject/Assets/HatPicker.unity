@@ -551,6 +551,9 @@ Transform:
   - {fileID: 538177450}
   - {fileID: 313642170}
   - {fileID: 355381272}
+  - {fileID: 2040146987}
+  - {fileID: 751443647}
+  - {fileID: 1810728992}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &414287129
@@ -570,6 +573,7 @@ MonoBehaviour:
   hatSelectionDelay: .200000003
   hatPicker: {fileID: 0}
   hat: 0
+  setHats: 0
 --- !u!114 &414287130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,6 +1045,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1623420335}
   m_RootOrder: 3
+--- !u!1 &751443646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 751443647}
+  - 61: {fileID: 751443648}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &751443647
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  m_GameObject: {fileID: 751443646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 414287128}
+  m_RootOrder: 5
+--- !u!61 &751443648
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  m_GameObject: {fileID: 751443646}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .899999976, y: .372825205}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &784257680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1123,7 @@ MonoBehaviour:
   hatSelectionDelay: .200000003
   hatPicker: {fileID: 0}
   hat: 0
+  setHats: 0
 --- !u!114 &784257682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1157,6 +1202,8 @@ Transform:
   - {fileID: 2089529612}
   - {fileID: 451942325}
   - {fileID: 112195925}
+  - {fileID: 1504707479}
+  - {fileID: 1353181071}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!82 &784257687
@@ -1302,6 +1349,7 @@ MonoBehaviour:
   hatSelectionDelay: .200000003
   hatPicker: {fileID: 0}
   hat: 0
+  setHats: 0
 --- !u!114 &878700030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1380,6 +1428,8 @@ Transform:
   - {fileID: 364807796}
   - {fileID: 1407101288}
   - {fileID: 2116918266}
+  - {fileID: 1136531263}
+  - {fileID: 2090566182}
   m_Father: {fileID: 0}
   m_RootOrder: 7
 --- !u!82 &878700035
@@ -1471,7 +1521,18 @@ MonoBehaviour:
   playerReady: {fileID: 8300000, guid: b4c13920156d4d44c90ba9a210569714, type: 3}
   eyeColorSwap: {fileID: 8300000, guid: 8ed481188375b654eabe2231d3db4ef7, type: 3}
   hatSwap: {fileID: 8300000, guid: 0d2c41dda364fe5499906024f92b0181, type: 3}
+  done: 0
+  changelevel: 0
   hatArray: 
+  teamArray:
+  - {fileID: 21300000, guid: 38ab666cf7ae4244e964744679b5432c, type: 3}
+  - {fileID: 21300000, guid: ac0dd8b68e43eae4c85cc67f9ae83514, type: 3}
+  - {fileID: 21300000, guid: 47ce5c5cc350ba64e98c24a272f492ff, type: 3}
+  - {fileID: 21300000, guid: 8791b1f48335cfd408913d330ffe88ee, type: 3}
+  - {fileID: 21300000, guid: 6eef165a5088a6f47ae0bddcc3fc34b6, type: 3}
+  - {fileID: 21300000, guid: c64a4a5b15d756e43965d9e35839aac0, type: 3}
+  - {fileID: 21300000, guid: d2cf5ceb22e3ad64abae71fa69c4536a, type: 3}
+  - {fileID: 21300000, guid: c473de8cd21cb64419b39718db733315, type: 3}
 --- !u!4 &926390322
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,6 +1589,46 @@ Prefab:
   m_RootGameObject: {fileID: 871473835}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1136531262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1136531263}
+  - 61: {fileID: 1136531264}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1136531263
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  m_GameObject: {fileID: 1136531262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 878700034}
+  m_RootOrder: 4
+--- !u!61 &1136531264
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100002, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  m_GameObject: {fileID: 1136531262}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .372825176, y: .899999976}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1217470172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,6 +1755,46 @@ Prefab:
   m_RootGameObject: {fileID: 784257680}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1353181070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1353181071}
+  - 61: {fileID: 1353181072}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1353181071
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  m_GameObject: {fileID: 1353181070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 784257686}
+  m_RootOrder: 5
+--- !u!61 &1353181072
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  m_GameObject: {fileID: 1353181070}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .899999976, y: .372825205}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1381817944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,6 +2161,46 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1 &1504707478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1504707479}
+  - 61: {fileID: 1504707480}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1504707479
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  m_GameObject: {fileID: 1504707478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 784257686}
+  m_RootOrder: 4
+--- !u!61 &1504707480
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100002, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1287144315}
+  m_GameObject: {fileID: 1504707478}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .372825176, y: .899999976}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1623420334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2236,8 @@ Transform:
   - {fileID: 1381817945}
   - {fileID: 1503738428}
   - {fileID: 628769189}
+  - {fileID: 1812148632}
+  - {fileID: 1996221942}
   m_Father: {fileID: 0}
   m_RootOrder: 5
 --- !u!114 &1623420336
@@ -2074,6 +2257,7 @@ MonoBehaviour:
   hatSelectionDelay: .200000003
   hatPicker: {fileID: 0}
   hat: 0
+  setHats: 0
 --- !u!114 &1623420337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2279,6 +2463,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &1810728991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1810728992}
+  - 212: {fileID: 1810728993}
+  m_Layer: 0
+  m_Name: TeamSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1810728992
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810728991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .553387821, y: .019891357, z: 0}
+  m_LocalScale: {x: .848786712, y: .305563301, z: 1.52781653}
+  m_Children: []
+  m_Father: {fileID: 414287128}
+  m_RootOrder: 6
+--- !u!212 &1810728993
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810728991}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 21300000, guid: c473de8cd21cb64419b39718db733315, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &1812148631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1812148632}
+  - 61: {fileID: 1812148633}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1812148632
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  m_GameObject: {fileID: 1812148631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1623420335}
+  m_RootOrder: 4
+--- !u!61 &1812148633
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100002, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  m_GameObject: {fileID: 1812148631}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .372825176, y: .899999976}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &1875242250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2610,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1623420335}
   m_RootOrder: 0
+--- !u!1 &1996221941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1996221942}
+  - 61: {fileID: 1996221943}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1996221942
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  m_GameObject: {fileID: 1996221941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1623420335}
+  m_RootOrder: 5
+--- !u!61 &1996221943
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 114188745}
+  m_GameObject: {fileID: 1996221941}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .899999976, y: .372825205}
+  m_Center: {x: 0, y: 0}
+--- !u!1 &2040146986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2040146987}
+  - 61: {fileID: 2040146988}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2040146987
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400006, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  m_GameObject: {fileID: 2040146986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 414287128}
+  m_RootOrder: 4
+--- !u!61 &2040146988
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100002, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 443811252}
+  m_GameObject: {fileID: 2040146986}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .372825176, y: .899999976}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &2089529611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2392,6 +2746,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2089529611}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2090566181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2090566182}
+  - 61: {fileID: 2090566183}
+  m_Layer: 11
+  m_Name: RopeColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090566182
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: 7da59b77995a245c098cc851f0e53ddc, type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  m_GameObject: {fileID: 2090566181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 878700034}
+  m_RootOrder: 5
+--- !u!61 &2090566183
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6100000, guid: 7da59b77995a245c098cc851f0e53ddc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1421801723}
+  m_GameObject: {fileID: 2090566181}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Size: {x: .899999976, y: .372825205}
+  m_Center: {x: 0, y: 0}
 --- !u!1 &2116918263
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,6 @@ public class PlayerNoSelect : MonoBehaviour {
 				GetComponent<TextMesh> ().text = eyeChoices[menuselect].ToString();
 			} else if (ControllerManager.GetStickButtonInput (0, true) || ControllerManager.GetAButtonInput (0, true)) {
 				eyeCount = eyeChoices[menuselect];
-				print ("Eyecount" + eyeCount);
 				Application.LoadLevel(2); //HatPicker scene
 			}
 		}
