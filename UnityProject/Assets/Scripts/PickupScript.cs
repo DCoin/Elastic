@@ -17,15 +17,19 @@ public class PickupScript : MonoBehaviour {
 	private RopeScript rope;
 	private Vector2 respawnPoint;
 	private bool newRope = false;
-	public RopeCasting newRopeCast;
+	private RopeCasting newRopeCast;
+	private Squad squad;
 
 	void Start () {
 		if (FindObjectOfType<RopeCasting>() != null) newRope = true;
 		if (newRope) {
-			if (newRopeCast == null) {
-				Debug.LogError("Pickup should have a NewRope attached when using the new rope");
+			var ropes = GetComponentsInChildren<RopeCasting> (true);
+			if (ropes.Length == 0) {
+				Debug.LogError("Failed at creating new rope");
 				return;
 			}
+			newRopeCast = ropes[0];
+			newRopeCast.killActions += unlink;
 		}
 	}
 
@@ -63,12 +67,12 @@ public class PickupScript : MonoBehaviour {
 			newCollision(col);
 		}
 		else if (pickupAble && col.transform.root.name != "Platforms") {
-			Transform Squad = col.gameObject.transform.root;
+			Transform squad = col.gameObject.transform.root;
 			rigidbody2D.isKinematic = false;
 			GameObject go = Instantiate (RopePrefab, transform.position, Quaternion.identity) as GameObject;
 			rope = go.GetComponent<RopeScript> ();
 			rope.gameObject.name = "PickupRope";
-			rope.transform.parent = Squad;
+			rope.transform.parent = squad;
 			rope.objects [1] = gameObject;
 			rope.ropeDrag = ropeDrag;
 			rope.ropeMass = ropeMass;
@@ -115,32 +119,37 @@ public class PickupScript : MonoBehaviour {
 
 	public void Pickup (PlayerController player)
 	{
-		var squad = player.GetComponentInParent<Squad> ();
+		squad = player.GetComponentInParent<Squad> ();
 		if (squad == null) {
-			Debug.LogError("Squad of the rope was not found");
+			Debug.LogError("Squad of the player was not found");
 			return;
 		}
 
-		squad.hasPickup = true;
+		squad.pickup = this;
+
 
 		//var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
 		//ropeO.transform.parent = player.transform.root; // I dont like this but im going to keep using it anyway
 		//ropeO.name = "PickupRope";
 		//var rope = ropeO.GetComponent<RopeCasting> ();
-		newRopeCast.gameObject.SetActive (true);
 		newRopeCast.p1 = player.roller;
 		newRopeCast.p2 = gameObject;
+		newRopeCast.Activate ();
 		//newRopeCast.minRopeDist = minRopeDist;
 		//newRopeCast.acceleration = acceleration;
 		rigidbody2D.isKinematic = false; // TODO brug gravityscale = 0?
 
-		//player.
-
 		pickupAble = false;
 	}
 
-	public void unlink () {
-		newRopeCast.DestroySegments ();
-		newRopeCast.gameObject.SetActive (false);
+	public void Kill () {
+		// This call should trigger the unlink function
+		newRopeCast.KillRope ();
+	}
+
+	private void unlink () {
+		squad.pickup = null;
+		squad = null;
+		pickupAble = true;
 	}
 }

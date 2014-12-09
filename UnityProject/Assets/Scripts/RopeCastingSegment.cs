@@ -30,6 +30,7 @@ public class RopeCastingSegment : MonoBehaviour {
 	public static RopeCastingSegment NewSeg(RopeCasting mother, Vector2 start, RopeCastingSegment end, Collider2D col, float bendsCross) {
 		var gObj = new GameObject("RopeSegment");
 		gObj.transform.parent = mother.transform;
+		gObj.layer = 12;
 
 		var nxt = gObj.AddComponent<RopeCastingSegment>();
 		nxt.mother = mother;
@@ -39,7 +40,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		nxt.bendsCross = bendsCross;
 		nxt.eCol = gObj.AddComponent<EdgeCollider2D>();
 		nxt.eCol.isTrigger = true;
-		//nxt.IgnoreCollisions ();
+		nxt.IgnoreCollisions ();
 		nxt.isEnd = false;
 
 		// TODO Hacked to always add rigidbody so that it will detect when moving platforms hits it.
@@ -64,6 +65,7 @@ public class RopeCastingSegment : MonoBehaviour {
 	public static RopeCastingSegment NewEndSeg(RopeCasting mother, Vector2 start, Collider2D col) { // TODO make it an enum instead of this? This is not functional though :S
 		var gObj = new GameObject("RopeSegmentEnd");
 		gObj.transform.parent = mother.transform;
+		gObj.layer = 12;
 
 		var nxt = gObj.AddComponent<RopeCastingSegment>();
 		nxt.mother = mother;
@@ -81,6 +83,10 @@ public class RopeCastingSegment : MonoBehaviour {
 			var lc = Physics2D.Linecast (end.GetStart(), end.GetStart(), 1 << 9); // We do not check for players as that might break it // TODO This test might be excesive
 			if (lc.collider != null) {
 				Debug.LogError("Start is inside a collider");
+				DestroyBend();
+			}
+			if (!end.col.gameObject.activeInHierarchy) {
+				Debug.Log("The col this bends around turned inacctive");
 				DestroyBend();
 			}
 		}
@@ -136,18 +142,13 @@ public class RopeCastingSegment : MonoBehaviour {
 		eCol.points = new Vector2[] {transform.InverseTransformPoint(GetStart()), transform.InverseTransformPoint(end.GetStart())};
 	}
 
-	// TODO delete Ignores should not be needed anymore
+	// TODO TODO TODO Remember to do this each time pickup is linked
 	void IgnoreCollisions ()
 	{
-		Physics2D.IgnoreCollision (eCol, mother.p1.collider2D);
-		var p1 = mother.p1.GetComponentInParent<PlayerController> (); // TODO avoid this hack.
-		if (p1 != null) Physics2D.IgnoreCollision (eCol, p1.collider2D);
-		else Physics2D.IgnoreCollision (eCol, mother.p1.collider2D);
-
-		Physics2D.IgnoreCollision (eCol, mother.p2.collider2D);
-		var p2 = mother.p2.GetComponentInParent<PlayerController> (); // TODO avoid this hack
-		if (p2 != null) Physics2D.IgnoreCollision (eCol, p2.collider2D);
-		else Physics2D.IgnoreCollision (eCol, mother.p2.collider2D);
+		// Ignore the players cross colliders
+		foreach (var col in mother.GetCrossColliders()) {
+			Physics2D.IgnoreCollision(eCol, col);
+		}
 	}
 
 	public bool IsEnd() {
@@ -190,12 +191,6 @@ public class RopeCastingSegment : MonoBehaviour {
 			col.gameObject.layer = 11;
 		}
 
-		if (hits.Length == 0) {
-			// This happens when we are checking if a new segment is ok
-			// TODO Find out why this also happens on a line that triggered the trigger. Is it just a corner?
-			return;
-		}
-
 		if (hits.Length != hits_.Length) {
 			Debug.LogError("The ropeCast did not hit the same amount of colliders.");
 			return;
@@ -207,6 +202,12 @@ public class RopeCastingSegment : MonoBehaviour {
 			clean = true;
 			if (i++ >= 5) {
 				Debug.LogError("Failed to sanittice shit");
+				return;
+			}
+
+			if (hits.Length == 0 || hits_.Length == 0) {
+				// This happens when we are checking if a new segment is ok
+				// TODO Find out why this also happens on a line that triggered the trigger. Is it just a corner?
 				return;
 			}
 	
@@ -344,6 +345,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		var lc = Physics2D.Linecast (ropePoint, ropePoint, 1 << 9); // We do not check for players as that might break it. // TODO WHY THE FUCK DOES THIS MAKE A STACKOVERFLOW???
 		int i = 1;
 		while (lc.collider != null && i <= 3) {
+			// TODO dont do shit and let the player die?
 			Debug.LogError("RopePoint was set inside a collider: Moving it out nr of time: " + i);
 			ropePoint = corner + (dir.normalized * mother.ropeOffset * i++);
 			lc = Physics2D.Linecast (ropePoint, ropePoint, 1 << 9); // We do not check for players as that might break it.

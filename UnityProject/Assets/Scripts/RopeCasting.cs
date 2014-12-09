@@ -41,6 +41,11 @@ public class RopeCasting : MonoBehaviour {
 		GetCrossColliders ();
 	}
 
+	public void Activate () {
+		gameObject.SetActive (true);
+		InitializeSegments ();
+	}
+
 	public void ResetPosition() {
 		// TODO Check if there is any platforms on the ropes path
 		DestroySegments ();
@@ -107,7 +112,9 @@ public class RopeCasting : MonoBehaviour {
 	public void KillRope ()
 	{
 		DestroySegments ();
-		if (killActions != null) killActions ();
+		if (killActions != null) {
+			killActions ();
+		}
 		gameObject.SetActive (false);
 	}
 
