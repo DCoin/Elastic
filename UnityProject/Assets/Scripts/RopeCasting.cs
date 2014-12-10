@@ -14,6 +14,8 @@ public class RopeCasting : MonoBehaviour {
 	public float acceleration = 0.1f;
 	public Material ropeMaterial;
 	public float ropeWidth = 0.15f;
+	public float softCap = 10;
+
 	public delegate void KillAction ();
 	public KillAction killActions;
 
@@ -62,7 +64,6 @@ public class RopeCasting : MonoBehaviour {
 		// Check if any dynamic colliders on ropePath has moved and update those + check if affected points have changed.
 		// Check if end points are dissolved
 		// Calculate force based on length of ropePath. Use constant force on the players (colliders) rigidbody.
-
 		var lastSeg = UpdateCounts ();
 
 		// Apply forces
@@ -134,6 +135,14 @@ public class RopeCasting : MonoBehaviour {
 	
 	private float CalcForce2 (float ropeLength, int corners, float directionalSpeed) {
 		return GetRopeStretch(ropeLength) * acceleration;
+	}
+	
+	private float CalcForce3 (float ropeLength, int corners, float directionalSpeed) {
+		var stretch = GetRopeStretch (ropeLength);
+		if (stretch < softCap)
+			return stretch * acceleration;
+		else
+			return (stretch + (stretch - softCap) * (stretch - softCap) ) * acceleration;
 	}
 
 	private float GetRopeStretch(float ropeLength) {

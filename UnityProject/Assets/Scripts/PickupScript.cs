@@ -60,7 +60,8 @@ public class PickupScript : MonoBehaviour {
 		transform.position = respawnPoint;
 		rigidbody2D.velocity = Vector2.zero;
 		rigidbody2D.inertia = 0f;
-		}
+		if (newRope) KillRope();
+	}
 
 	void OnCollisionEnter2D(Collision2D col) {
 		if (newRope) {
@@ -142,8 +143,8 @@ public class PickupScript : MonoBehaviour {
 		pickupAble = false;
 	}
 
-	public void Kill () {
-		// This call should trigger the unlink function
+	public void KillRope () {
+		// This call will hopefully trigger the unlink function trough call backs
 		newRopeCast.KillRope ();
 	}
 

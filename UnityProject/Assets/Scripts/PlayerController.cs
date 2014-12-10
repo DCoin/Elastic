@@ -97,31 +97,28 @@ public class PlayerController : MonoBehaviour {
 		// Jumping
 		// TODO varied jump
 		if (onGround) {
-						if (ControllerManager.GetJumpInputBool (controller, leftSide)) {
-								if (lastJump + jumpDelay < Time.fixedTime) { // TODO Unnest ifs? (Do whatever makes the code more self-explanatory -Kasra)
-										rigidbody2D.AddForce (Vector2.up * jumpSpeed, ForceMode2D.Impulse);
-										lastJump = Time.fixedTime;
-										//roller.rigidbody2D.gravityScale = 0.5f;
-								}
-						} 
-						// Slow down if there is no input and we are on the ground
-						if (IsHeavy || Mathf.Approximately (ControllerManager.GetHorizontalInput (controller, leftSide), 0f)) {
-								// We either need to always or never slow down more than heavy is already doing when heavy on the ground since heavy ignores input
-								if (isRolling) {
-										roller.rigidbody2D.velocity = new Vector2 (roller.rigidbody2D.velocity.x / 1.2F, roller.rigidbody2D.velocity.y);
-								} else {
-										rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x / 1.2F, rigidbody2D.velocity.y);
-								}
-								if (IsHeavy) {
-										roller.rigidbody2D.fixedAngle = true;
-										roller.rigidbody2D.velocity = new Vector2 (0, roller.rigidbody2D.velocity.y);
-										roller.rigidbody2D.inertia = 0.0F;
-
-
-
-								}
-						}
+			if (ControllerManager.GetJumpInputBool (controller, leftSide)) {
+				if (lastJump + jumpDelay < Time.fixedTime) { // TODO Unnest ifs? (Do whatever makes the code more self-explanatory -Kasra)
+					rigidbody2D.AddForce (Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+					lastJump = Time.fixedTime;
+					//roller.rigidbody2D.gravityScale = 0.5f;
 				}
+			} 
+			// Slow down if there is no input and we are on the ground
+			if (IsHeavy || Mathf.Approximately (ControllerManager.GetHorizontalInput (controller, leftSide), 0f)) {
+				// We either need to always or never slow down more than heavy is already doing when heavy on the ground since heavy ignores input
+				if (isRolling) {
+					roller.rigidbody2D.velocity = new Vector2 (roller.rigidbody2D.velocity.x / 1.2F, roller.rigidbody2D.velocity.y);
+				} else {
+					rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x / 1.2F, rigidbody2D.velocity.y);
+				}
+				if (IsHeavy) {
+					roller.rigidbody2D.fixedAngle = true;
+					roller.rigidbody2D.velocity = new Vector2 (0, roller.rigidbody2D.velocity.y);
+					roller.rigidbody2D.inertia = 0.0F;
+				}
+			}
+		}
 
 		//Heavy
 		if (ControllerManager.GetHeavyInputBool(controller, leftSide)) {
