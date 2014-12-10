@@ -64,23 +64,23 @@ public class MenuSelect : MonoBehaviour {
 				if (currentlevel == -1) {
 								if (menuselect == 0) {
 										eyeChoices = new List<int> {2, 4};
-										nextlevel = 4;
+										nextlevel = 5;
 										Application.LoadLevel (1); //SelectPlayerNo scene
 								} else if (menuselect == 1) {
 										eyeChoices = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
-										nextlevel = 5;
+										nextlevel = 6;
 										Application.LoadLevel (1); //SelectPlayerNo scene
 								} else  if (menuselect == 2) {
-										nextlevel = 6;
-										Application.LoadLevel (3); //Select duel level scene
+										nextlevel = 7;
+										Application.LoadLevel (4); //Select duel level scene
 								}
 				} else if (nextlevel == 6) { //I DUNNO WHAT THIS IS
 					if (menuselect == 0) {
-						nextlevel = 6; // Duel level 1
+						nextlevel = 7; // Duel level 1
 					} else if (menuselect == 1) {
-						nextlevel = 6; // Duel level 2
+						nextlevel = 7; // Duel level 2
 					} else  if (menuselect == 2) {
-						nextlevel = 6; // Duel level 3
+						nextlevel = 7; // Duel level 3
 					}
 					eyeCount = 4;
 					Application.LoadLevel (2); // scene

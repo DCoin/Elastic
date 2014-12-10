@@ -46,23 +46,16 @@ public class HatSelectionController : MonoBehaviour {
 	void FixedUpdate () {
 		if (lastHatSelection + hatSelectionDelay < Time.fixedTime) {
 			lastHatSelection = Time.fixedTime;
-			if (ControllerManager.GetJumpInputBool (controller, leftSide) && (!checkedOut || hatPickerScript.done)) {
-				if (!hatPickerScript.done) {
+			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {
 				hatindex--;
 				if (hatindex < 0) {
 					hatindex = hatPickerScript.hatArray.Count-1;
 				}
 				hat = hatPickerScript.hatArray [hatindex];
 				GetComponent<EyeAnimator>().ChangeHat(hat);
+
 				audio.clip = hatPickerScript.hatSwap;
 				audio.Play();
-				} else {
-					teamindex--;
-					if (teamindex < 0) {
-						teamindex = hatPickerScript.teamArray.Count-1;
-					}
-					GetComponentInChildren<SpriteRenderer>().sprite = hatPickerScript.teamArray[teamindex];
-				}
 		}
 			else if (ControllerManager.GetHeavyInputBool (controller, leftSide) && !checkedOut) {
 				hatindex++;
@@ -71,6 +64,7 @@ public class HatSelectionController : MonoBehaviour {
 				}
 				hat = hatPickerScript.hatArray [hatindex];
 				GetComponent<EyeAnimator>().ChangeHat(hat);
+				
 				audio.clip = hatPickerScript.hatSwap;
 				audio.Play();
 			}
@@ -103,8 +97,6 @@ public class HatSelectionController : MonoBehaviour {
 					hatPickerScript.hatArray.Remove(hat);
 					//Remove hats from other players
 					RemoveHat(hat);
-					audio.clip = hatPickerScript.playerReady;
-					audio.Play();
 				} else {
 					checkedOut = false;
 					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
@@ -113,6 +105,9 @@ public class HatSelectionController : MonoBehaviour {
 					hatPickerScript.count -= 1;
 					hatPickerScript.hatArray.Add (hat);
 				}
+				
+				audio.clip = hatPickerScript.playerReady;
+				audio.Play();
 		}
 		}
 			
