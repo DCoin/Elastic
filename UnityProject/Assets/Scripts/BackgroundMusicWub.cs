@@ -36,7 +36,8 @@ public class BackgroundMusicWub : MonoBehaviour {
 		bg.transform.localScale = newScale;
 
 		// Color background
-		var data = AudioListener.GetOutputData(audioFidelity, 0); // channel 0 ok?
+		float[] data = new float[audioFidelity];
+		AudioListener.GetOutputData(data, 0); // channel 0 ok?
 		
 		var intensity = data.Select(x => Mathf.Abs(x)).Average();
 

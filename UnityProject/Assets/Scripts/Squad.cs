@@ -13,7 +13,7 @@ public class Squad : MonoBehaviour {
 	public AudioClip respawnSound;
 	public float respawnSoundVolume = 0.6f;
 
-	public bool hasPickup = false;
+	public PickupScript pickup;
 
 	private AudioSource audioSource;
 
@@ -91,6 +91,7 @@ public class Squad : MonoBehaviour {
 	/// Kill the squad.
 	/// </summary>
 	public void Kill() {
+		if (pickup != null) pickup.Kill ();
 		
 		audioSource.clip = killSound;
 		audioSource.Play();

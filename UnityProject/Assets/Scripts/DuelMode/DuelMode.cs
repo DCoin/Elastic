@@ -66,6 +66,10 @@ public class DuelMode : MonoBehaviour {
 		if (rope != null) {
 			rope.killActions += () => sq1.Kill(respawnTime);
 		}
+		rope = squad2.GetComponentInChildren<RopeCasting> ();
+		if (rope != null) {
+			rope.killActions += () => sq2.Kill(respawnTime);
+		}
 
 		// Set up state according to starting area
 		currentArea = startArea;

@@ -14,13 +14,15 @@ public class LevelDivider : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
+		// New rope
 		var squad = col.gameObject.GetComponentInParent<Squad> ();
-		if (squad != null && squad.hasPickup) {
+		if (squad != null && squad.pickup != null) {
 			transform.collider2D.isTrigger = true;
 		}
+		// Old rope
 		if (col.transform.root.Find ("PickupRope")) {
-				transform.collider2D.isTrigger = true;
-				}
+			transform.collider2D.isTrigger = true;
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) 
