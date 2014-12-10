@@ -13,5 +13,8 @@ public class LethalPlatform : MonoBehaviour {
 	void OnCollisionStay2D (Collision2D col) {
 		var squad = col.collider.GetComponentInParent<Squad> ();
 		if (squad != null) squad.Kill(duelMode != null ? duelMode.respawnTime : respawnTime);
+
+		var pickup = col.collider.GetComponent<PickupScript> ();
+		if (pickup != null) pickup.Respawn();
 	}
 }

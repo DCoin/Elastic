@@ -91,7 +91,7 @@ public class Squad : MonoBehaviour {
 	/// Kill the squad.
 	/// </summary>
 	public void Kill() {
-		if (pickup != null) pickup.Kill ();
+		if (pickup != null) pickup.KillRope ();
 		
 		audioSource.clip = killSound;
 		audioSource.Play();
