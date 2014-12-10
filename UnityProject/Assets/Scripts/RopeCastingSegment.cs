@@ -259,6 +259,7 @@ public class RopeCastingSegment : MonoBehaviour {
 	// This function takes two points on a single collider checks if they are parallel and if they are finds appropriate sides to find corners with.
 	// It then splits the segment by thouse corners and checks if the splits are ok
 	// hit1 and hit2 should be on the same collider!
+	// hit1 and hit2 should always be in order based on their order on the rope
 	private void DefineSplit (RaycastHit2D hit1, RaycastHit2D hit2, int recursionlvl) {
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("DefineSplit should only be called with the same collider");
@@ -319,6 +320,7 @@ public class RopeCastingSegment : MonoBehaviour {
 	// Finds a corner based on the hits and splits the segment by that corner.
 	// Should always be followed by RopeCast() and end.RopeCast() to check if ropes are ok.
 	// hit1 and hit2 should always be on the same collider!
+	// hit1 and hit2 should always be in order based on their order on the rope
 	private void SplitSegment (RaycastHit2D hit1, RaycastHit2D hit2) {
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("SplitSegment should only be called with the same collider");
@@ -347,7 +349,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		while (lc.collider != null && i <= 3) {
 			// TODO dont do shit and let the player die?
 			Debug.LogError("RopePoint was set inside a collider: Moving it out nr of time: " + i);
-			ropePoint = corner + (dir.normalized * mother.ropeOffset * i++);
+			ropePoint = corner + (dir.normalized * mother.ropeOffset * i++ * 2);
 			lc = Physics2D.Linecast (ropePoint, ropePoint, 1 << 9); // We do not check for players as that might break it.
 		}
 
