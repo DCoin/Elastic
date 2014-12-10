@@ -28,7 +28,8 @@ public class HatManager : MonoBehaviour {
 		RobinHood,
 		Turban,
 		MigueHat,
-		SoviHet
+		SoviHet,
+		Sailor
 	}
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
