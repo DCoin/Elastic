@@ -300,7 +300,7 @@ public class RopeCastingSegment : MonoBehaviour {
 			SplitSegment(hit, hit2);
 			// Split on the other corner if there is still a collision. We can't just RopeCast as there might still be a parallel collision
 			if (Physics2D.Linecast(GetStart(), end.GetStart()).collider != null) {
-				SplitSegment(hit, hit1);
+				SplitSegment(hit1, hit);
 				end.end.RopeCast(recursionlvl + 1);
 			}
 			// Check if the new ropes are ok
@@ -356,7 +356,9 @@ public class RopeCastingSegment : MonoBehaviour {
 		end = NewSeg(mother, ropePoint, end, hit1.collider, bendsCross);
 		// TODO We could do end.CheckCross() Here if its needed.
 		// The new segment is now in control of the line this last hat so it inherits bendcross while this takes the new cross
-		bendsCross = CrossZ();
+
+		// This assumes that hit1 is before hit2 on the rope
+		bendsCross = cross.z;
 		UpdateECol();
 	}
 
