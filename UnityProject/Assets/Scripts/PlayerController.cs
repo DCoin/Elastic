@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour {
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
 
+	// provide the previous type of collision for outside use!
+	public int LastCollisionLayer {get; private set;}
+	public string LastCollisionTag {get; private set;}
+
 	void OnLevelWasLoaded(int level) {
 		GameObject hat = GameObject.Find (transform.name+"Hat");
 
@@ -178,23 +182,20 @@ public class PlayerController : MonoBehaviour {
 		// TODO check if it's platform, not just any object
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
-		if (col.CompareTag("Platform")){
+		if (col.gameObject.layer == LayerMask.NameToLayer("Platforms")){
+
+
+
+
 			onGround = true;
-			//currentPlatformId = col.GetInstanceID();
 			if (IsHeavy) {
 				audioSource.clip = landSound;
 				audioSource.Play();
 			}
-		}
-		// TODO Revise this approach to killing after we get a new Rope 
-		if (col.name.Contains ("Joint") && col.transform.root != transform.root) {
-			if (IsHeavy) {
-				if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
-					//TODO Dont hardcode this!! Get it from the DuelMode prefab
-					if (duelmode != null)
-						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.killRespawnTime);
-				}
-			}
+
+			LastCollisionLayer = col.gameObject.layer;
+			LastCollisionTag = col.gameObject.tag;
+
 		}
 	}
 
@@ -202,20 +203,8 @@ public class PlayerController : MonoBehaviour {
 		// TODO check if it's platform, not just any object
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
-		if (col.CompareTag("Platform")){
+		if (col.gameObject.layer == LayerMask.NameToLayer("Platforms")){
 			onGround = true;
-			//currentPlatformId = col.GetInstanceID();
 		}
 	}
-
-	void OnTriggerExit2D(Collider2D col) {
-		// TODO check if it's platform, not just any object
-		//if (col.CompareTag("Platform")) {
-		//	if (currentPlatformId == col.GetInstanceID()) {
-		//		onGround = false;
-		//	}
-			// TODO Check if still on another platform
-		//}
-	}
-
 }

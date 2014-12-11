@@ -13,12 +13,16 @@ public class ScreenShaker : MonoBehaviour {
 		public Vector2 velocity;
 		public bool onGround;
 		public bool isHeavy;
+		public int lastCollisionLayer;
+		public string lastCollisionTag;
 
 		public PlayerState(PlayerController p) {
 			this.player = p;
 			this.velocity = p.rigidbody2D.velocity;
 			this.onGround = p.onGround;
 			this.isHeavy = p.IsHeavy;
+			this.lastCollisionLayer = p.LastCollisionLayer;
+			this.lastCollisionTag = p.LastCollisionTag;
 		}
 	}
 
@@ -33,8 +37,7 @@ public class ScreenShaker : MonoBehaviour {
 			players.Add(new PlayerState(p));
 		}
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		// get new set of player values
 		var playersNew = players.Select(p => UpdatePlayerValues(p)).ToList();
@@ -46,10 +49,17 @@ public class ScreenShaker : MonoBehaviour {
 
 			// Check if someone just hit the ground!
 			if (!oldp.onGround && newp.onGround) {
+				// SCREEN SHAKING
+
+
 				// Check if that player was heavy
+				// Don't shake if landing on a trampoline
 				// TODO allow speed threshold to enable screen shaking even if not heavy
 				if (oldp.isHeavy) {
-					BumpScreen(-oldp.velocity);
+					if (newp.lastCollisionTag == "Trampoline")
+						BumpScreen(-oldp.velocity, shakeMultiplier * 0.5f);
+					else
+						BumpScreen(-oldp.velocity, shakeMultiplier);
 				}
 			}
 		}
@@ -59,9 +69,9 @@ public class ScreenShaker : MonoBehaviour {
 	}
 
 
-	private void BumpScreen(Vector2 velocity)
+	private void BumpScreen(Vector2 velocity, float multiplier)
 	{
-		Camera.main.transform.position += (Vector3) velocity * shakeMultiplier;
+		Camera.main.transform.position += (Vector3) velocity * multiplier;
 	}
 
 	// method for screen shake
@@ -73,7 +83,9 @@ public class ScreenShaker : MonoBehaviour {
 			player 	 = pc,
 			velocity = pc.rigidbody2D.velocity,
 			onGround = pc.onGround,
-			isHeavy  = pc.IsHeavy
+			isHeavy  = pc.IsHeavy,
+			lastCollisionLayer 	= pc.LastCollisionLayer,
+			lastCollisionTag 	= pc.LastCollisionTag
 		};
 	}
 }
