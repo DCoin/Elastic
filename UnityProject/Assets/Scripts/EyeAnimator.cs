@@ -18,7 +18,7 @@ public class EyeAnimator : MonoBehaviour {
 
 	private int controllerID;
 	private bool leftSide;
-	private bool hasPlayerController;
+	private bool hasPlayerController = true;
 
 	private GameObject go_eyeball;
 	private GameObject go_iris;
@@ -46,8 +46,8 @@ public class EyeAnimator : MonoBehaviour {
 		var playerController = gameObject.GetComponent<PlayerController>();
 
 		// TODO use the built in unity things to check if there's a playercontroller
-		/*if (!playerController) {
-			Debug.LogError ("No PlayerController on this GameObject.");
+		if (!playerController) {
+			//Debug.LogError ("No PlayerController on this GameObject.");
 			hasPlayerController = false;
 				
 				} else {
@@ -55,7 +55,7 @@ public class EyeAnimator : MonoBehaviour {
 						// Get info for what controller to listen for
 						controllerID = playerController.controller;
 						leftSide = playerController.leftSide;
-				} Im using this awesome eyeanimator to other non-playable-stuff aswell! //Alex */
+				} //Im using this awesome eyeanimator to other non-playable-stuff aswell! //Alex */
 
 		// Create objects for sprites to be attached to
 		go_eyeball  = new GameObject();
