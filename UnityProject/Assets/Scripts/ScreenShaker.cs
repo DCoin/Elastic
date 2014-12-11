@@ -40,6 +40,7 @@ public class ScreenShaker : MonoBehaviour {
 
 	void Update () {
 		// get new set of player values
+		players.RemoveAll(p => p.player == null);
 		var playersNew = players.Select(p => UpdatePlayerValues(p)).ToList();
 
 		// compare states between last frame and now
