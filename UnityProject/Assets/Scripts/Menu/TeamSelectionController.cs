@@ -26,6 +26,7 @@ public class TeamSelectionController : MonoBehaviour {
 		
 		currentRope = transform.root.GetComponentInChildren<LineRenderer> ();
 		if (currentRope) {
+			print ("WE have rope");
 						currentRope.material = currentTeam.teamColor;
 				}
 	}

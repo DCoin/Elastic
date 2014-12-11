@@ -56,6 +56,10 @@ public class PlayerController : MonoBehaviour {
 		if (hat != null) {
 						GetComponent<EyeAnimator> ().hat = hat.GetComponent<EyeAnimator> ().hat;
 						GetComponent<EyeAnimator> ().irisColor = hat.GetComponent<EyeAnimator> ().irisColor;
+						if (int.Parse(transform.name.Substring(transform.name.Length-1,1)) % 2 == 1) {
+				transform.root.GetComponentInChildren<RopeCasting>().ropeMaterial = hat.GetComponentInChildren<TeamSelectionController>().currentTeam.teamColor;
+
+						}		
 						Destroy (hat);
 				} else {
 			try {
