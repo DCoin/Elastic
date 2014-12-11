@@ -39,6 +39,9 @@ public class Squad : MonoBehaviour {
 	/// Respawn this Squad at the previously assigned respawn point.
 	/// </summary>
 	public void Respawn() {
+		// Prevent double respawns
+		CancelInvoke("Respawn");
+
 		// Reactivate all gameobjects
 		foreach (var child in transform) {
 			var c = child as Transform;
