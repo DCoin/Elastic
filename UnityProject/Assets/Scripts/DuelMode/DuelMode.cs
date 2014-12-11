@@ -10,11 +10,14 @@ public class DuelMode : MonoBehaviour {
 	public float camMoveTime = .4f;
 
 	public DuelModeArea[] areas;
+	public MultiDimensionalDividers[] dividers;
 	public int startArea;
 	public float borderBonus = 10.0f;
 
 	public GameObject squad1;
+	private Color sq1color;
 	public GameObject squad2;
+	private Color sq2color;
 	public GameObject pickup;
 
 	public float killRespawnTime = 2.0F;
@@ -27,6 +30,8 @@ public class DuelMode : MonoBehaviour {
 	private int currentArea;
 	private Rect sq1rect;
 	private Rect sq2rect;
+
+	private bool colorSet = false;
 
 	// Use this for initialization
 	void Start () {
@@ -52,6 +57,11 @@ public class DuelMode : MonoBehaviour {
 			enabled = false;
 			return;
 		}
+		if (dividers.Length != areas.Length-1) {
+			Debug.LogError("Dividers are not assigned correctly");
+			enabled = false;
+			return;
+		}
 		// TODO Add check for whether pickup is assigned as well?
 
 		/* Initialization */
@@ -61,15 +71,17 @@ public class DuelMode : MonoBehaviour {
 		sq2 = squad2.GetComponent<Squad>() as Squad;
 		pu = pickup.GetComponent<PickupScript>() as PickupScript;
 
-		// Set up kill on squads
+		// Set up kill on squads and get the rope colors
 		// We assume Squads only have one rope
 		var rope = squad1.GetComponentInChildren<RopeCasting> ();
 		if (rope != null) {
 			rope.killActions += () => sq1.Kill(killRespawnTime);
+			//sq1color = rope.ropeMaterial.color;
 		}
 		rope = squad2.GetComponentInChildren<RopeCasting> ();
 		if (rope != null) {
 			rope.killActions += () => sq2.Kill(killRespawnTime);
+			//sq2color = rope.ropeMaterial.color;
 		}
 
 		// Set up state according to starting area
@@ -92,6 +104,32 @@ public class DuelMode : MonoBehaviour {
 		// Squad Specific bounding boxes
 		sq1rect = sq2rect = areas[currentArea].GetAreaInGlobal();
 
+		updateRopeColors ();
+	}
+
+	private void updateRopeColors () {
+		if (!colorSet) {
+			// Get the rope colors
+			// We assume Squads only have one rope
+			var rope = squad1.GetComponentInChildren<RopeCasting> ();
+			if (rope != null && rope.ropeMaterial != null) {
+				sq1color = rope.ropeMaterial.color;
+			} else Debug.LogError("Rope was not found or didn't have a color");
+			rope = squad2.GetComponentInChildren<RopeCasting> ();
+			if (rope != null && rope.ropeMaterial != null) {
+				sq2color = rope.ropeMaterial.color;
+			} else Debug.LogError("Rope was not found or didn't have a color");
+			colorSet = true;
+		}
+
+		if (currentArea != 0 && currentArea != areas.Length) {
+			foreach (var divider in dividers [currentArea - 1].divArray) {
+				divider.SetColor (sq2color);
+			}
+			foreach (var divider in dividers [currentArea].divArray) {
+				divider.SetColor (sq1color);
+			}
+		}
 	}
 	
 
@@ -188,5 +226,15 @@ public class DuelMode : MonoBehaviour {
 			areas[currentArea].transform.position,
 			size,
 			camMoveTime);
+
+		// Set door colors
+		updateRopeColors ();
+	}
+
+	// Wee need to do this to be able to edit the 2d array in the editor
+	[System.Serializable]
+	public class MultiDimensionalDividers
+	{
+		public LevelDivider[] divArray;
 	}
 }
