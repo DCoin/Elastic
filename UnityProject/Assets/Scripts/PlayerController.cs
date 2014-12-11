@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using InControl;
 
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour {
 				if (col.transform.position.y < (transform.position.y-transform.GetComponent<CircleCollider2D>().radius/1.8F)) {
 					//TODO Dont hardcode this!! Get it from the DuelMode prefab
 					if (duelmode != null)
-						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.respawnTime);
+						col.gameObject.GetComponentInParent<RopeScript> ().GetSquad ().Kill (duelmode.killRespawnTime);
 				}
 			}
 		}

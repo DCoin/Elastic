@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class LethalPlatform : MonoBehaviour {
@@ -12,7 +12,7 @@ public class LethalPlatform : MonoBehaviour {
 
 	void OnCollisionStay2D (Collision2D col) {
 		var squad = col.collider.GetComponentInParent<Squad> ();
-		if (squad != null) squad.Kill(duelMode != null ? duelMode.respawnTime : respawnTime);
+		if (squad != null) squad.Kill(duelMode != null ? duelMode.killRespawnTime : respawnTime);
 
 		var pickup = col.collider.GetComponent<PickupScript> ();
 		if (pickup != null) pickup.Respawn();
