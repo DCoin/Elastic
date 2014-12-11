@@ -20,10 +20,12 @@ public class HatPicker : MonoBehaviour {
 	public int nextlevel;
 	
 	void OnLevelWasLoaded(int level) {
+		print ("HatPicker scene was loaded from level " + level);
 		GameObject PN = GameObject.Find ("PlayerNo");
 		GameObject MI = GameObject.Find ("MenuItems");
 		if (PN) {
 			eyeCount = PN.GetComponent<PlayerNoSelect> ().eyeCount;
+			print ("Eyecount from PN: " + eyeCount);
 			nextlevel = PN.GetComponent<PlayerNoSelect> ().nextlevel;
 			Destroy (PN);
 			Destroy (MI);
@@ -31,6 +33,7 @@ public class HatPicker : MonoBehaviour {
 
 					if (MI) {
 				eyeCount = MI.GetComponent<MenuSelect> ().eyeCount;
+				print ("Eyecount from MI: " + eyeCount);
 				nextlevel = MI.GetComponent<MenuSelect> ().nextlevel;
 				Destroy (MI);
 			}

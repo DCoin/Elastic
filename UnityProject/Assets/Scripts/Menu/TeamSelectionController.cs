@@ -8,18 +8,26 @@ public class TeamSelectionController : MonoBehaviour {
 	public int controller = 0;
 	public bool leftSide = true;
 
-	private int teamindex = 0;
+	public int teamindex = 0;
 	public float teamSelectionDelay = 0.2f;
 	private float lastTeamSelection;
 	private bool checkedOut = false;
 	private TeamPicker teamPickerScript;
-	public Sprite teamSprite;
-	private SpriteRenderer currentSprite;
+
+	public TeamPicker.Team currentTeam;
+	public SpriteRenderer currentSprite;
+	public LineRenderer currentRope;
 
 	// Use this for initialization
 	void Start () {
 		teamPickerScript = GameObject.Find ("TeamPicker").GetComponent<TeamPicker> ();
 		currentSprite = GetComponent<SpriteRenderer> ();
+		currentSprite.sprite = currentTeam.teamSprite;
+		
+		currentRope = transform.root.GetComponentInChildren<LineRenderer> ();
+		if (currentRope) {
+						currentRope.material = currentTeam.teamColor;
+				}
 	}
 	
 	
@@ -28,24 +36,29 @@ public class TeamSelectionController : MonoBehaviour {
 		if (lastTeamSelection + teamSelectionDelay < Time.fixedTime) {
 			lastTeamSelection = Time.fixedTime;
 			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {
-				print ("heyman");
 				teamindex--;
 				if (teamindex < 0) {
-					teamindex = teamPickerScript.teamSprites.Count-1;
+					teamindex = teamPickerScript.teamVisual.Count-1;
 				}
-				teamSprite = teamPickerScript.teamSprites [teamindex];
-				currentSprite.sprite = teamSprite;
+				currentTeam = teamPickerScript.teamVisual [teamindex];
+				currentSprite.sprite = currentTeam.teamSprite;
+				if (currentRope) {
+				currentRope.material = currentTeam.teamColor;
+				}
 				
 				//audio.clip = teamPickerScript.hatSwap;
 				//audio.Play();
 			}
 			else if (ControllerManager.GetHeavyInputBool (controller, leftSide) && !checkedOut) {
 				teamindex++;
-				if (teamindex > teamPickerScript.teamSprites.Count-1) {
+				if (teamindex > teamPickerScript.teamVisual.Count-1) {
 					teamindex = 0;
 				}
-				teamSprite = teamPickerScript.teamSprites [teamindex];
-				currentSprite.sprite = teamSprite;
+				currentTeam = teamPickerScript.teamVisual [teamindex];
+				currentSprite.sprite = currentTeam.teamSprite;
+				if (currentRope) { 
+				currentRope.material = currentTeam.teamColor;
+				}
 				
 				//audio.clip = teamPickerScript.hatSwap;
 				//audio.Play();
@@ -53,19 +66,15 @@ public class TeamSelectionController : MonoBehaviour {
 			else if (ControllerManager.GetStickButtonInput (controller, leftSide)) {
 				if (!checkedOut) {
 					checkedOut = true;
-					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
-						mesh.enabled = true;
-					}
-					teamPickerScript.count += 1;
-					teamPickerScript.teamSprites.Remove(teamSprite);
-					RemoveTeamSprite(teamSprite);
+					GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+					teamPickerScript.count = teamPickerScript.count + 1;
+					teamPickerScript.teamVisual.Remove(currentTeam);
+					RemoveTeamSprite(currentTeam);
 				} else {
 					checkedOut = false;
-					foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>()) {
-						mesh.enabled = false;
-					}
-					teamPickerScript.count -= 1;
-					teamPickerScript.teamSprites.Add (teamSprite);
+					GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.5f);
+					teamPickerScript.count = teamPickerScript.count - 1;
+					teamPickerScript.teamVisual.Add (currentTeam);
 				}
 				
 				//audio.clip = teamPickerScript.playerReady;
@@ -75,17 +84,23 @@ public class TeamSelectionController : MonoBehaviour {
 		
 	}
 	
-	void RemoveTeamSprite(Sprite teamSprite) {
+	void RemoveTeamSprite(TeamPicker.Team teamSprite) {
 		foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) {
-			if (p.transform.name != transform.name) {
+			//Get all other team sprites
+			if (p.transform.root.name != transform.root.name) {
 				var TeamSel = p.GetComponentInChildren<TeamSelectionController>();
-				if (TeamSel.teamSprite == teamSprite) {
-					TeamSel.teamindex++;
-					if (TeamSel.teamindex > teamPickerScript.teamSprites.Count-1) {
-						TeamSel.teamindex = 0;
+				if (TeamSel) {
+					if (TeamSel.currentTeam == currentTeam) {
+						TeamSel.teamindex++;
+						if (TeamSel.teamindex > teamPickerScript.teamVisual.Count-1) {
+							TeamSel.teamindex = 0;
+						}
+						TeamSel.currentTeam = teamPickerScript.teamVisual[TeamSel.teamindex];
+						TeamSel.currentSprite.sprite = TeamSel.currentTeam.teamSprite;
+						if (TeamSel.currentRope) {
+						TeamSel.currentRope.material = TeamSel.currentTeam.teamColor;
+						}
 					}
-					TeamSel.teamSprite = teamPickerScript.teamSprites[TeamSel.teamindex];
-					TeamSel.currentSprite.sprite = TeamSel.teamSprite;
 				}
 			}
 		}

@@ -46,7 +46,7 @@ public class EyeAnimator : MonoBehaviour {
 		var playerController = gameObject.GetComponent<PlayerController>();
 
 		// TODO use the built in unity things to check if there's a playercontroller
-		if (!playerController) {
+		/*if (!playerController) {
 			Debug.LogError ("No PlayerController on this GameObject.");
 			hasPlayerController = false;
 				
@@ -55,7 +55,7 @@ public class EyeAnimator : MonoBehaviour {
 						// Get info for what controller to listen for
 						controllerID = playerController.controller;
 						leftSide = playerController.leftSide;
-				}
+				} Im using this awesome eyeanimator to other non-playable-stuff aswell! //Alex */
 
 		// Create objects for sprites to be attached to
 		go_eyeball  = new GameObject();

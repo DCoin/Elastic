@@ -18,10 +18,14 @@ public class PlayerNoSelect : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 	void OnLevelWasLoaded(int level) {
-		menu = GameObject.Find ("MenuItems").GetComponent<MenuSelect> ();
+		GameObject menu_go = GameObject.Find ("MenuItems");
+		if (menu_go) {
+		menu = menu_go.GetComponent<MenuSelect> ();
 		eyeChoices = menu.eyeChoices;
 		nextlevel = menu.nextlevel;
 		GetComponent<TextMesh> ().text = eyeChoices [0].ToString ();
+		Destroy (menu_go);
+		}
 	}
 	
 	// Update is called once per frame
@@ -43,6 +47,7 @@ public class PlayerNoSelect : MonoBehaviour {
 				GetComponent<TextMesh> ().text = eyeChoices[menuselect].ToString();
 			} else if (ControllerManager.GetStickButtonInput (0, true) || ControllerManager.GetAButtonInput (0, true)) {
 				eyeCount = eyeChoices[menuselect];
+				print ("Eyecount in playerno: " + eyeCount);
 				Application.LoadLevel(2); //HatPicker scene
 			}
 		}

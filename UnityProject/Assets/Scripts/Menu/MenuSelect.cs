@@ -29,7 +29,7 @@ public class MenuSelect : MonoBehaviour {
 
 	void OnLevelWasLoaded (int level) {
 		//Change the seletable items on the duel arena select level scene
-		if (level == 3) {
+		if (level == 4) {
 			MenuItems = new GameObject[] {GameObject.Find ("Level1"), GameObject.Find ("Level2"), GameObject.Find ("Level3")};
 			camScript = GameObject.Find ("Main Camera").GetComponent<SelectArenaMoveScript>();  
 				}
@@ -40,27 +40,31 @@ public class MenuSelect : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 				if (lastHatSelection + SelectionDelay < Time.fixedTime) {
-
 			lastHatSelection = Time.fixedTime;
+						//Up in the menu
 						if (ControllerManager.GetJumpInputBool (0, true)) {
 								menuselect--;
 								if (menuselect < 0) {
 								menuselect = MenuItems.Length-1;
 								}
 								ChangeColor (menuselect);
-				if (currentlevel == 3) {
+				if (currentlevel == 4) {
 					camScript.newPos = new Vector3 (0.0f, (menuselect*-2.5f),-10.0f);
 				}
+				//Down in the menu
 						} else if (ControllerManager.GetHeavyInputBool (0, true)) {
 								menuselect++;
 								if (menuselect > MenuItems.Length-1) {
 										menuselect = 0;
 								}
 								ChangeColor (menuselect);
-				if (currentlevel == 3) {
+				if (currentlevel == 4) {
 					camScript.newPos = new Vector3 (0.0f, (menuselect*-2.5f),-10.0f);
 				}
-						} else if (ControllerManager.GetStickButtonInput (0, true) || ControllerManager.GetAButtonInput (0, true)) {
+						
+			//We select something!
+			} else if (ControllerManager.GetStickButtonInput (0, true) || ControllerManager.GetAButtonInput (0, true)) {
+				//Main menu
 				if (currentlevel == -1) {
 								if (menuselect == 0) {
 										eyeChoices = new List<int> {2, 4};
@@ -74,7 +78,8 @@ public class MenuSelect : MonoBehaviour {
 										nextlevel = 7;
 										Application.LoadLevel (4); //Select duel level scene
 								}
-				} else if (nextlevel == 6) { //I DUNNO WHAT THIS IS
+				//Select duel map
+				} else if (currentlevel == 4) {
 					if (menuselect == 0) {
 						nextlevel = 7; // Duel level 1
 					} else if (menuselect == 1) {
