@@ -43,7 +43,7 @@ public class HatSelectionController : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (lastHatSelection + hatSelectionDelay < Time.fixedTime) {
 			lastHatSelection = Time.fixedTime;
 			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {

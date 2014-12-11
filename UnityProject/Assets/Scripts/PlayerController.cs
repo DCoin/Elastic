@@ -57,8 +57,9 @@ public class PlayerController : MonoBehaviour {
 						GetComponent<EyeAnimator> ().hat = hat.GetComponent<EyeAnimator> ().hat;
 						GetComponent<EyeAnimator> ().irisColor = hat.GetComponent<EyeAnimator> ().irisColor;
 						if (int.Parse(transform.name.Substring(transform.name.Length-1,1)) % 2 == 1) {
-				transform.root.GetComponentInChildren<RopeCasting>().ropeMaterial = hat.GetComponentInChildren<TeamSelectionController>().currentTeam.teamColor;
-
+				if (hat.GetComponentInChildren<TeamSelectionController>() && transform.root.GetComponentInChildren<RopeCasting>()) {
+							transform.root.GetComponentInChildren<RopeCasting>().ropeMaterial = hat.GetComponentInChildren<TeamSelectionController>().currentTeam.teamColor;
+							}
 						}		
 						Destroy (hat);
 				} else {
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour {
 				}
 	}
 
-	void Start () {
+	void Awake () {
 		onGround = false;
 		var tmp = GameObject.Find ("DuelLogic");
 		duelmode = tmp != null ? tmp.GetComponent<DuelMode> () : null;

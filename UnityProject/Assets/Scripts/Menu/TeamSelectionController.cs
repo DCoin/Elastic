@@ -14,6 +14,8 @@ public class TeamSelectionController : MonoBehaviour {
 	private bool checkedOut = false;
 	private TeamPicker teamPickerScript;
 
+	public bool single = false;
+
 	public TeamPicker.Team currentTeam;
 	public SpriteRenderer currentSprite;
 	public LineRenderer currentRope;
@@ -33,7 +35,7 @@ public class TeamSelectionController : MonoBehaviour {
 	
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (lastTeamSelection + teamSelectionDelay < Time.fixedTime) {
 			lastTeamSelection = Time.fixedTime;
 			if (ControllerManager.GetJumpInputBool (controller, leftSide) && !checkedOut) {
@@ -69,13 +71,17 @@ public class TeamSelectionController : MonoBehaviour {
 					checkedOut = true;
 					GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
 					teamPickerScript.count = teamPickerScript.count + 1;
-					teamPickerScript.teamVisual.Remove(currentTeam);
-					RemoveTeamSprite(currentTeam);
+					if (!single) {
+						teamPickerScript.teamVisual.Remove(currentTeam);
+						RemoveTeamSprite(currentTeam);
+					}
 				} else {
 					checkedOut = false;
 					GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.5f);
 					teamPickerScript.count = teamPickerScript.count - 1;
-					teamPickerScript.teamVisual.Add (currentTeam);
+					if (!single) {
+						teamPickerScript.teamVisual.Add (currentTeam);
+					}
 				}
 				
 				//audio.clip = teamPickerScript.playerReady;

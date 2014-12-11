@@ -29,7 +29,7 @@ public class PlayerNoSelect : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (lastHatSelection + SelectionDelay < Time.fixedTime) {
 			lastHatSelection = Time.fixedTime;
 			if (ControllerManager.GetJumpInputBool (0, true)) {
