@@ -83,8 +83,8 @@ public class DuelMode : MonoBehaviour {
 			camMoveTime);
 
 		// Players
-		sq1.SetRespawnPoint(areas[currentArea].GetSpawn1InGlobal());
-		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
+		sq1.RespawnPoint = areas[currentArea].GetSpawn1InGlobal();
+		sq2.RespawnPoint = areas[currentArea].GetSpawn2InGlobal();
 
 		// Pickup
 		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
@@ -165,8 +165,8 @@ public class DuelMode : MonoBehaviour {
 		currentArea += left ? -1 : 1;
 
 		// Set new spawn locations
-		sq1.SetRespawnPoint(areas[currentArea].GetSpawn1InGlobal());
-		sq2.SetRespawnPoint(areas[currentArea].GetSpawn2InGlobal());
+		sq1.RespawnPoint = areas[currentArea].GetSpawn1InGlobal();
+		sq2.RespawnPoint = areas[currentArea].GetSpawn2InGlobal();
 		pu.SetRespawnPoint(areas[currentArea].GetPickupInGlobal());
 
 		// Set new bounding boxes

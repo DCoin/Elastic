@@ -3,26 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ScreenShaker : MonoBehaviour {
+public class EffectsManager : MonoBehaviour {
 	// Assuming number of players does not change during a game
 
+	public bool screenShake = true;
 	public float shakeMultiplier = 0.1f;
+
+	public bool ghosts = true;
+	public Sprite ghostSprite;
 
 	private struct PlayerState {
 		public PlayerController player;
 		public Vector2 velocity;
+		public Vector2 position;
 		public bool onGround;
 		public bool isHeavy;
 		public int lastCollisionLayer;
 		public string lastCollisionTag;
+		public bool alive;
 
 		public PlayerState(PlayerController p) {
 			this.player = p;
 			this.velocity = p.rigidbody2D.velocity;
+			this.position = p.transform.position;
 			this.onGround = p.onGround;
 			this.isHeavy = p.IsHeavy;
 			this.lastCollisionLayer = p.LastCollisionLayer;
 			this.lastCollisionTag = p.LastCollisionTag;
+			this.alive = p.gameObject.GetComponentInParent<Squad>().Alive;
 		}
 	}
 
@@ -48,19 +56,33 @@ public class ScreenShaker : MonoBehaviour {
 			var oldp = players[i];
 			var newp = playersNew[i];
 
-			// Check if someone just hit the ground!
-			if (!oldp.onGround && newp.onGround) {
-				// SCREEN SHAKING
+			// SCREEN SHAKING //
+			if (screenShake) {
+				// Check if someone just hit the ground!
+				if (!oldp.onGround && newp.onGround) {
+					// Check if that player was heavy
+					// Don't shake if landing on a trampoline
+					// TODO allow speed threshold to enable screen shaking even if not heavy
+					if (oldp.isHeavy) {
+						if (newp.lastCollisionTag == "Trampoline")
+							BumpScreen(-oldp.velocity, shakeMultiplier * 0.5f);
+						else
+							BumpScreen(-oldp.velocity, shakeMultiplier);
+					}
+				}
+			}
 
-
-				// Check if that player was heavy
-				// Don't shake if landing on a trampoline
-				// TODO allow speed threshold to enable screen shaking even if not heavy
-				if (oldp.isHeavy) {
-					if (newp.lastCollisionTag == "Trampoline")
-						BumpScreen(-oldp.velocity, shakeMultiplier * 0.5f);
-					else
-						BumpScreen(-oldp.velocity, shakeMultiplier);
+			// KILL GHOSTS
+			if (ghosts) {
+				if (oldp.alive && !newp.alive) {
+					// Someone just died, spawn a ghost!
+					// TODO get these values in a proper manner
+					RespawnGhost.CreateGhost(
+						oldp.position, 
+						newp.player.gameObject.GetComponentInParent<Squad>().RespawnPoint,
+						newp.player.gameObject.GetComponentInParent<Squad>().CurrentRepsawnTime - 1.5f,
+						1.5f,
+						ghostSprite);
 				}
 			}
 		}
@@ -83,10 +105,12 @@ public class ScreenShaker : MonoBehaviour {
 		return new PlayerState {
 			player 	 = pc,
 			velocity = pc.rigidbody2D.velocity,
+			position = pc.transform.position,
 			onGround = pc.onGround,
 			isHeavy  = pc.IsHeavy,
 			lastCollisionLayer 	= pc.LastCollisionLayer,
-			lastCollisionTag 	= pc.LastCollisionTag
+			lastCollisionTag 	= pc.LastCollisionTag,
+			alive	 = pc.gameObject.GetComponentInParent<Squad>().Alive
 		};
 	}
 }
