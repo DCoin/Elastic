@@ -112,6 +112,8 @@ public class RopeCasting : MonoBehaviour {
 
 	public void KillRope ()
 	{
+		// We don't want to kill if the rope is already dead.
+		if (!gameObject.activeSelf) return;
 		DestroySegments ();
 		if (killActions != null) {
 			killActions ();
