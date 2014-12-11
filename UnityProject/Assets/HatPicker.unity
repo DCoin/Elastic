@@ -1224,6 +1224,7 @@ MonoBehaviour:
   objects: []
   minimumDistance: {x: 10, y: 10}
   border: {x: 1, y: 1}
+  smoothTime: .300000012
 --- !u!1 &538177447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31dda494cdc81d42af82fcbaaf55c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
+  controller: 3
   leftSide: 0
   hatindex: 0
   hatSelectionDelay: .200000003
@@ -2289,7 +2290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31dda494cdc81d42af82fcbaaf55c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
+  controller: 2
   leftSide: 1
   hatindex: 0
   hatSelectionDelay: .200000003
@@ -3510,7 +3511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31dda494cdc81d42af82fcbaaf55c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
+  controller: 2
   leftSide: 0
   hatindex: 0
   hatSelectionDelay: .200000003
@@ -4616,7 +4617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31dda494cdc81d42af82fcbaaf55c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
+  controller: 3
   leftSide: 1
   hatindex: 0
   hatSelectionDelay: .200000003

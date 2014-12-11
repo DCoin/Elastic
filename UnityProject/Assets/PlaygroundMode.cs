@@ -43,7 +43,7 @@ public class PlaygroundMode : MonoBehaviour {
 				TeamSelectionController tsc = go.GetComponentInChildren<TeamSelectionController>();
 				pc.controller = tsc.controller;
 				pc.leftSide = tsc.leftSide;
-				pc.GetComponent<EyeAnimator>().hat = go.GetComponent<HatSelectionController>().hat;
+				pc.GetComponent<EyeAnimator>().hat = go.GetComponent<EyeAnimator>().hat;
 				newPlayer.name = go.transform.name.Substring(0,go.transform.name.Length-3);
 
 				if (prevteamidentifier != go.GetComponentInChildren<TeamSelectionController>().currentTeam.teamSprite.ToString()) {
@@ -52,7 +52,7 @@ public class PlaygroundMode : MonoBehaviour {
 					prevSquad = Instantiate(SquadPrefab) as GameObject;
 					prevSquad.transform.position = new Vector3(minpos+dist*teamcount, SpawnPointEnd.position.y, SpawnPointEnd.position.z);
 
-					prevSquad.GetComponent<Squad>().SetRespawnPoint(prevSquad.transform.position);
+					prevSquad.GetComponent<Squad>().RespawnPoint = prevSquad.transform.position;
 					teamcount++;
 					prevSquad.transform.name = "Squad"+teamcount;
 				} else {
