@@ -159,10 +159,13 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		// Reset on Ground to prepare for next set of triggerselse 
-		if (!ControllerManager.GetJumpInputBool (controller, leftSide)) {
+		// This does not do what you think it does
+		/*if (!ControllerManager.GetJumpInputBool (controller, leftSide)) {
+			// WHAAAAT
 			roller.rigidbody2D.gravityScale = baseGScale;
-				}
+		}*/
+
+		// Reset on Ground to prepare for next set of triggers
 		onGround = false;
 	}
 
