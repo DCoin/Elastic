@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Camera))]
 public class FollowCam : MonoBehaviour {
 
 	// List of objects to keep in focus
@@ -9,6 +10,11 @@ public class FollowCam : MonoBehaviour {
 	public Vector2 minimumDistance = new Vector2(10,10);
 	// Extra units around the two objects
 	public Vector2 border = new Vector2(1,1);
+	// Time for camera to follow
+	public float smoothTime = 0.3F;
+
+	private Vector3 velocityPosition;
+	private float velocitySize;
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,8 +50,13 @@ public class FollowCam : MonoBehaviour {
 		// Be sure cam keeps distance
 		newPos.z = -10;
 
-		// Move cam to midpoint
-		camera.transform.position = newPos;
+		// Move cam towards midpoint
+		camera.transform.position = Vector3.SmoothDamp(
+			camera.transform.position, 
+			newPos, 
+			ref velocityPosition, 
+			smoothTime);
+
 
 		// Scaling
 		//---------
@@ -71,6 +82,10 @@ public class FollowCam : MonoBehaviour {
 			yMin / 2);
 
 		// Set camera ortographic camera size to calculated distance
-		camera.orthographicSize = camSize;
+		Camera.main.orthographicSize = Mathf.SmoothDamp(
+			Camera.main.orthographicSize, 
+			camSize, 
+			ref velocitySize, 
+			smoothTime);
 	}
 }

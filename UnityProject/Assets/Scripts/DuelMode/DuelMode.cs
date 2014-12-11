@@ -17,7 +17,8 @@ public class DuelMode : MonoBehaviour {
 	public GameObject squad2;
 	public GameObject pickup;
 
-	public float respawnTime = 2.0F;
+	public float killRespawnTime = 2.0F;
+	public float outOfBoundsRespawnTime = 2.0F;
 
 	private Squad sq1;
 	private Squad sq2;
@@ -64,11 +65,11 @@ public class DuelMode : MonoBehaviour {
 		// We assume Squads only have one rope
 		var rope = squad1.GetComponentInChildren<RopeCasting> ();
 		if (rope != null) {
-			rope.killActions += () => sq1.Kill(respawnTime);
+			rope.killActions += () => sq1.Kill(killRespawnTime);
 		}
 		rope = squad2.GetComponentInChildren<RopeCasting> ();
 		if (rope != null) {
-			rope.killActions += () => sq2.Kill(respawnTime);
+			rope.killActions += () => sq2.Kill(killRespawnTime);
 		}
 
 		// Set up state according to starting area
@@ -109,7 +110,7 @@ public class DuelMode : MonoBehaviour {
 			if (pos.x < rect.xMin ||
 			    pos.y < rect.yMin ||
 			    pos.y > rect.yMax) {
-				sq1.Respawn();
+				sq1.Kill(outOfBoundsRespawnTime);
 				break; // stop checking if any one is OOB
 			}
 			if (pos.x > rect.xMax) {
@@ -127,7 +128,7 @@ public class DuelMode : MonoBehaviour {
 			if (pos.x > rect.xMax ||
 			    pos.y < rect.yMin ||
 			    pos.y > rect.yMax) {
-				sq2.Respawn();
+				sq2.Kill(outOfBoundsRespawnTime);
 				break; // stop checking if any one is OOB
 			}
 			if (pos.x < rect.xMin) {
