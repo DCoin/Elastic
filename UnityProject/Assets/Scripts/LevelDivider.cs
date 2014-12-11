@@ -3,6 +3,15 @@ using System.Collections;
 
 public class LevelDivider : MonoBehaviour {
 
+	public void SetColor (Color col) {
+		var rend = renderer as SpriteRenderer;
+		if (rend == null) {
+			Debug.LogError("Color was set on a LevelDivider that did not have a SpriteRenderer");
+			return;
+		}
+		rend.color = col;
+	}
+
 	void OnCollisionEnter2D(Collision2D col) {
 		// New rope
 		var squad = col.gameObject.GetComponentInParent<Squad> ();

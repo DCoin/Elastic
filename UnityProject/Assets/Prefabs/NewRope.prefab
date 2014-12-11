@@ -44,8 +44,9 @@ MonoBehaviour:
   ropeOffset: .100000001
   minRopeDist: 2
   acceleration: .150000006
-  ropeMaterial: {fileID: 0}
+  ropeMaterial: {fileID: 2100000, guid: f45e1fa6a9780744fb1c8c8157925977, type: 2}
   ropeWidth: .150000006
+  softCap: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

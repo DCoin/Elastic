@@ -23,7 +23,6 @@ public class SwitchScript : MonoBehaviour {
 		targetPosition = door.transform.position + new Vector3 (0, moveDoorUpDistance, 0);
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		if (moveDoor) {
 			// Smoothly move the camera towards that target position
