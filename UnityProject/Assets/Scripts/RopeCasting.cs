@@ -27,8 +27,13 @@ public class RopeCasting : MonoBehaviour {
 
 	private RopeCastingSegment ropePath;
 
-	void Start () { // TODO is awake better?
-		InitializeSegments ();
+	void Start () {
+		// We don't want to initialize if the rope is not properly setup
+		if (p1 == null || p2 == null) {
+			gameObject.SetActive(false);
+		} else {
+			InitializeSegments ();
+		}
 	}
 
 	private void InitializeSegments() {
