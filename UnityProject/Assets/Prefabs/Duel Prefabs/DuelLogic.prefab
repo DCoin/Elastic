@@ -49,9 +49,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   startArea: 2
+  borderBonus: 10
   squad1: {fileID: 0}
   squad2: {fileID: 0}
-  RespawnTime: 2
+  pickup: {fileID: 0}
+  killRespawnTime: 7
+  outOfBoundsRespawnTime: 5
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a08e08138e78ac458a6e9e3eee6f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  includeVertical: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
