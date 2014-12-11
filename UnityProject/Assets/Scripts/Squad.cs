@@ -41,6 +41,7 @@ public class Squad : MonoBehaviour {
 	public void Respawn() {
 		// Prevent double respawns
 		CancelInvoke("Respawn");
+		CancelInvoke("PlayRespawnSound");
 
 		// Reactivate all gameobjects
 		foreach (var child in transform) {
