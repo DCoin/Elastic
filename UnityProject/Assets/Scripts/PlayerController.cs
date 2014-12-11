@@ -40,9 +40,6 @@ public class PlayerController : MonoBehaviour {
 	public AudioClip landSound;
 	public float landSoundVolume = 0.6f;
 
-	// TODO THIS GON' DIE SOON :D:D:D:D:D:D
-	private DuelMode duelmode;
-
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
 
@@ -73,8 +70,6 @@ public class PlayerController : MonoBehaviour {
 
 	void Start () {
 		onGround = false;
-		var tmp = GameObject.Find ("DuelLogic");
-		duelmode = tmp != null ? tmp.GetComponent<DuelMode> () : null;
 		var t = transform.Find ("Collider");
 		roller = t == null ? null : transform.Find ("Collider").gameObject;
 		isRolling = roller != null;
