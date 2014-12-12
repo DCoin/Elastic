@@ -158,10 +158,12 @@ public class HatSelectionController : MonoBehaviour
 				foreach (GameObject p in hatPickerScript.allPlayers) {
 					Destroy (p);
 				}
-				//if (hatPickerScript.nextlevel == 5) {
-					print ("Loading playerno select from hatpickerstate");
-					Application.LoadLevel(1);
-				//}
+				if (hatPickerScript.nextlevel == 6 || hatPickerScript.nextlevel == 5) {
+					Application.LoadLevel (1);
+				}
+				else if (hatPickerScript.nextlevel == 7) {
+					Application.LoadLevel(4);
+				}
 			}
 		}
 		

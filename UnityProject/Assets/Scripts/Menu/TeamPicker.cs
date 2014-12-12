@@ -103,7 +103,6 @@ public class TeamPicker : MonoBehaviour {
 														teams.Add (parent);
 												}
 												go.transform.localPosition = new Vector3 (0.0f, 0.3f, 0.0f);
-												print ("GOGOOGOG");
 				
 												leftside = !leftside;
 												if (i % 2 == 0) {

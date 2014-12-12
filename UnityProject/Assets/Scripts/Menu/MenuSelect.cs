@@ -7,7 +7,6 @@ public class MenuSelect : MonoBehaviour
 	
 	[HideInInspector]
 	public int menuselect = 0;
-	public bool destroyPlayersInHatScene = false;
 	private float lastHatSelection;
 	public float SelectionDelay = 0.3f;
 	public GameObject[] MenuItems;
