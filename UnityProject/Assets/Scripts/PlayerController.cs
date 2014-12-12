@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
 	public float heavyMultiplier = 5;
 	public float heavyDrag = 0.02f;
 	public float heavyGScaleMult = 2;
+	public bool jumpOnPickup = true;
 
 	public int controller = 0;
 	public bool leftSide = true;
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour {
 		// TODO check if it's platform, not just any object
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
-		if (col.gameObject.layer == LayerMask.NameToLayer("Platforms")){
+		if (col.gameObject.layer == LayerMask.NameToLayer("Platforms") || jumpOnPickup && col.gameObject.layer == LayerMask.NameToLayer("Pickup")) {
 			onGround = true;
 		}
 	}
