@@ -21,7 +21,7 @@ public class RespawnGhost : MonoBehaviour {
 			float lingerTime, 
 			Sprite sprite) 
 	{
-		var go = new GameObject();
+		var go = new GameObject("Ghost");
 
 		var sr = go.AddComponent<SpriteRenderer>();
 		sr.sprite = sprite;

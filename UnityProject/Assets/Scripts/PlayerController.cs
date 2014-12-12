@@ -34,12 +34,6 @@ public class PlayerController : MonoBehaviour {
 	[HideInInspector]
 	public GameObject roller;
 
-	// Audio
-	// TODO GET THIS OUT OF THE CONTROLLER! :<
-	private AudioSource audioSource;
-	public AudioClip landSound;
-	public float landSoundVolume = 0.6f;
-
 	// We store the state of the heavy key here because inputControl.wasPressed() is not reliable
 	public bool IsHeavy {get; private set;}
 
@@ -81,8 +75,6 @@ public class PlayerController : MonoBehaviour {
 			baseMass = rigidbody2D.mass;
 			baseGScale = rigidbody2D.gravityScale;
 		}
-
-		audioSource = gameObject.AddComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -189,8 +181,8 @@ public class PlayerController : MonoBehaviour {
 
 			onGround = true;
 			if (IsHeavy) {
-				audioSource.clip = landSound;
-				audioSource.Play();
+				// play the heavy sound
+				SoundManager.PlaySound(SoundManager.SoundTypes.Player_Land);
 			}
 
 			LastCollisionLayer = col.gameObject.layer;
