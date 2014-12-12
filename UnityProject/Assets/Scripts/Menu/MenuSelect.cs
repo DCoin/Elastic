@@ -48,7 +48,9 @@ public class MenuSelect : MonoBehaviour
 		//Up in the menu
 		if (ControllerManager.GetJumpInputBool(0, true))
 		{
-			
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
+
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
 				
@@ -68,6 +70,8 @@ public class MenuSelect : MonoBehaviour
 		}
 		else if (ControllerManager.GetHeavyInputBool(0, true))
 		{
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
 			
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
@@ -88,7 +92,9 @@ public class MenuSelect : MonoBehaviour
 		//We select something!
 		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0))
 		{
-			print (currentlevel);
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Select);
+
 			//Main menu
 			if (currentlevel == 0)
 			{

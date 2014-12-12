@@ -45,6 +45,9 @@ public class PlayerNoSelect : MonoBehaviour
 	{
 		if (ControllerManager.GetJumpInputBool(0, true))
 		{
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
+
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
 				lastHatSelection = Time.fixedTime;
@@ -58,6 +61,9 @@ public class PlayerNoSelect : MonoBehaviour
 		}
 		else if (ControllerManager.GetHeavyInputBool(0, true))
 		{
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
+
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
 				lastHatSelection = Time.fixedTime;
@@ -71,6 +77,9 @@ public class PlayerNoSelect : MonoBehaviour
 		}
 		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0))
 		{
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Select);
+
 			eyeCount = eyeChoices[menuselect];
 			menu_go.GetComponent<MenuSelect>().eyeCount = eyeCount;
 			menu_go.GetComponent<MenuSelect>().eyeChoices = eyeChoices;
@@ -79,6 +88,9 @@ public class PlayerNoSelect : MonoBehaviour
 		}
 		else if (ControllerManager.GetBButtonInput(0))
 		{
+			// Play sound!
+			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Back);
+
 			Destroy(gameObject);
 			Destroy (menu.gameObject);
 			print ("Loading title screen");

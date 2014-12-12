@@ -53,31 +53,31 @@ MonoBehaviour:
   - type: 1
     sounds:
     - clip: {fileID: 8300000, guid: 02cd25593c5b1dd42bc5746fe12daf2d, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 2
     sounds:
     - clip: {fileID: 8300000, guid: 9603ecbbebd3ce141bd6926baf08e88c, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 3
     sounds:
     - clip: {fileID: 8300000, guid: 8ed481188375b654eabe2231d3db4ef7, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 4
     sounds:
     - clip: {fileID: 8300000, guid: 0d2c41dda364fe5499906024f92b0181, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 5
     sounds:
     - clip: {fileID: 8300000, guid: 079e0d1547dff5148a591d18d42591ef, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 6
     sounds:
     - clip: {fileID: 8300000, guid: b4c13920156d4d44c90ba9a210569714, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 7
     sounds:
     - clip: {fileID: 8300000, guid: 91735792757e1dd45859c08bc529aceb, type: 3}
-      volume: .600000024
+      volume: 1
   - type: 8
     sounds:
     - clip: {fileID: 8300000, guid: 795d4dbaac20c9c4d960382eacb11795, type: 3}
