@@ -40,7 +40,9 @@ public class RespawnGhost : MonoBehaviour {
 	}
 
 	void Update () {
-		clock += Time.fixedDeltaTime; // We're using fixed deltatime to account for pauses here
+		// account for pauses
+		if (Time.timeScale > 0)
+			clock += Time.deltaTime;
 
 		if (clock < travelTime) {
 			transform.position = Vector2.Lerp(start, destination, clock / travelTime);
