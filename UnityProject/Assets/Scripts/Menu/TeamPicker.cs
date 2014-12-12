@@ -17,13 +17,14 @@ public class TeamPicker : MonoBehaviour {
 
 	public GameObject RopePrefab;
 
+	private bool runOnce = false;
 
 	public int eyeCount;
 	public int nextlevel;
 
-	private static bool isRunning = false;
+	public static bool isRunning = false;
 
-	private int teamCount;
+	public int teamCount;
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
 	public class Team
@@ -33,16 +34,16 @@ public class TeamPicker : MonoBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
-		if (!isRunning) {
-						isRunning = true;
+		if ( runOnce )
+		return;
+		
+		runOnce = true;
+		count = 0;
 						//This object should only be loaded from the hatpicker level
-						//if (level == 3) {
 								GameObject MI = GameObject.Find ("MenuItems");
 								if (MI) {
 										eyeCount = MI.GetComponent<MenuSelect> ().eyeCount;
 										nextlevel = MI.GetComponent<MenuSelect> ().nextlevel;
-										MI.GetComponent<MenuSelect> ().destroyPlayersInHatScene = true;
-										//Destroy (MI);
 								}
 
 
@@ -128,9 +129,6 @@ public class TeamPicker : MonoBehaviour {
 								if (nextlevel == 6) {
 										DontDestroyOnLoad (gameObject);
 								}
-						//}
-				}
-
 	}
 	// Use this for initialization
 	void Start () {

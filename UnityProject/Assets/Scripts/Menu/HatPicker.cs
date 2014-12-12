@@ -68,6 +68,8 @@ public class HatPicker : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (count >= eyeCount) {
+			count = 0;
+			Destroy (gameObject);
 						Application.LoadLevel (3); // team picker level
 				}
 	}

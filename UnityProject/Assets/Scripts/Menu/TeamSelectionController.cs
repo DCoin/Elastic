@@ -113,18 +113,26 @@ public class TeamSelectionController : MonoBehaviour
 			//audio.clip = teamPickerScript.playerReady;
 			//audio.Play();
 		}
-		if (ControllerManager.GetBButtonInput (controller)) {
-				print ("Pressing back on teampicker scene");
-				if (lastTeamSelection + teamSelectionDelay < Time.fixedTime)
-				{
-					print ("Loading lvl 2 hatpicker from teampickerscene");
-					lastTeamSelection = Time.fixedTime;
-					Destroy (gameObject);
-					Destroy (teamPickerScript.gameObject);
-					Destroy (GameObject.Find ("Main Camera"));
-					Application.LoadLevel(2);
+		else if (ControllerManager.GetBButtonInput (controller)) {
+			print ("Pressing back on teampicker scene");
+			if (lastTeamSelection + teamSelectionDelay < Time.fixedTime)
+			{
+				lastTeamSelection = Time.fixedTime;
+				//Destroy all hats in the scene
+				foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) {
+					print(p.name);
+					Destroy (p);
 				}
+				Destroy (GameObject.Find ("Main Camera"));
+				Destroy (teamPickerScript.gameObject);
+
+				//Destroy teams in the teampicker
+				foreach (GameObject t in teamPickerScript.teams) {
+					Destroy (t);
+				}
+				Application.LoadLevel(2);
 			}
+		}
 		
 	}
 	
