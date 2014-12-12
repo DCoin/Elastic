@@ -12,6 +12,13 @@ public class EffectsManager : MonoBehaviour {
 	public bool ghosts = true;
 	public Sprite ghostSprite;
 
+	public bool slowmoKill = true;
+	public float slowdownTo = 0.33f;
+	public float slowmoTime = 0.5f;
+	private bool slowmoActive = false;
+	private float standardTimeScale;
+	private float slowmoClock;
+
 	private struct PlayerState {
 		public PlayerController player;
 		public Vector2 velocity;
@@ -44,6 +51,9 @@ public class EffectsManager : MonoBehaviour {
 		foreach (var p in pcs) {
 			players.Add(new PlayerState(p));
 		}
+
+		// For slowmo part
+		standardTimeScale = Time.timeScale;
 	}
 
 	void Update () {
@@ -72,7 +82,7 @@ public class EffectsManager : MonoBehaviour {
 				}
 			}
 
-			// KILL GHOSTS
+			// KILL-GHOSTS //
 			if (ghosts) {
 				if (oldp.alive && !newp.alive) {
 					// Someone just died, spawn a ghost!
@@ -85,6 +95,28 @@ public class EffectsManager : MonoBehaviour {
 						ghostSprite);
 				}
 			}
+
+			// KILL-SLOWMO
+			if (slowmoKill) {
+				if (!slowmoActive && oldp.alive && !newp.alive) {
+					// Someone just died, let's slooowmo!
+					// TODO get these values in a proper manner
+					Time.timeScale = slowdownTo;
+					slowmoClock = 0.0f;
+					slowmoActive = true;
+				}
+			}
+
+			if (slowmoActive && Time.timeScale > 0.0f) { // Check if the game isn't paused before you fiddle with it
+				slowmoClock += Time.deltaTime;
+
+				Time.timeScale = Mathf.SmoothStep(slowdownTo, standardTimeScale, slowmoClock / slowmoTime);
+
+				if (Time.timeScale == standardTimeScale) {
+					slowmoActive = false;
+				}
+			}
+
 		}
 
 		// assign updated list in preperation to next frame

@@ -42,7 +42,10 @@ MonoBehaviour:
   screenShake: 1
   shakeMultiplier: .100000001
   ghosts: 1
-  ghostSprite: {fileID: 0}
+  ghostSprite: {fileID: 21300000, guid: 8d31732bb87ae2b4eabb150cab76ee3a, type: 3}
+  slowmoKill: 1
+  slowdownTo: .330000013
+  slowmoTime: .5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

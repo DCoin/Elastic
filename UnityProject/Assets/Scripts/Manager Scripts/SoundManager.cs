@@ -55,6 +55,11 @@ public class SoundManager : MonoBehaviour {
 	/// <param name="t">What type of sound do you want?</param>
 	public static void PlaySound(SoundTypes t) {
 		var soundmanager = GetInstance();
+		if (!soundmanager) {
+			Debug.Log("can't play sound: " + t + ", no sound manager present");
+			return;
+		}
+
 		var sound = soundmanager.GetRandomClipOfGroup(t);
 		AudioSource.PlayClipAtPoint(sound.clip, Vector3.zero, sound.volume);
 	}
