@@ -52,6 +52,16 @@ MonoBehaviour:
     sounds:
     - clip: {fileID: 8300000, guid: 3da61bdb11132eb41916409e3d8bf535, type: 3}
       volume: .600000024
+  - type: 4
+    sounds:
+    - clip: {fileID: 8300000, guid: 9de79a74584882d46a5695cc08fa8124, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: 4d16320eb21e1dd43ab2835145fecab5, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: 21ed2df26ee41d14b962ff8d17007853, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: c965d3c46911a7543a5ffe59c93c9c5f, type: 3}
+      volume: .600000024
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
