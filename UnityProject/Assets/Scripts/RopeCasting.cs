@@ -42,7 +42,9 @@ public class RopeCasting : MonoBehaviour {
 			Debug.LogError("Rope was already initialized");
 			return;
 		}
-		if (gameObject.GetComponentsInChildren<RopeCastingSegment> ().Length != 0) Debug.LogError("InitializeSegments was called while it still has segments.");
+		if (gameObject.GetComponentsInChildren<RopeCastingSegment> ().Length != 0) {
+			Debug.LogError("InitializeSegments was called while it still has segments.");
+		}
 
 		// TODO Fix hack to find the real player object (Which doen't roll)
 		var p1c = p1.GetComponent<PlayerController> ();
@@ -63,7 +65,7 @@ public class RopeCasting : MonoBehaviour {
 
 	public void ResetPosition() {
 		// TODO Check if there is any platforms on the ropes path
-		DestroySegments ();
+		DestroySegments (); // TODO The objects are not destroyed imidialtly and initialize will see them.
 		InitializeSegments ();
 	}
 
@@ -85,8 +87,8 @@ public class RopeCasting : MonoBehaviour {
 		// Apply forces
 		var forceP1 = CalcForce2 (length, segCount - 2, GetDirectionalSpeed(p1.rigidbody2D.velocity, ropePath.Vector().normalized));
 		var forceP2 = CalcForce2 (length, segCount - 2, GetDirectionalSpeed(p2.rigidbody2D.velocity, ropePath.Vector().normalized));
-		p1.rigidbody2D.AddForce(ropePath.Vector().normalized * forceP1 * forceP1, ForceMode2D.Impulse);
-		p2.rigidbody2D.AddForce(lastSeg.Vector().normalized * -forceP2 * forceP2, ForceMode2D.Impulse); // This vector goes the wrong way thus -force
+		p1.rigidbody2D.AddForceAtPosition(ropePath.Vector().normalized * forceP1 * forceP1, p1.transform.position, ForceMode2D.Impulse);
+		p2.rigidbody2D.AddForceAtPosition(lastSeg.Vector().normalized * -forceP2 * forceP2, p2.transform.position, ForceMode2D.Impulse); // This vector goes the wrong way thus -force
 	}
 
 	// Bad name i know...

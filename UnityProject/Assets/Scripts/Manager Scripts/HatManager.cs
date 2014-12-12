@@ -36,7 +36,7 @@ public class HatManager : MonoBehaviour {
 	public class Hat
 	{
 		public HatNames name;
-		public Sprite hatSprite;
+		public Sprite 	hatSprite;
 	}
 
 	public Hat[] hats;

@@ -21,7 +21,7 @@ public class RespawnGhost : MonoBehaviour {
 			float lingerTime, 
 			Sprite sprite) 
 	{
-		var go = new GameObject();
+		var go = new GameObject("Ghost");
 
 		var sr = go.AddComponent<SpriteRenderer>();
 		sr.sprite = sprite;
@@ -47,7 +47,7 @@ public class RespawnGhost : MonoBehaviour {
 		}
 		else if (clock < travelTime + lingerTime) {
 			var c = sr.color;
-			c.a = Mathf.Lerp(1.0f, 0.0f, (clock - travelTime) / lingerTime); 
+			c.a = Mathf.SmoothStep(1.0f, 0.0f, (clock - travelTime) / lingerTime); 
 			sr.color = c;
 		}
 		else {

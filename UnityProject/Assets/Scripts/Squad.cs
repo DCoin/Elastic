@@ -6,16 +6,11 @@ public class Squad : MonoBehaviour {
 	// we should investigate other ways of doing it. maybe allowing independant movement when severed,
 	// and then players attempt for reattachment?
 
-
-	public AudioClip killSound;
-	public float killSoundVolume = 0.6f;
-	public AudioClip respawnSound;
-	public float respawnSoundVolume = 0.6f;
-
-	public PickupScript pickup;
+	public PickupScript Pickup {get; set;}
 
 	private AudioSource audioSource;
 
+	// Exposing these, other classes use 'em :)
 	public Vector2 RespawnPoint {get; set;}
 	public float CurrentRepsawnTime {get; private set;}
 	public bool Alive {get; private set;}
@@ -25,8 +20,6 @@ public class Squad : MonoBehaviour {
 		// Set starting respawn point to start position
 		// This can be overwritten later with the SetRespawnPoint method
 		RespawnPoint = transform.position;
-
-		audioSource = gameObject.AddComponent<AudioSource>();
 
 		Alive = true;
 	}
@@ -75,8 +68,7 @@ public class Squad : MonoBehaviour {
 	}
 
 	private void PlayRespawnSound() {
-		audioSource.clip = respawnSound;
-		audioSource.Play();
+		SoundManager.PlaySound(SoundManager.SoundTypes.Squad_Respawn);
 	}
 
 
@@ -86,7 +78,10 @@ public class Squad : MonoBehaviour {
 	/// <param name="respawnTime">Respawn time.</param>
 	public void Kill(float respawnTime) {
 		CurrentRepsawnTime = respawnTime;
+
+		// play the respawn sound right before respawning
 		Invoke("PlayRespawnSound", respawnTime-1.5f); // TODO This breaks if respawnTime is 1.5f or lower?
+
 		Invoke("Respawn", respawnTime);
 		Kill ();
 	}
@@ -95,10 +90,11 @@ public class Squad : MonoBehaviour {
 	/// Kill the squad.
 	/// </summary>
 	public void Kill() {
-		if (pickup != null) pickup.KillRope ();
+		if (Pickup != null) Pickup.KillRope ();
 		
-		audioSource.clip = killSound;
-		audioSource.Play();
+		// Play the kill sound
+		SoundManager.PlaySound(SoundManager.SoundTypes.Squad_Kill);
+
 		// break all ropes
 		foreach (var script in transform.GetComponentsInChildren<RopeScript>()) {
 			script.DestroyRope();

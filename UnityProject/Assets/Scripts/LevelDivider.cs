@@ -16,7 +16,7 @@ public class LevelDivider : MonoBehaviour {
 		// New rope
 		var squad = col.gameObject.GetComponentInParent<Squad> ();
 		var pickup = col.gameObject.GetComponentInParent<PickupScript> ();
-		if (squad != null && squad.pickup != null || pickup != null && !pickup.pickupAble) {
+		if (squad != null && squad.Pickup != null || pickup != null && !pickup.pickupAble) {
 			transform.collider2D.isTrigger = true;
 		}
 		// Old rope

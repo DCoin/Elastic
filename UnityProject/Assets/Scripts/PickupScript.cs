@@ -11,9 +11,8 @@ public class PickupScript : MonoBehaviour {
 	public int segments = 3;
 	public GameObject RopePrefab;
 	public bool pickupAble = true;
-	public GameObject newRopePrefab;
-	//public float minRopeDist = 1f;
-	//public float acceleration = 0.3f;
+	public float massOffset = -.4f;
+
 	private RopeScript rope;
 	private Vector2 respawnPoint;
 	private bool newRope = false;
@@ -31,6 +30,7 @@ public class PickupScript : MonoBehaviour {
 			newRopeCast = ropes[0];
 			newRopeCast.killActions += unlink;
 		}
+		rigidbody2D.centerOfMass = Vector2.right * massOffset;
 	}
 
 	// Use this for initialization
@@ -126,7 +126,7 @@ public class PickupScript : MonoBehaviour {
 			return;
 		}
 
-		squad.pickup = this;
+		squad.Pickup = this;
 
 
 		//var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
@@ -149,7 +149,7 @@ public class PickupScript : MonoBehaviour {
 	}
 
 	private void unlink () {
-		squad.pickup = null;
+		squad.Pickup = null;
 		squad = null;
 		pickupAble = true;
 	}

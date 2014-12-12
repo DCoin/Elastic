@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1179edc0975938f41958c7c9fca5efb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundGroups:
+  - type: 3
+    sounds:
+    - clip: {fileID: 8300000, guid: 795d4dbaac20c9c4d960382eacb11795, type: 3}
+      volume: .600000024
+  - type: 1
+    sounds:
+    - clip: {fileID: 8300000, guid: d32896f89fde38c439d4aeb8b528c619, type: 3}
+      volume: .600000024
+  - type: 2
+    sounds:
+    - clip: {fileID: 8300000, guid: 3da61bdb11132eb41916409e3d8bf535, type: 3}
+      volume: .600000024
+  - type: 4
+    sounds:
+    - clip: {fileID: 8300000, guid: 9de79a74584882d46a5695cc08fa8124, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: 4d16320eb21e1dd43ab2835145fecab5, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: 21ed2df26ee41d14b962ff8d17007853, type: 3}
+      volume: .600000024
+    - clip: {fileID: 8300000, guid: c965d3c46911a7543a5ffe59c93c9c5f, type: 3}
+      volume: .600000024
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
