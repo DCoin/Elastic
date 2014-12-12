@@ -123,8 +123,11 @@ MonoBehaviour:
   teamSpriteSingle: {fileID: 100000, guid: 9054f846b2606444d93060a72049f113, type: 2}
   teamSpritePair: {fileID: 100000, guid: 2ee762e4e50f9f645beef70940822025, type: 2}
   RopePrefab: {fileID: 100000, guid: dc91d8da03682344db72efc0e927c6db, type: 2}
+  headingFont: {fileID: 12800000, guid: 99742780b091f5147b118b0cccd6b8e0, type: 3}
+  headingText: Select team
   eyeCount: 0
   nextlevel: 0
+  teamCount: 0
 --- !u!4 &98826148
 Transform:
   m_ObjectHideFlags: 0

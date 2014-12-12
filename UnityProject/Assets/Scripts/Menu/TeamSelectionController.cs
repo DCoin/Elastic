@@ -125,6 +125,7 @@ public class TeamSelectionController : MonoBehaviour
 				}
 				Destroy (GameObject.Find ("Main Camera"));
 				Destroy (teamPickerScript.gameObject);
+				Destroy (GameObject.Find ("HeadingTeam"));
 
 				//Destroy teams in the teampicker
 				foreach (GameObject t in teamPickerScript.teams) {

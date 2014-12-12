@@ -15,7 +15,20 @@ public class PlayerNoSelect : MonoBehaviour
 	private List<int> eyeChoices;
 	private Vector3 camPosition;
 	private GameObject menu_go;
-	
+
+	public Font headingFont;
+	public string headingText;
+
+	private void OnGUI()
+	{
+		GUIStyle myStyle = new GUIStyle();
+		myStyle.normal.textColor = Color.white;
+		myStyle.font = headingFont;
+		myStyle.alignment = TextAnchor.UpperCenter;
+		myStyle.fontSize = 60;
+		GUI.Label (new Rect (Screen.width/2-50, 10, 100, 50), headingText, myStyle);
+	}
+
 	// Use this for initialization
 	void Start()
 	{

@@ -19,6 +19,9 @@ public class TeamPicker : MonoBehaviour {
 
 	private bool runOnce = false;
 
+	public Font headingFont;
+	public string headingText;
+
 	public int eyeCount;
 	public int nextlevel;
 
@@ -31,6 +34,16 @@ public class TeamPicker : MonoBehaviour {
 	{
 		public Material teamColor;
 		public Sprite teamSprite;
+	}
+
+	private void OnGUI()
+	{
+		GUIStyle myStyle = new GUIStyle();
+		myStyle.normal.textColor = Color.white;
+		myStyle.font = headingFont;
+		myStyle.alignment = TextAnchor.UpperCenter;
+		myStyle.fontSize = 60;
+		GUI.Label (new Rect (Screen.width/2-50, 10, 100, 50), headingText, myStyle);
 	}
 
 	void OnLevelWasLoaded(int level) {
@@ -136,6 +149,7 @@ public class TeamPicker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (count >= teamCount) {
+			Destroy(GameObject.Find ("MenuItems"));
 			Destroy (GameObject.Find ("Main Camera"));
 			Application.LoadLevel (nextlevel); // the level
 		}

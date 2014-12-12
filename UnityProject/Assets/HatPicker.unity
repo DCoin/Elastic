@@ -1185,7 +1185,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1204,7 +1204,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 526975392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -34.1764221, z: -2}
+  m_LocalPosition: {x: 0, y: -34.1043816, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2379,6 +2379,9 @@ MonoBehaviour:
   done: 0
   changelevel: 0
   hatArray: 
+  headingFont: {fileID: 12800000, guid: 99742780b091f5147b118b0cccd6b8e0, type: 3}
+  headingText: Select hat and eye
+  allPlayers: []
   eyeCount: 0
   nextlevel: 0
 --- !u!4 &926390322
