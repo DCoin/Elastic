@@ -13,23 +13,31 @@ public class PlayerNoSelect : MonoBehaviour
 	private MenuSelect menu;
 	public int nextlevel;
 	private List<int> eyeChoices;
+	private Vector3 camPosition;
+	private GameObject menu_go;
 	
 	// Use this for initialization
 	void Start()
 	{
-		DontDestroyOnLoad(gameObject);
 	}
 	void OnLevelWasLoaded(int level)
 	{
-		GameObject menu_go = GameObject.Find("MenuItems");
+		print ("Playerselect scene loaded from lvl " + level);
+	    menu_go = GameObject.Find("MenuItems");
 		if (menu_go)
 		{
 			menu = menu_go.GetComponent<MenuSelect>();
 			eyeChoices = menu.eyeChoices;
 			nextlevel = menu.nextlevel;
 			GetComponent<TextMesh>().text = eyeChoices[0].ToString();
-			Destroy(menu_go);
+			menu.GetComponent<MenuSelect>().enabled = false;
+			//Destroy(menu_go);
 		}
+		//Set the camera
+		camPosition = GameObject.Find ("Main Camera").transform.position;
+		if (level == 2) {
+					GameObject.Find ("Main Camera").transform.position = camPosition;
+				}
 	}
 	
 	// Update is called once per frame
@@ -61,11 +69,20 @@ public class PlayerNoSelect : MonoBehaviour
 				GetComponent<TextMesh>().text = eyeChoices[menuselect].ToString();
 			}
 		}
-		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0, true))
+		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0))
 		{
 			eyeCount = eyeChoices[menuselect];
-			print("Eyecount in playerno: " + eyeCount);
+			menu_go.GetComponent<MenuSelect>().eyeCount = eyeCount;
+			menu_go.GetComponent<MenuSelect>().eyeChoices = eyeChoices;
+			gameObject.GetComponent<PlayerNoSelect>().enabled = false;
 			Application.LoadLevel(2); //HatPicker scene
+		}
+		else if (ControllerManager.GetBButtonInput(0))
+		{
+			Destroy(gameObject);
+			Destroy (menu.gameObject);
+			print ("Loading title screen");
+			Application.LoadLevel(0); //Title screen
 		}
 		
 	}

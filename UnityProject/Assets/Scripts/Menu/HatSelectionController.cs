@@ -105,7 +105,6 @@ public class HatSelectionController : MonoBehaviour
 				{
 					colorindex = 0;
 				}
-				print(colorindex);
 				GetComponent<EyeAnimator>().SetIrisColor(colors[colorindex]);
 				audio.clip = hatPickerScript.eyeColorSwap;
 				audio.Play();
@@ -144,6 +143,25 @@ public class HatSelectionController : MonoBehaviour
 				
 				audio.clip = hatPickerScript.playerReady;
 				audio.Play();
+			}
+		}
+		if (ControllerManager.GetBButtonInput (controller)) {
+			if (lastHatSelection + hatSelectionDelay < Time.fixedTime)
+			{
+				lastHatSelection = Time.fixedTime;
+				Destroy (gameObject);
+				Destroy (hatPickerScript.gameObject);
+				Destroy (GameObject.Find ("Main Camera"));
+				print("hatPickerScript nextlevel " + hatPickerScript.nextlevel);
+
+				//Destroy these players since we're going back to select playerno
+				foreach (GameObject p in hatPickerScript.allPlayers) {
+					Destroy (p);
+				}
+				//if (hatPickerScript.nextlevel == 5) {
+					print ("Loading playerno select from hatpickerstate");
+					Application.LoadLevel(1);
+				//}
 			}
 		}
 		

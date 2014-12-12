@@ -7,6 +7,7 @@ public class MenuSelect : MonoBehaviour
 	
 	[HideInInspector]
 	public int menuselect = 0;
+	public bool destroyPlayersInHatScene = false;
 	private float lastHatSelection;
 	public float SelectionDelay = 0.3f;
 	public GameObject[] MenuItems;
@@ -14,7 +15,7 @@ public class MenuSelect : MonoBehaviour
 	public Color nonSelectcolor;
 	public int eyeCount;
 	public List<int> eyeChoices = new List<int>();
-	private int currentlevel = -1;
+	private int currentlevel = 0;
 	public int nextlevel = -1;
 	private SelectArenaMoveScript camScript;
 	
@@ -86,10 +87,11 @@ public class MenuSelect : MonoBehaviour
 			}
 		}
 		//We select something!
-		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0, true))
+		if (ControllerManager.GetStickButtonInput(0, true) || ControllerManager.GetAButtonInput(0))
 		{
+			print (currentlevel);
 			//Main menu
-			if (currentlevel == -1)
+			if (currentlevel == 0)
 			{
 				if (menuselect == 0)
 				{
@@ -127,8 +129,15 @@ public class MenuSelect : MonoBehaviour
 				eyeCount = 4;
 				Application.LoadLevel(2); // scene
 			}
-
 		}
+		if (ControllerManager.GetBButtonInput (0)) {
+			//Cant go back in the main menu
+			if (currentlevel != 0) {
+				Destroy (gameObject);
+				print ("Loading title screen from menuselect");
+				Application.LoadLevel(0);
+			}
+				}
 	}
 	
 	void ChangeColor(int menuselect)

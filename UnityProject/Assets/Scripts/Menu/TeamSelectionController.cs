@@ -83,34 +83,48 @@ public class TeamSelectionController : MonoBehaviour
 		}
 		if (ControllerManager.GetStickButtonInput(controller, leftSide))
 		{
-			if (lastTeamSelection + teamSelectionDelay*2 < Time.fixedTime)
+			if (lastTeamSelection + teamSelectionDelay * 2 < Time.fixedTime)
 			{
 				lastTeamSelection = Time.fixedTime;
-			if (!checkedOut)
-			{
-				checkedOut = true;
-				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-				teamPickerScript.count = teamPickerScript.count + 1;
-				if (!single)
+				if (!checkedOut)
 				{
-					teamPickerScript.teamVisual.Remove(currentTeam);
-					RemoveTeamSprite(currentTeam);
+					checkedOut = true;
+					GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+					teamPickerScript.count = teamPickerScript.count + 1;
+					if (!single)
+					{
+						teamPickerScript.teamVisual.Remove(currentTeam);
+						RemoveTeamSprite(currentTeam);
+					}
+				}
+				else
+				{
+					checkedOut = false;
+					GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+					teamPickerScript.count = teamPickerScript.count - 1;
+					if (!single)
+					{
+						teamPickerScript.teamVisual.Add(currentTeam);
+					}
 				}
 			}
-			else
-			{
-				checkedOut = false;
-				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-				teamPickerScript.count = teamPickerScript.count - 1;
-				if (!single)
-				{
-					teamPickerScript.teamVisual.Add(currentTeam);
-				}
-			}
-			}
+
+
 			//audio.clip = teamPickerScript.playerReady;
 			//audio.Play();
 		}
+		if (ControllerManager.GetBButtonInput (controller)) {
+				print ("Pressing back on teampicker scene");
+				if (lastTeamSelection + teamSelectionDelay < Time.fixedTime)
+				{
+					print ("Loading lvl 2 hatpicker from teampickerscene");
+					lastTeamSelection = Time.fixedTime;
+					Destroy (gameObject);
+					Destroy (teamPickerScript.gameObject);
+					Destroy (GameObject.Find ("Main Camera"));
+					Application.LoadLevel(2);
+				}
+			}
 		
 	}
 	
