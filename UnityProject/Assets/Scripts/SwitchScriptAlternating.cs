@@ -65,7 +65,7 @@ public class SwitchScriptAlternating : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.transform.root.name.Contains(Squadname)) {
-			if (!moveDoor) 
+			if (squadName != col.transform.root.name) 
 				SoundManager.PlaySound(SoundManager.SoundTypes.Grate); // TODO will only play once for each grate
 
 			moveDoor = true;

@@ -48,11 +48,11 @@ public class MenuSelect : MonoBehaviour
 		//Up in the menu
 		if (ControllerManager.GetJumpInputBool(0, true))
 		{
-			// Play sound!
-			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
 
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
 				
 				lastHatSelection = Time.fixedTime;
 				menuselect--;
@@ -70,11 +70,11 @@ public class MenuSelect : MonoBehaviour
 		}
 		else if (ControllerManager.GetHeavyInputBool(0, true))
 		{
-			// Play sound!
-			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
 			
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
 				
 				lastHatSelection = Time.fixedTime;
 				menuselect++;
