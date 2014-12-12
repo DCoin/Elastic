@@ -59,9 +59,9 @@ public class HatSelectionController : MonoBehaviour
 				}
 				hat = hatPickerScript.hatArray[hatindex];
 				GetComponent<EyeAnimator>().ChangeHat(hat);
-				
-				audio.clip = hatPickerScript.hatSwap;
-				audio.Play();
+
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Hat_Swap);
 			}
 		}
 		else if (ControllerManager.GetHeavyInputBool(controller, leftSide) && !checkedOut)
@@ -76,9 +76,9 @@ public class HatSelectionController : MonoBehaviour
 				}
 				hat = hatPickerScript.hatArray[hatindex];
 				GetComponent<EyeAnimator>().ChangeHat(hat);
-				
-				audio.clip = hatPickerScript.hatSwap;
-				audio.Play();
+
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Hat_Swap);
 			}
 		}
 		else if (!Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f) && !checkedOut)
@@ -88,14 +88,21 @@ public class HatSelectionController : MonoBehaviour
 				lastHatSelection = Time.fixedTime;
 				float dir = ControllerManager.GetHorizontalInput(controller, leftSide);
 				int incr = 0;
-				if (dir > 0.33f)
+				if (dir > 0.5f)
 				{
 					incr = 1;
 				}
-				else if (dir < -0.33f)
+				else if (dir < -0.5f)
 				{
 					incr = -1;
 				}
+
+				// Play sound!
+				if (incr != 0) {
+					// Play sound!
+					SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Eyecolor_Swap);
+				}
+
 				colorindex = colorindex + incr;
 				if (colorindex < 0)
 				{
@@ -106,8 +113,6 @@ public class HatSelectionController : MonoBehaviour
 					colorindex = 0;
 				}
 				GetComponent<EyeAnimator>().SetIrisColor(colors[colorindex]);
-				audio.clip = hatPickerScript.eyeColorSwap;
-				audio.Play();
 			}
 		}
 		if (ControllerManager.GetStickButtonInput(controller, leftSide))
@@ -141,13 +146,17 @@ public class HatSelectionController : MonoBehaviour
 					hatPickerScript.hatArray.Add(hat);
 				}
 				
-				audio.clip = hatPickerScript.playerReady;
-				audio.Play();
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Player_Ready);
 			}
 		}
 		if (ControllerManager.GetBButtonInput (controller)) {
 			if (lastHatSelection + hatSelectionDelay < Time.fixedTime)
 			{
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Back);
+
+
 				lastHatSelection = Time.fixedTime;
 				Destroy (gameObject);
 				Destroy (hatPickerScript.gameObject);

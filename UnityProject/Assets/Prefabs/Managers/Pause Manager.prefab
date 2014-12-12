@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e472a486f51b5b24d9c2fd430a4b6313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseSplashSprite: {fileID: 21300000, guid: 06e7dd0bc85f0614a82da477c41e38df, type: 3}
+  pauseSplashSprite: {fileID: 21300000, guid: 41a6fe4a824f2c74c8e568d400f008c6, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

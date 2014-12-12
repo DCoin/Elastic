@@ -21,6 +21,12 @@ public class PauseScript : MonoBehaviour {
 	}
 
 	void Update() {
+		if (paused && ControllerManager.GetYButtonInput()) {
+			Unpause();
+			Application.LoadLevel(0);
+			return;
+		}
+
 		// Paused was pressed, do stuff
 		if (ControllerManager.GetPauseButtonInput()) {
 			if (paused) Unpause();

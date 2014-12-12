@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 	public float heavyDrag = 0.02f;
 	public float heavyGScaleMult = 2;
 	public bool jumpOnPickup = true;
+	public bool disableAirDecceleration = true;
 
 	public int controller = 0;
 	public bool leftSide = true;
@@ -87,7 +88,12 @@ public class PlayerController : MonoBehaviour {
 		// TODO Add different air control?
 
 		if (!IsHeavy && !Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
-			var dir = ControllerManager.GetRightInputBool(controller, leftSide) ? 1 : -1; // Will always show left on no input but that doesnt matter as its 0.
+			var dir = Mathf.Sign( ControllerManager.GetHorizontalInput(controller, leftSide) );
+			if (ControllerManager.GetHorizontalInput(controller, leftSide) < -1 || ControllerManager.GetHorizontalInput(controller, leftSide) > 1) {
+				Debug.LogError("Input out of range: " + ControllerManager.GetHorizontalInput(controller, leftSide));
+			}
+			Debug.Log("AdjustedAcceleration: " + GetAdjustedAcceleration(rigidbody2D.velocity.x * dir));
+			Debug.Log("Velocity x: " + rigidbody2D.velocity.x + " dir: " + dir);
 			rigidbody2D.AddForce(Vector2.right * ControllerManager.GetHorizontalInput(controller, leftSide) * GetAdjustedAcceleration(rigidbody2D.velocity.x * dir), forceMode);
 		}
 
@@ -168,7 +174,10 @@ public class PlayerController : MonoBehaviour {
 
 	private float GetAdjustedAcceleration(float speed) {
 		float adjustment = (forceMode == ForceMode2D.Impulse ? impulseAdjust : 1.0f);
-		return (1 - speed / moveSpeed) * acceleration * adjustment;
+		// Max with 0 so we do not get extra decceleration in the air if enabled and in the air
+		if (disableAirDecceleration && !onGround) speed = Mathf.Max (0, speed);
+		// Max with 0 so we never slow down.
+		return Mathf.Max(0, (1 - speed / moveSpeed) * acceleration * adjustment);
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
