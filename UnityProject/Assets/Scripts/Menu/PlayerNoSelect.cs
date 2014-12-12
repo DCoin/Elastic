@@ -58,11 +58,11 @@ public class PlayerNoSelect : MonoBehaviour
 	{
 		if (ControllerManager.GetJumpInputBool(0, true))
 		{
-			// Play sound!
-			SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
-
 			if (lastHatSelection + SelectionDelay < Time.fixedTime)
 			{
+				// Play sound!
+				SoundManager.PlaySound(SoundManager.SoundTypes.Menu_Nav);
+
 				lastHatSelection = Time.fixedTime;
 				menuselect--;
 				if (menuselect < 0)
