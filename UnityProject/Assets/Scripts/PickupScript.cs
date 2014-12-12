@@ -11,6 +11,8 @@ public class PickupScript : MonoBehaviour {
 	public int segments = 3;
 	public GameObject RopePrefab;
 	public bool pickupAble = true;
+	public float massOffset = -.4f;
+
 	private RopeScript rope;
 	private Vector2 respawnPoint;
 	private bool newRope = false;
@@ -28,6 +30,7 @@ public class PickupScript : MonoBehaviour {
 			newRopeCast = ropes[0];
 			newRopeCast.killActions += unlink;
 		}
+		rigidbody2D.centerOfMass = Vector2.right * massOffset;
 	}
 
 	// Use this for initialization

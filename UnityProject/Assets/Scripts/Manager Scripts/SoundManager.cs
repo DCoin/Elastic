@@ -8,13 +8,37 @@ public class SoundManager : MonoBehaviour {
 	// One value for every type of sound we have
 	public enum SoundTypes
 	{
-		Menu_Nav,
 
 		Squad_Kill,
 		Squad_Respawn,
 
 		Player_Land,
-		Player_Land_Trampoline
+
+		Grate,
+
+		Menu_Back,
+		Menu_Error,
+		Menu_eyecolor_swap,
+		Menu_Hat_swap,
+		Menu_Nav,
+		Menu_Player_ready,
+		Menu_Select,
+
+		Switch1,
+		Switch2,
+		Switch3,
+		Switch4,
+		Switch5,
+		Switch6,
+
+		Stretch0,
+		stretch1,
+		stretch2,
+		stretch3,
+		stretch4,
+		stretch5,
+
+
 	} 
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
