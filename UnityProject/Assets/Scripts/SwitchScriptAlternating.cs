@@ -51,9 +51,9 @@ public class SwitchScriptAlternating : MonoBehaviour {
 			} else if (squadName.Contains("2")) {
 				if (Squad2door.transform.position != Squad2DoorTargetPosition){
 					// Smoothly move the camera towards that target position
-					Squad2door.transform.position = Vector3.SmoothDamp (Squad2door.transform.position, Squad2DoorTargetPosition, ref velocity, smoothTime);
+					Squad2door.transform.position = Vector3.SmoothDamp (Squad2door.transform.position, Squad2DoorTargetPosition, ref velocity2, smoothTime);
 					if (Squad1door.transform.position != Squad1DoorStartPosition) {
-						Squad1door.transform.position = Vector3.SmoothDamp (Squad1door.transform.position, Squad1DoorStartPosition, ref velocity2, smoothTime);
+						Squad1door.transform.position = Vector3.SmoothDamp (Squad1door.transform.position, Squad1DoorStartPosition, ref velocity, smoothTime);
 					}
 				} 
 				else {

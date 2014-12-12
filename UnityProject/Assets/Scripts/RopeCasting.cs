@@ -44,6 +44,7 @@ public class RopeCasting : MonoBehaviour {
 		}
 		if (gameObject.GetComponentsInChildren<RopeCastingSegment> ().Length != 0) {
 			Debug.LogError("InitializeSegments was called while it still has segments.");
+			DestroySegments();
 		}
 
 		// TODO Fix hack to find the real player object (Which doen't roll)

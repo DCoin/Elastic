@@ -122,7 +122,7 @@ public class DuelMode : MonoBehaviour {
 			colorSet = true;
 		}
 
-		if (currentArea != 0 && currentArea != areas.Length) {
+		if (currentArea != 0 && currentArea != areas.Length - 1) {
 			foreach (var divider in dividers [currentArea - 1].divArray) {
 				divider.SetColor (sq2color);
 			}
