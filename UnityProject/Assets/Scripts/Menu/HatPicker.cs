@@ -40,7 +40,7 @@ public class HatPicker : MonoBehaviour {
 		myStyle.font = headingFont;
 		myStyle.alignment = TextAnchor.UpperCenter;
 		myStyle.fontSize = 60;
-		GUI.Label (new Rect (Screen.width/2-50, 10, 100, 50), headingText, myStyle);
+		GUI.Label (new Rect (Screen.width/2-400, 10, 100, 50), headingText, myStyle);
 	}
 
 	// Use this for initialization
