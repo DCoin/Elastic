@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-//[RequireComponent (typeof (LineRenderer))]
 public class RopeCasting : MonoBehaviour {
 
 	public GameObject p1;
@@ -12,9 +11,11 @@ public class RopeCasting : MonoBehaviour {
 	public float ropeOffset = 0.1f;
 	public float minRopeDist = 2;
 	public float acceleration = 0.1f;
+	public bool squaredPower = false;
 	public Material ropeMaterial;
 	public float ropeWidth = 0.15f;
-	public float softCap = 10;
+	private float softCap = 10;
+	public bool destroyOnFailedRopeCast = true;
 
 	public delegate void KillAction ();
 	public KillAction killActions;
@@ -24,7 +25,7 @@ public class RopeCasting : MonoBehaviour {
 	private float length = 0f;
 	private int segCount = 0;
 	private HashSet<Collider2D> crossColliders;
-
+	private bool isInitialized = false;
 	private RopeCastingSegment ropePath;
 
 	void Start () {
@@ -37,6 +38,12 @@ public class RopeCasting : MonoBehaviour {
 	}
 
 	private void InitializeSegments() {
+		if (isInitialized) {
+			Debug.LogError("Rope was already initialized");
+			return;
+		}
+		if (gameObject.GetComponentsInChildren<RopeCastingSegment> ().Length != 0) Debug.LogError("InitializeSegments was called while it still has segments.");
+
 		// TODO Fix hack to find the real player object (Which doen't roll)
 		var p1c = p1.GetComponent<PlayerController> ();
 		var p2c = p2.GetComponent<PlayerController> ();
@@ -46,6 +53,7 @@ public class RopeCasting : MonoBehaviour {
 		ropePath = RopeCastingSegment.NewSeg (this, p1.transform.position, lastEnd, p1col, 0);
 		crossColliders = null;
 		GetCrossColliders ();
+		isInitialized = true;
 	}
 
 	public void Activate () {
@@ -59,13 +67,16 @@ public class RopeCasting : MonoBehaviour {
 		InitializeSegments ();
 	}
 
-	public void DestroySegments() {
+	private void DestroySegments() {
 		foreach (var o in GetComponentsInChildren<RopeCastingSegment>()) {
 			Destroy (o.gameObject);
 		}
+		isInitialized = false;
 	}
 
 	void FixedUpdate () {
+		if (!gameObject.activeSelf) Debug.LogError("Mother FixedUpdate while inactive");
+
 		// Check if any dynamic colliders on ropePath has moved and update those + check if affected points have changed.
 		// Check if end points are dissolved
 		// Calculate force based on length of ropePath. Use constant force on the players (colliders) rigidbody.
@@ -141,7 +152,7 @@ public class RopeCasting : MonoBehaviour {
 	}
 	
 	private float CalcForce2 (float ropeLength, int corners, float directionalSpeed) {
-		return GetRopeStretch(ropeLength) * acceleration;
+		return GetRopeStretch(ropeLength) * acceleration * (squaredPower ? GetRopeStretch(ropeLength) : 1);
 	}
 	
 	private float CalcForce3 (float ropeLength, int corners, float directionalSpeed) {
