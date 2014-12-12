@@ -38,10 +38,10 @@ public class SwitchScriptAlternating : MonoBehaviour {
 	void FixedUpdate () {
 		if (moveDoor) {
 			if (squadName.Contains("1")) {
-				if (Squad1door.transform.position != Squad1DoorTargetPosition){
+				if (Vector3.Distance(Squad1door.transform.position, Squad1DoorTargetPosition) > 0.01f) {
 				// Smoothly move the camera towards that target position
 					Squad1door.transform.position = Vector3.SmoothDamp (Squad1door.transform.position, Squad1DoorTargetPosition, ref velocity, smoothTime);
-					if (Squad2door.transform.position != Squad2DoorStartPosition) {
+					if (Vector3.Distance(Squad2door.transform.position, Squad2DoorStartPosition) > 0.01f) {
 						Squad2door.transform.position = Vector3.SmoothDamp (Squad2door.transform.position, Squad2DoorStartPosition, ref velocity2, smoothTime);
 					}
 				} 
@@ -49,10 +49,10 @@ public class SwitchScriptAlternating : MonoBehaviour {
 					moveDoor = false;
 				}
 			} else if (squadName.Contains("2")) {
-				if (Squad2door.transform.position != Squad2DoorTargetPosition){
+				if (Vector3.Distance(Squad2door.transform.position, Squad2DoorTargetPosition) > 0.01f) {
 					// Smoothly move the camera towards that target position
 					Squad2door.transform.position = Vector3.SmoothDamp (Squad2door.transform.position, Squad2DoorTargetPosition, ref velocity2, smoothTime);
-					if (Squad1door.transform.position != Squad1DoorStartPosition) {
+					if (Vector3.Distance(Squad1door.transform.position, Squad1DoorStartPosition) > 0.01f) {
 						Squad1door.transform.position = Vector3.SmoothDamp (Squad1door.transform.position, Squad1DoorStartPosition, ref velocity, smoothTime);
 					}
 				} 
