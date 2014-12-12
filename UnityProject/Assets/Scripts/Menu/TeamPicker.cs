@@ -62,7 +62,7 @@ public class TeamPicker : MonoBehaviour {
 
 								bool pair;
 								print ("nextleveL: " + nextlevel + "eyecount " + eyeCount);
-								if (nextlevel == 4 || nextlevel == 5 || nextlevel == 7) { // pair levels (selectduellevel or tutorial
+								if (nextlevel == 4 || nextlevel == 5 || nextlevel >= 7) { // pair levels (selectduellevel or tutorial
 										teamCount = eyeCount / 2;
 										pair = true;
 								} else { //every player select team levels
