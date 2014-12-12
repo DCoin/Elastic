@@ -11,9 +11,6 @@ public class PickupScript : MonoBehaviour {
 	public int segments = 3;
 	public GameObject RopePrefab;
 	public bool pickupAble = true;
-	public GameObject newRopePrefab;
-	//public float minRopeDist = 1f;
-	//public float acceleration = 0.3f;
 	private RopeScript rope;
 	private Vector2 respawnPoint;
 	private bool newRope = false;
