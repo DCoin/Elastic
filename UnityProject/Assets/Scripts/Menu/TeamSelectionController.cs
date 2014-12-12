@@ -83,33 +83,55 @@ public class TeamSelectionController : MonoBehaviour
 		}
 		if (ControllerManager.GetStickButtonInput(controller, leftSide))
 		{
-			if (lastTeamSelection + teamSelectionDelay*2 < Time.fixedTime)
+			if (lastTeamSelection + teamSelectionDelay * 2 < Time.fixedTime)
 			{
 				lastTeamSelection = Time.fixedTime;
-			if (!checkedOut)
-			{
-				checkedOut = true;
-				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-				teamPickerScript.count = teamPickerScript.count + 1;
-				if (!single)
+				if (!checkedOut)
 				{
-					teamPickerScript.teamVisual.Remove(currentTeam);
-					RemoveTeamSprite(currentTeam);
+					checkedOut = true;
+					GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+					teamPickerScript.count = teamPickerScript.count + 1;
+					if (!single)
+					{
+						teamPickerScript.teamVisual.Remove(currentTeam);
+						RemoveTeamSprite(currentTeam);
+					}
+				}
+				else
+				{
+					checkedOut = false;
+					GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+					teamPickerScript.count = teamPickerScript.count - 1;
+					if (!single)
+					{
+						teamPickerScript.teamVisual.Add(currentTeam);
+					}
 				}
 			}
-			else
-			{
-				checkedOut = false;
-				GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-				teamPickerScript.count = teamPickerScript.count - 1;
-				if (!single)
-				{
-					teamPickerScript.teamVisual.Add(currentTeam);
-				}
-			}
-			}
+
+
 			//audio.clip = teamPickerScript.playerReady;
 			//audio.Play();
+		}
+		else if (ControllerManager.GetBButtonInput (controller)) {
+			print ("Pressing back on teampicker scene");
+			if (lastTeamSelection + teamSelectionDelay < Time.fixedTime)
+			{
+				lastTeamSelection = Time.fixedTime;
+				//Destroy all hats in the scene
+				foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player")) {
+					print(p.name);
+					Destroy (p);
+				}
+				Destroy (GameObject.Find ("Main Camera"));
+				Destroy (teamPickerScript.gameObject);
+
+				//Destroy teams in the teampicker
+				foreach (GameObject t in teamPickerScript.teams) {
+					Destroy (t);
+				}
+				Application.LoadLevel(2);
+			}
 		}
 		
 	}

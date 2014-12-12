@@ -15,29 +15,19 @@ public class HatPicker : MonoBehaviour {
 	public List<HatManager.HatNames> hatArray;
 
 	[HideInInspector]
+	public List<GameObject> allPlayers;
+	[HideInInspector]
 	public int eyeCount;
 	[HideInInspector]
 	public int nextlevel;
 	
 	void OnLevelWasLoaded(int level) {
-		print ("HatPicker scene was loaded from level " + level);
-		GameObject PN = GameObject.Find ("PlayerNo");
 		GameObject MI = GameObject.Find ("MenuItems");
-		if (PN) {
-			eyeCount = PN.GetComponent<PlayerNoSelect> ().eyeCount;
-			print ("Eyecount from PN: " + eyeCount);
-			nextlevel = PN.GetComponent<PlayerNoSelect> ().nextlevel;
-			Destroy (PN);
-			Destroy (MI);
-		} else {
-
-					if (MI) {
+			if (MI) {
 				eyeCount = MI.GetComponent<MenuSelect> ().eyeCount;
 				print ("Eyecount from MI: " + eyeCount);
 				nextlevel = MI.GetComponent<MenuSelect> ().nextlevel;
-				Destroy (MI);
 			}
-				}
 	}
 	// Use this for initialization
 	void Start () {
@@ -61,13 +51,14 @@ public class HatPicker : MonoBehaviour {
 					mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x, -35.5f, mainCamera.transform.position.z);
 					mainCamera.camera.orthographicSize = 3.3f;
 				}
-		
+		allPlayers = new List<GameObject>();
 		//Remove unneeded eyes and let the needed ones pass on.
 		for (int i = 8; i > 0; i--) {
 			if (i > eyeCount) {
 			Destroy (GameObject.Find ("Player"+i+"Hat"));
 			} else {
 				DontDestroyOnLoad(GameObject.Find ("Player"+i+"Hat"));
+				allPlayers.Add (GameObject.Find ("Player"+i+"Hat"));
 			}
 		}
 		DontDestroyOnLoad (gameObject); //We save nextlevel and eyecount here
@@ -77,6 +68,8 @@ public class HatPicker : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (count >= eyeCount) {
+			count = 0;
+			Destroy (gameObject);
 						Application.LoadLevel (3); // team picker level
 				}
 	}
