@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class ControllerManager {
 	private const float ANALOG_THRESHOLD = 0.5f;
+	private const float BUTTON_THRESHOLD = 0.001f;
 	private static HashSet<int> missingControllers = new HashSet<int>();
 
 	/// <summary>
@@ -112,9 +113,9 @@ public class ControllerManager {
 	public static bool GetStickButtonInput(int controller, bool leftSide) {
 		if (!checkController(controller)) return false;
 		if (leftSide)
-			return (InputManager.Devices[controller].LeftStickButton.Value > 0.001f) ? true : false;
+			return (InputManager.Devices[controller].LeftStickButton.Value > BUTTON_THRESHOLD) ? true : false;
 		else 
-			return (InputManager.Devices[controller].RightStickButton.Value> 0.001f) ? true : false;
+			return (InputManager.Devices[controller].RightStickButton.Value> BUTTON_THRESHOLD) ? true : false;
 	}
 
 	/// <summary>
@@ -124,7 +125,7 @@ public class ControllerManager {
 	/// <param name="controller">Controller index.</param>
 	public static bool GetAButtonInput(int controller) {
 		if (!checkController(controller)) return false;
-		return (InputManager.Devices[controller].Action1.Value > 0.001f) ? true : false;
+		return (InputManager.Devices[controller].Action1.Value > BUTTON_THRESHOLD) ? true : false;
 	}
 	
 	/// <summary>
@@ -134,7 +135,12 @@ public class ControllerManager {
 	/// <param name="controller">Controller index.</param>
 	public static bool GetBButtonInput(int controller) {
 		if (!checkController(controller)) return false;
-		return (InputManager.Devices[controller].Action2.Value > 0.001f) ? true : false;
+		return (InputManager.Devices[controller].Action2.Value > BUTTON_THRESHOLD) ? true : false;
+	}
+
+	public static bool GetYButtonInput ()
+	{
+		return InputManager.ActiveDevice.Action4 > BUTTON_THRESHOLD;
 	}
 
 	/// <summary>
