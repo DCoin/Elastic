@@ -115,6 +115,10 @@ public class MenuSelect : MonoBehaviour
 					nextlevel = 7;
 					Application.LoadLevel(4); //Select duel level scene
 				}
+				else if (menuselect == 3)
+				{
+					Application.Quit();
+				}
 				//Select duel map
 			}
 			else if (currentlevel == 4)
