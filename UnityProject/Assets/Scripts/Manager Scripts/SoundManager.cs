@@ -13,7 +13,8 @@ public class SoundManager : MonoBehaviour {
 		Squad_Kill,
 		Squad_Respawn,
 
-		Player_Land
+		Player_Land,
+		Player_Land_Trampoline
 	} 
 
 	[System.Serializable] // This makes it show up in the inspector, somehow
