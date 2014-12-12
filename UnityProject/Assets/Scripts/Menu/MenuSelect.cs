@@ -21,6 +21,8 @@ public class MenuSelect : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		Time.timeScale = 1.33f; // TODO HARDCODED TIMESCALE VALUE
+
 		DontDestroyOnLoad(gameObject);
 		
 		if (MenuItems.Length == 0)
