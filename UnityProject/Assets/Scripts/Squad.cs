@@ -6,7 +6,7 @@ public class Squad : MonoBehaviour {
 	// we should investigate other ways of doing it. maybe allowing independant movement when severed,
 	// and then players attempt for reattachment?
 
-	public PickupScript pickup;
+	public PickupScript Pickup {get; set;}
 
 	private AudioSource audioSource;
 
@@ -90,7 +90,7 @@ public class Squad : MonoBehaviour {
 	/// Kill the squad.
 	/// </summary>
 	public void Kill() {
-		if (pickup != null) pickup.KillRope ();
+		if (Pickup != null) Pickup.KillRope ();
 		
 		// Play the kill sound
 		SoundManager.PlaySound(SoundManager.SoundTypes.Squad_Kill);

@@ -123,7 +123,7 @@ public class PickupScript : MonoBehaviour {
 			return;
 		}
 
-		squad.pickup = this;
+		squad.Pickup = this;
 
 
 		//var ropeO = Instantiate (newRopePrefab) as GameObject; // TODO We could make a copy of the players rope instead to get color etc.
@@ -146,7 +146,7 @@ public class PickupScript : MonoBehaviour {
 	}
 
 	private void unlink () {
-		squad.pickup = null;
+		squad.Pickup = null;
 		squad = null;
 		pickupAble = true;
 	}
