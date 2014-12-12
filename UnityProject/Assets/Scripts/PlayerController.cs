@@ -89,11 +89,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (!IsHeavy && !Mathf.Approximately(ControllerManager.GetHorizontalInput(controller, leftSide), 0f)) {
 			var dir = Mathf.Sign( ControllerManager.GetHorizontalInput(controller, leftSide) );
-			if (ControllerManager.GetHorizontalInput(controller, leftSide) < -1 || ControllerManager.GetHorizontalInput(controller, leftSide) > 1) {
-				Debug.LogError("Input out of range: " + ControllerManager.GetHorizontalInput(controller, leftSide));
-			}
-			Debug.Log("AdjustedAcceleration: " + GetAdjustedAcceleration(rigidbody2D.velocity.x * dir));
-			Debug.Log("Velocity x: " + rigidbody2D.velocity.x + " dir: " + dir);
 			rigidbody2D.AddForce(Vector2.right * ControllerManager.GetHorizontalInput(controller, leftSide) * GetAdjustedAcceleration(rigidbody2D.velocity.x * dir), forceMode);
 		}
 
