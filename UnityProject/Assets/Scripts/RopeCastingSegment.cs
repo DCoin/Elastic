@@ -49,6 +49,7 @@ public class RopeCastingSegment : MonoBehaviour {
 			// TODO add a seperate signifier for col == null
 			var rig = gObj.AddComponent<Rigidbody2D> ();
 			rig.gravityScale = 0; // TODO fix this hack to make it collide ? (it will not detect collision if there is no non kinematic rigidbodies involved).
+			rig.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 		}
 
 		// Add Linerenderer
