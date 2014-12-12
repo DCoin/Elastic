@@ -35,7 +35,7 @@ public class MenuSelect : MonoBehaviour
 		//Change the seletable items on the duel arena select level scene
 		if (level == 4)
 		{
-			MenuItems = new GameObject[] { GameObject.Find("Level1"), GameObject.Find("Level2"), GameObject.Find("Level3") };
+			MenuItems = new GameObject[] { GameObject.Find("Level1"), GameObject.Find("Level2"), GameObject.Find("Level3"),GameObject.Find("Level4") };
 			camScript = GameObject.Find("Main Camera").GetComponent<SelectArenaMoveScript>();
 		}
 		currentlevel = level;
@@ -121,15 +121,19 @@ public class MenuSelect : MonoBehaviour
 			{
 				if (menuselect == 0)
 				{
-					nextlevel = 7; // Duel level 1
+					nextlevel = 7+menuselect; // Duel level 1
 				}
 				else if (menuselect == 1)
 				{
-					nextlevel = 7; // Duel level 2
+					nextlevel = 7+menuselect; // Duel level 2
 				}
 				else if (menuselect == 2)
 				{
-					nextlevel = 7; // Duel level 3
+					nextlevel = 7+menuselect; // Duel level 3
+				}
+				else if (menuselect == 3)
+				{
+					nextlevel = 7+menuselect; // Duel level 3
 				}
 				eyeCount = 4;
 				Application.LoadLevel(2); // scene

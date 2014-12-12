@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Smaller Playground.unity
   - enabled: 1
+    path: Assets/Duel Mode Intro.unity
+  - enabled: 1
     path: Assets/New Duel lvl 1.unity
+  - enabled: 1
+    path: Assets/New Duel lvl 2.unity
+  - enabled: 1
+    path: Assets/Thom - lvl 1.unity
