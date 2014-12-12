@@ -30,7 +30,7 @@ public class SwitchScriptAlternating : MonoBehaviour {
 		Squad2DoorStartPosition = Squad2door.transform.position;
 
 		if (switchNeutralSprite) {
-						transform.GetComponent<SpriteRenderer> ().sprite = switchNeutralSprite;
+			transform.GetComponent<SpriteRenderer> ().sprite = switchNeutralSprite;
 		}
 	}
 	
@@ -44,7 +44,8 @@ public class SwitchScriptAlternating : MonoBehaviour {
 					if (Squad2door.transform.position != Squad2DoorStartPosition) {
 						Squad2door.transform.position = Vector3.SmoothDamp (Squad2door.transform.position, Squad2DoorStartPosition, ref velocity2, smoothTime);
 					}
-				} else {
+				} 
+				else {
 					moveDoor = false;
 				}
 			} else if (squadName.Contains("2")) {
@@ -54,7 +55,8 @@ public class SwitchScriptAlternating : MonoBehaviour {
 					if (Squad1door.transform.position != Squad1DoorStartPosition) {
 						Squad1door.transform.position = Vector3.SmoothDamp (Squad1door.transform.position, Squad1DoorStartPosition, ref velocity2, smoothTime);
 					}
-				} else {
+				} 
+				else {
 					moveDoor = false;
 				}
 			}
@@ -63,6 +65,9 @@ public class SwitchScriptAlternating : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.transform.root.name.Contains(Squadname)) {
+			if (!moveDoor) 
+				SoundManager.PlaySound(SoundManager.SoundTypes.Grate); // TODO will only play once for each grate
+
 			moveDoor = true;
 			squadName = col.transform.root.name;
 			if (squadName.Contains("1")) {

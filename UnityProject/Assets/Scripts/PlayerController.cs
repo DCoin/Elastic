@@ -176,19 +176,18 @@ public class PlayerController : MonoBehaviour {
 		// Or rather have a non jump list? should we be able to jump on other players? others elasitic? jump of lethal platforms before dying to them?(no)
 		// Don't jump on own elastic and possibly not on coplayer
 		if (col.gameObject.layer == LayerMask.NameToLayer("Platforms")){
-
-
-
-
-			onGround = true;
-			if (IsHeavy) {
-				// play the heavy sound
-				SoundManager.PlaySound(SoundManager.SoundTypes.Player_Land);
-			}
-
 			LastCollisionLayer = col.gameObject.layer;
 			LastCollisionTag = col.gameObject.tag;
 
+			onGround = true;
+
+			if (IsHeavy) {
+				// play the heavy sound
+				if (LastCollisionTag == "Trampoline")
+					SoundManager.PlaySound(SoundManager.SoundTypes.Player_Land_Trampoline);
+				else
+					SoundManager.PlaySound(SoundManager.SoundTypes.Player_Land);
+			}
 		}
 	}
 
