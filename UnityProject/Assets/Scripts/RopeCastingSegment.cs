@@ -78,12 +78,16 @@ public class RopeCastingSegment : MonoBehaviour {
 
 	// TODO Move this to its own function and let ropecasting control when they are updated?
 	void FixedUpdate () {
+		if (!mother.gameObject.activeSelf) {
+			Debug.LogError("FixedUpdate while dead!!!!");
+		}
+
 		// Check if the link at the end of this segment is in an illegal position.
 		if (!isEnd && !end.isEnd) {
 			var lc = Physics2D.Linecast (end.GetStart(), end.GetStart(), 1 << 9); // We do not check for players as that might break it // TODO This test might be excesive
 			if (lc.collider != null) {
-				Debug.LogError("Start is inside a collider");
-				DestroyBend();
+				Debug.LogError("Start is inside a collider. Should we jus kill here?");
+				DestroyBend(); // TODO Kill instead?
 			}
 			if (!end.col.gameObject.activeInHierarchy) {
 				Debug.Log("The col this bends around turned inacctive");
@@ -96,6 +100,10 @@ public class RopeCastingSegment : MonoBehaviour {
 	}
 
 	void Update () {
+		if (!mother.gameObject.activeSelf) {
+			Debug.LogError("Update while dead!!!!");
+		}
+
 		if (isEnd) return;
 		lr.SetPosition (0, GetStart ());
 		lr.SetPosition (1, end.GetStart());
@@ -165,18 +173,22 @@ public class RopeCastingSegment : MonoBehaviour {
 	}
 	
 	void OnTriggerStay2D (Collider2D hitCol) {
-		/*var pickup = hitCol.GetComponent<PickupScript> ();
-		if (pickup != null) {
-			pickup.Pickup(mother);
-		} */
-		//if (hitCol.gameObject.layer != 9) return; // Hack to ignore all but platforms
-		RopeCast (0);
+		// If mother is inactive we assume dead its dead and do nothing
+		if (!mother.gameObject.activeSelf) {
+			Debug.Log("Triggering dead segment");
+			return;
+		}
+		var success = RopeCast (0);
+		if (!success && mother.destroyOnFailedRopeCast){
+			Debug.LogError("RopeCast failed and the rope is killed");
+			mother.KillRope();
+		}
 	}
 
-	private void RopeCast (int recursionlvl) {
+	private bool RopeCast (int recursionlvl) {
 		if (recursionlvl >= 10) {
-			Debug.LogError("Deep recursion detected. Giving up");
-			return;
+			Debug.LogError("Deep recursion detected. Conceding up.");
+			return false;
 		}
 		// TODO Is there a way to avoid doing this twice?
 		// We could save all colliders hit and then do this in FixedUpdate on a limited layer if it takes to much time otherwise.
@@ -193,7 +205,7 @@ public class RopeCastingSegment : MonoBehaviour {
 
 		if (hits.Length != hits_.Length) {
 			Debug.LogError("The ropeCast did not hit the same amount of colliders.");
-			return;
+			return false;
 		}
 
 		bool clean = false;
@@ -202,13 +214,13 @@ public class RopeCastingSegment : MonoBehaviour {
 			clean = true;
 			if (i++ >= 5) {
 				Debug.LogError("Failed to sanittice shit");
-				return;
+				return false;
 			}
 
 			if (hits.Length == 0 || hits_.Length == 0) {
 				// This happens when we are checking if a new segment is ok
 				// TODO Find out why this also happens on a line that triggered the trigger. Is it just a corner?
-				return;
+				return true;
 			}
 	
 			if (Mathf.Approximately(hits[0].fraction, 0)) {
@@ -219,7 +231,7 @@ public class RopeCastingSegment : MonoBehaviour {
 				} else {
 					Debug.Log("RopeCast started in a platform - Killing the rope");
 					mother.KillRope();
-					return;
+					return false;
 				}
 				// Debug.LogError("Illegal RopeCast, " + hits[0].point + " is inside a platform");
 			}
@@ -232,7 +244,7 @@ public class RopeCastingSegment : MonoBehaviour {
 				} else {
 					Debug.Log("RopeCast started in a platform - Killing the rope");
 					mother.KillRope();
-					return;
+					return false;
 				}
 				// Debug.LogError("Illegal RopeCast, " + hits_[0].point + " is inside a platform");
 			}
@@ -248,11 +260,11 @@ public class RopeCastingSegment : MonoBehaviour {
 
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("Did not find the other side of the collider");
-			return;
+			return false;
 		}
 
 		// Split by the first collider hit. It will check and make sure the others are ok too
-		DefineSplit(hit1, hit2, recursionlvl); // We let DefineSplit check if the segments it created are ok.
+		return DefineSplit(hit1, hit2, recursionlvl); // We let DefineSplit check if the segments it created are ok.
 		// TODO Check that the bends are still OK Sould not be needed?!?!?
 	}
 
@@ -260,15 +272,16 @@ public class RopeCastingSegment : MonoBehaviour {
 	// It then splits the segment by thouse corners and checks if the splits are ok
 	// hit1 and hit2 should be on the same collider!
 	// hit1 and hit2 should always be in order based on their order on the rope
-	private void DefineSplit (RaycastHit2D hit1, RaycastHit2D hit2, int recursionlvl) {
+	private bool DefineSplit (RaycastHit2D hit1, RaycastHit2D hit2, int recursionlvl) {
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("DefineSplit should only be called with the same collider");
+			return false;
 		}
 
 		// TODO Do something else for polygon circle etc.
 		if (!(hit1.collider is BoxCollider2D)) {
 			Debug.LogError("DUDE I DID ONLY SUPPORT BOX COLLIDERS WTF MAN!?!?!");
-			return;
+			return false;
 		}
 		// The angle between the normals of the surfaces hit on the collider
 		var ang = Vector2.Angle(hit1.normal, hit2.normal); // TODO use dot/cross prod?
@@ -289,7 +302,7 @@ public class RopeCastingSegment : MonoBehaviour {
 
 			if (hits.Length != 1 || hits_.Length != 1) {
 				Debug.LogError("Found more than one collider even though we are using a restricted layer");
-				return;
+				return false;
 			}
 
 			// Split the segments by the line that is closest and the second corner.
@@ -297,23 +310,30 @@ public class RopeCastingSegment : MonoBehaviour {
 			// splitSegment will check if the split is ok and figure out that the other corner needs a split too.
 			// We use fraction because distance doesn't work
 			var hit = (hits[hits.Length-1].fraction > hits_[hits_.Length-1].fraction) ? hits[0] : hits_[0];
-			SplitSegment(hit, hit2);
+			var success = SplitSegment(hit, hit2);
+			if (!success) return false;
+
 			// Split on the other corner if there is still a collision. We can't just RopeCast as there might still be a parallel collision
 			if (Physics2D.Linecast(GetStart(), end.GetStart()).collider != null) {
-				SplitSegment(hit1, hit);
-				end.end.RopeCast(recursionlvl + 1);
+				success = SplitSegment(hit1, hit);
+				if (!success) return false;
+				success = end.end.RopeCast(recursionlvl + 1);
+				if (!success) return false;
 			}
 			// Check if the new ropes are ok
 			// TODO Should this be done in ropeCast?
-			RopeCast (recursionlvl + 1);
-			end.RopeCast (recursionlvl + 1);
+			success = RopeCast (recursionlvl + 1);
+			if (!success) return false;
+			return end.RopeCast (recursionlvl + 1);
 		} else {
-			SplitSegment (hit1, hit2);
+			var success = SplitSegment (hit1, hit2);
+			if (!success) return false;
 
 			// Check if the new ropes are ok
 			// TODO Should this be done in ropeCast?
-			RopeCast (recursionlvl + 1);
-			end.RopeCast (recursionlvl + 1);
+			success = RopeCast (recursionlvl + 1);
+			if (!success) return false;
+			return end.RopeCast (recursionlvl + 1);
 		}
 	}
 
@@ -321,7 +341,7 @@ public class RopeCastingSegment : MonoBehaviour {
 	// Should always be followed by RopeCast() and end.RopeCast() to check if ropes are ok.
 	// hit1 and hit2 should always be on the same collider!
 	// hit1 and hit2 should always be in order based on their order on the rope
-	private void SplitSegment (RaycastHit2D hit1, RaycastHit2D hit2) {
+	private bool SplitSegment (RaycastHit2D hit1, RaycastHit2D hit2) {
 		if (hit1.collider != hit2.collider) {
 			Debug.LogError("SplitSegment should only be called with the same collider");
 		}
@@ -338,7 +358,6 @@ public class RopeCastingSegment : MonoBehaviour {
 		Vector3 v1 = Quaternion.AngleAxis(90,new Vector3(0,0,-1)) * hit1.normal;
 		Vector3 v2 = Quaternion.AngleAxis(90,new Vector3(0,0,-1)) * hit2.normal;
 		Vector3 corner = Math2D.LineIntersectionPoint(p1, p1+v1, p2, p2+v2);
-		// TODO Check how far corner is from the line eg did we get the right corner?
 		
 		// Calculate a point outside the collider with a given offset
 		var ropePoint = corner + (dir.normalized * mother.ropeOffset);
@@ -346,8 +365,9 @@ public class RopeCastingSegment : MonoBehaviour {
 		// Check if ropePoint is inside a collider and move it out in that case
 		var lc = Physics2D.Linecast (ropePoint, ropePoint, 1 << 9); // We do not check for players as that might break it. // TODO WHY THE FUCK DOES THIS MAKE A STACKOVERFLOW???
 		int i = 1;
-		while (lc.collider != null && i <= 3) {
+		while (lc.collider != null) {
 			// TODO dont do shit and let the player die?
+			if (i > 4) return false;
 			Debug.LogError("RopePoint was set inside a collider: Moving it out nr of time: " + i);
 			ropePoint = corner + (dir.normalized * mother.ropeOffset * i++ * 2);
 			lc = Physics2D.Linecast (ropePoint, ropePoint, 1 << 9); // We do not check for players as that might break it.
@@ -360,6 +380,7 @@ public class RopeCastingSegment : MonoBehaviour {
 		// This assumes that hit1 is before hit2 on the rope
 		bendsCross = cross.z;
 		UpdateECol();
+		return true;
 	}
 
 	public Vector2 GetStart() {
