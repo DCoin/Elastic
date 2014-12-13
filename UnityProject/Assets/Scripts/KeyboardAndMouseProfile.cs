@@ -86,6 +86,18 @@ namespace NameSpace //TODO what name???
 					Handle = "SelectRight",
 					Target = InputControlType.RightStickButton,
 					Source = KeyCodeButton(KeyCode.Return)
+				},
+				new InputControlMapping
+				{
+					Handle = "BackLeft",
+					Target = InputControlType.Action2,
+					Source = KeyCodeButton(KeyCode.Q)
+				},
+				new InputControlMapping
+				{
+					Handle = "BackRight",
+					Target = InputControlType.Action2,
+					Source = KeyCodeButton(KeyCode.Backspace)
 				}
 			};
 

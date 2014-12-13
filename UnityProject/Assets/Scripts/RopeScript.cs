@@ -159,7 +159,7 @@ public class RopeScript : MonoBehaviour {
 		end.frequency = frequency;
 		end.distance = springdistance;
 		end.collideConnected = false;
-		
+		/*
 		foreach (var col in objects[0].GetComponentsInChildren<Collider2D>()){
 			collidersToIgnore.Add(col);
 		}
@@ -173,7 +173,7 @@ public class RopeScript : MonoBehaviour {
 		collidersToIgnore.Add (objects[0].collider2D);
 		collidersToIgnore.Add (objects[1].collider2D);
 		collidersToIgnore.Add (end.collider2D);
-		ignoreCollisionWithRope();
+		ignoreCollisionWithRope();*/
 		
 		// Rope = true, The rope now exists in the scene!
 		rope = true;
@@ -186,11 +186,11 @@ public class RopeScript : MonoBehaviour {
 		Rigidbody2D rigid = joints[n].AddComponent<Rigidbody2D>();
 		SpringJoint2D ph = joints[n].AddComponent<SpringJoint2D>();
 		//DistanceJoint2D ph = joints[n].AddComponent<DistanceJoint2D>();
-		CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
+		/*CircleCollider2D col = joints[n].AddComponent<CircleCollider2D>();
 
 		col.enabled = true;
 		col.isTrigger = false;
-		col.radius = ropeColRadius;
+		col.radius = ropeColRadius;*/
 		
 		//ph.breakForce = ropeBreakForce; <--------------- TODO
 		ph.dampingRatio = dampingratio;
@@ -209,10 +209,10 @@ public class RopeScript : MonoBehaviour {
 		rigid.drag = ropeDrag;
 		rigid.mass = ropeMass;
 		//rigid.isKinematic = true;
-
+		/*
 		itemsThatLoops.Add(joints [n]);
 		collidersToIgnore.Add (col);
-		
+		*/
 		if(n==1){		
 			ph.connectedBody = objects[0].transform.rigidbody2D;
 		} else

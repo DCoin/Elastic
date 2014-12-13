@@ -15,6 +15,7 @@ public class HatPicker : MonoBehaviour {
 	public List<HatManager.HatNames> hatArray;
 	public Font headingFont;
 	public string headingText;
+	public Texture MenuOptions;
 
 	[HideInInspector]
 	public List<GameObject> allPlayers;
@@ -28,7 +29,6 @@ public class HatPicker : MonoBehaviour {
 		GameObject MI = GameObject.Find ("MenuItems");
 			if (MI) {
 				eyeCount = MI.GetComponent<MenuSelect> ().eyeCount;
-				print ("Eyecount from MI: " + eyeCount);
 				nextlevel = MI.GetComponent<MenuSelect> ().nextlevel;
 			}
 	}
@@ -39,8 +39,11 @@ public class HatPicker : MonoBehaviour {
 		myStyle.normal.textColor = Color.white;
 		myStyle.font = headingFont;
 		myStyle.alignment = TextAnchor.UpperCenter;
-		myStyle.fontSize = 60;
-		GUI.Label (new Rect (Screen.width/2-400, 10, 100, 50), headingText, myStyle);
+		myStyle.fontSize = Screen.width/20;
+		GUI.Label (new Rect (Screen.width/2-(Screen.width/4), 10, 100, 50), headingText, myStyle);
+
+		//Draw menu options
+		GUI.DrawTexture(new Rect(Screen.width-(Screen.width/6),(Screen.width/70),(Screen.width/8),(Screen.width/8)), MenuOptions, ScaleMode.ScaleToFit, true, 0.0f);
 	}
 
 	// Use this for initialization

@@ -16,7 +16,7 @@ public class MovingPlayersMainMenu : MonoBehaviour {
 		
 		moveDelay = Random.Range (0.1f, 1.5f);
 		Invoke ("Move", moveDelay);
-		newPos = new Vector3 (Random.Range (2.0f, 10.0f), Random.Range (2.0f, 10.0f), Random.Range (2.0f, 10.0f));
+		newPos = new Vector3 (Random.Range (-12.0f, 6.0f), Random.Range (-6.0f, 6.0f), transform.position.z);
 	}
 	
 	// Update is called once per frame
@@ -27,17 +27,13 @@ public class MovingPlayersMainMenu : MonoBehaviour {
 					transform.position = Vector3.SmoothDamp (transform.position, newPos, ref velocity, smoothTime);
 						} else {
 							move = false;
-							newPos = new Vector3 (Random.Range (-6.0f, 6.0f), Random.Range (-6.0f, 6.0f), Random.Range (-15.0f, 25.0f));
+				newPos = new Vector3 (Random.Range (-12.0f, 6.0f), Random.Range (-6.0f, 3.0f), transform.position.z);
 							if (newPos.x + transform.position.x > 3 || newPos.x + transform.position.x < -10) {
-					newPos = new Vector3 (newPos.x*-1, newPos.y, newPos.z);
+					newPos = new Vector3 (newPos.x*-.5f, newPos.y, newPos.z);
 							} 
-							if (newPos.y + transform.position.y > 6 || newPos.y + transform.position.y < -6) {
-					newPos = new Vector3 (newPos.x, newPos.y*-1, newPos.z);
+							if (newPos.y + transform.position.y > 3 || newPos.y + transform.position.y < -6) {
+					newPos = new Vector3 (newPos.x, newPos.y*-.5f, newPos.z);
 							}
-							if (newPos.z + transform.position.z > 50 || newPos.z + transform.position.z < -15) {
-					newPos = new Vector3 (newPos.x, newPos.y, newPos.z*-1/10);
-							}
-
 							Invoke ("Move", moveDelay);
 							velocity = Vector3.zero;
 							moveDelay = Random.Range (0.1f, 1.5f);
@@ -47,6 +43,6 @@ public class MovingPlayersMainMenu : MonoBehaviour {
 
 	void Move() 
 	{
-		move = true;
+			move = true;
 	}
 }
