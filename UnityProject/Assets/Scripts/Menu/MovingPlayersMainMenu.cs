@@ -16,7 +16,7 @@ public class MovingPlayersMainMenu : MonoBehaviour {
 		
 		moveDelay = Random.Range (0.1f, 1.5f);
 		Invoke ("Move", moveDelay);
-		newPos = new Vector3 (Random.Range (-12.0f, 6.0f), Random.Range (-6.0f, 6.0f), transform.position.z);
+		newPos = new Vector3 (Random.Range (-8.0f, 6.0f), Random.Range (-6.0f, 6.0f), transform.position.z);
 	}
 	
 	// Update is called once per frame
@@ -27,8 +27,8 @@ public class MovingPlayersMainMenu : MonoBehaviour {
 					transform.position = Vector3.SmoothDamp (transform.position, newPos, ref velocity, smoothTime);
 						} else {
 							move = false;
-				newPos = new Vector3 (Random.Range (-12.0f, 6.0f), Random.Range (-6.0f, 3.0f), transform.position.z);
-							if (newPos.x + transform.position.x > 3 || newPos.x + transform.position.x < -10) {
+				newPos = new Vector3 (Random.Range (-8.0f, 6.0f), Random.Range (-6.0f, 3.0f), transform.position.z);
+							if (newPos.x + transform.position.x > 3 || newPos.x + transform.position.x < -8) {
 					newPos = new Vector3 (newPos.x*-.5f, newPos.y, newPos.z);
 							} 
 							if (newPos.y + transform.position.y > 3 || newPos.y + transform.position.y < -6) {

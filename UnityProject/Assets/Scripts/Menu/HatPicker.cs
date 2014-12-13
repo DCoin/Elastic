@@ -40,10 +40,10 @@ public class HatPicker : MonoBehaviour {
 		myStyle.font = headingFont;
 		myStyle.alignment = TextAnchor.UpperCenter;
 		myStyle.fontSize = Screen.width/20;
-		GUI.Label (new Rect (Screen.width/2-(Screen.width/4), 10, 100, 50), headingText, myStyle);
+		GUI.Label (new Rect (Screen.width/2-(Screen.width/4.5f), 10, 100, 50), headingText, myStyle);
 
 		//Draw menu options
-		GUI.DrawTexture(new Rect(Screen.width-(Screen.width/6),(Screen.width/70),(Screen.width/8),(Screen.width/8)), MenuOptions, ScaleMode.ScaleToFit, true, 0.0f);
+		GUI.DrawTexture(new Rect(Screen.width-(Screen.width/6.0f),(Screen.width/70),(Screen.width/8),(Screen.width/8)), MenuOptions, ScaleMode.ScaleToFit, true, 0.0f);
 	}
 
 	// Use this for initialization
