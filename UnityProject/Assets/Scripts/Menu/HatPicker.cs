@@ -81,6 +81,9 @@ public class HatPicker : MonoBehaviour {
 		}
 		DontDestroyOnLoad (gameObject); //We save nextlevel and eyecount here
 		DontDestroyOnLoad (GameObject.Find ("Main Camera")); // We dont to fix the camera twice
+		if ((float)Screen.width / (float)Screen.height == 1.25f) {
+			mainCamera.camera.orthographicSize = mainCamera.camera.orthographicSize*1.25f;
+				}
 	}
 	
 	// Update is called once per frame
